@@ -1,7 +1,7 @@
 {
   "name": "agent-booster-pack-proof",
   "version": "2.1.0",
-  "description": "Proof-first Pi extension plus proof skill. Uses a red-green-refactor cycle when behavior should be specified in tests first, with built-in parsing for popular test frameworks. Renamed from pi-proof; old name deprecated.",
+  "description": "Proof-first Pi extension plus proof skill. Nudges agents to name proof before implementation and uses a red-green-refactor cycle when behavior should be specified in tests first. Renamed from pi-proof; old name deprecated.",
   "type": "module",
   "pi": {
     "extensions": [

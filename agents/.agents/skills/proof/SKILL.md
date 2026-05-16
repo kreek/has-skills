@@ -50,7 +50,8 @@ Main skill when the requested work is proof itself:
    explicit `unproven` status, not silence that implies correctness.
 2. Test-first is optional. Behavior-changing claims need executable proof, but
    new tests are not automatic. Do not add tests for mechanical, prose-only,
-   or tooling-guaranteed facts.
+   or tooling-guaranteed facts. Do not test static text that only changes when
+   someone edits that file by hand.
 3. A completion claim is still an engineering claim. Passing checks count
    only when they prove the latest request was actually satisfied.
 4. Proof should teach the behavior, not only satisfy a checker. A good proof
@@ -111,9 +112,11 @@ For every non-trivial engineering claim, record:
 2. For each remaining claim, fill the Proof Contract before declaring
    the work complete.
 3. When the request names files, scripts, config, endpoints, commands,
-   or documents, make an acceptance map: requirement -> artifact ->
+   artifacts, or documents, make an acceptance map: requirement -> artifact ->
    check. A passing command is incomplete proof if it does not exercise
-   the artifact the requirement asked for.
+   the artifact the requirement asked for. For files that contain data or
+   wiring, not logic, prove how the system consumes them. Run, load, parse, or
+   inspect the artifact instead of adding tests that assert literal text.
 4. For removals or replacements, prove the behavior that remains or replaces
    the old surface. Do not write tests for ghosts. Verify cleanup with
    targeted search rather than tests. The exception: if the removal returns
@@ -168,7 +171,8 @@ For every non-trivial engineering claim, record:
 - Name the invariant or boundary behavior when static types seem to cover the
   claim.
 - Capture the command, observed output, and proven claim when manual proof is
-  the practical check.
+  the practical check. This often fits config, build wiring, generated files,
+  and static data.
 - Rewrite, move, or delete tests that assert implementation shape instead of
   observable behavior. Load `references/test-theater.md` for the test-theater
   taxonomy.

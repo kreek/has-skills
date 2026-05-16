@@ -18,18 +18,15 @@ const PROOF_OFF_PROMPT = [
 
 const PHASE_GUIDANCE: Record<ActivePhase, string> = {
   specifying: [
-    "Write a failing test for ONE user story or requirement at a time.",
-    "Do not write tests for multiple stories in one cycle.",
-    "After this test fails, you will implement just enough code to pass it,",
-    "then return to SPECIFYING for the next story.",
-    "Do not modify production code until a test exists and fails.",
-    "Use standard test file naming",
-    "(*.test.*, *.spec.*, *_test.*, *_spec.*, test_*.*,",
-    "or files in __tests__/, test/, or tests/ directories).",
+    "Name the proof for ONE user story, requirement, invariant, or artifact change at a time.",
+    "Use a failing behavior test first when the change has observable runtime behavior or business logic.",
+    "Use inspection, artifact execution/loading/parsing, smoke checks, or existing validation when those prove the claim better than a new test.",
+    "Do not create tests that only assert static file contents, generated artifacts, fixtures, seed data, or configuration literals.",
+    "If a behavior test is the right proof, write it before changing implementation and keep the cycle narrow.",
   ].join(" "),
   implementing: [
     "Write the smallest amount of code necessary for the CORRECT solution",
-    "to a failing test. No extra functionality or refactoring yet.",
+    "to satisfy the named proof. No extra functionality or refactoring yet.",
   ].join(" "),
   refactoring: [
     "Restructure code freely but keep all tests passing.",
@@ -43,14 +40,16 @@ const PHASE_GUIDANCE: Record<ActivePhase, string> = {
 
 const SPECIFYING_TEST_SCOPE_TEXT = [
   "WHAT NOT TO TEST:",
+  "- Do not add a test just because a file changed; first ask what user-observable claim needs proof.",
   "- Test YOUR business logic, not library/framework behavior.",
   "- If a dependency is already tested independently, don't re-prove it.",
   "- Assert what your code does with the result, not that the library works.",
   "- Do not import or test internals of Pi, libraries, frameworks, CLIs, or APIs.",
   "- If validation is about packaging, publishing, installation, or runtime integration, " +
     "prefer a smoke check using the public interface, not a unit test in npm test.",
-  "- Do not add tests for builds, GitHub Actions, CI/CD pipelines, or other support " +
+  "- Do not add tests for builds, GitHub Actions, CI/CD pipelines, fixtures, seed data, or other support " +
     "systems unless that infrastructure itself is the thing being built or fixed.",
+  "- Do not test non-logic artifact text; run/load/parse/inspect the artifact through its consumer and report that evidence instead.",
 ].join("\n");
 
 const SPECIFYING_TEST_DOUBLES_TEXT = [

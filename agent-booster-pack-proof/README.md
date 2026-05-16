@@ -36,7 +36,7 @@ Ask the agent to change behavior:
 Fix the off-by-one error in pagination
 ```
 
-The agent decides if proof mode fits. If it does, the agent writes a failing test, makes it pass, refactors, and finishes.
+The agent decides if proof mode fits. If it does, the agent names the proof, uses a failing behavior test when that is the right proof, makes the proof pass, refactors, and finishes.
 
 Toggle by hand:
 
@@ -58,7 +58,7 @@ Skip it when:
 - You are scaffolding plumbing.
 - You are exploring and the behavior is not settled.
 
-By default the extension is advisory. It tells the agent that proof mode is available. The agent decides. Once on, the loop is strict.
+By default the extension is advisory. It tells the agent that proof mode is available. The agent decides. Once on, the loop guides the agent but avoids blocking tool calls.
 
 ## Why this works
 
@@ -88,7 +88,7 @@ stateDiagram-v2
     REFACTORING --> OFF : /proof or proof_done
 ```
 
-**SPECIFYING.** The agent writes a failing test. Production `write` and `edit` calls are blocked. Test files and config files pass through. A failing test advances to IMPLEMENTING. If the test fails because a module cannot be imported, the agent gets a one-shot allowance to create a minimal stub so the test can load — the allowance clears after the next run.
+**SPECIFYING.** The agent names the proof before editing. For behavior and business logic, that usually means a failing test. For non-logic artifacts such as config, generated files, fixtures, seed data, and integration wiring, the right proof may be artifact inspection, loading/parsing the artifact through its consumer, a smoke check, or an existing validation command. Production `write` and `edit` calls warn instead of blocking. A failing test advances to IMPLEMENTING when a test is the selected proof. If the test fails because a module cannot be imported, the agent gets a one-shot allowance to create a minimal stub so the test can load — the allowance clears after the next run.
 
 **IMPLEMENTING.** The agent writes the smallest code that makes the test pass. A passing test advances to REFACTORING.
 
@@ -155,11 +155,11 @@ It updates after each test run.
 
 ## Limits
 
-This extension enforces the loop, not the quality of the tests.
+This extension guides the loop, not the quality of the tests.
 
 - Shallow user stories give shallow confidence.
 - Proof mode is opt-in per task. The extension does not force it on every change.
-- Only SPECIFYING blocks writes. IMPLEMENTING and REFACTORING steer through prompts.
+- SPECIFYING warns on production writes instead of blocking them; IMPLEMENTING and REFACTORING steer through prompts.
 - Shell-based production writes during SPECIFYING are warned, not blocked.
 - The import-only stub allowance lets SPECIFYING produce a minimal production stub when the test file cannot load.
 - A new turn closes the cycle, not `proof_done`. A long turn can stay in REFACTORING across many writes.

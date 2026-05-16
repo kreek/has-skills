@@ -38,7 +38,7 @@ describe("createProofController", () => {
     resolveTestConfigMock.mockReset();
   });
 
-  it("describes specifying as behavior-first when enabling proof mode", async () => {
+  it("describes specifying as proof-first rather than tests-only when enabling proof mode", async () => {
     resolveTestConfigMock.mockResolvedValue({ command: "npm test", cwd: "/repo" });
     const controller = createProofController();
     const { ctx, ui } = createContext();
@@ -47,10 +47,11 @@ describe("createProofController", () => {
 
     expect(ui.notify).toHaveBeenCalledOnce();
     expect(message).toContain("SPECIFYING phase");
+    expect(message).toContain("Choose the right proof");
     expect(message).toContain("Test command: npm test");
   });
 
-  it("blocks production edits with behavior-first specifying guidance", async () => {
+  it("warns rather than blocks when production edits happen during specifying", async () => {
     resolveTestConfigMock.mockResolvedValue({ command: "npm test", cwd: "/repo" });
     const controller = createProofController();
     const { ctx, ui } = createContext();
@@ -61,13 +62,10 @@ describe("createProofController", () => {
 
     expect(ui.notify).toHaveBeenCalledOnce();
     expect(ui.notify.mock.calls[0]?.[1]).toBe("warning");
-    expect(mutation).toEqual({
-      block: true,
-      reason: "PROOF SPECIFYING phase: specify the next behavior in a test before changing production code",
-    });
+    expect(mutation).toBeUndefined();
   });
 
-  it("blocks production edits without requiring UI notifications", async () => {
+  it("allows production edits without requiring UI notifications", async () => {
     resolveTestConfigMock.mockResolvedValue({ command: "npm test", cwd: "/repo" });
     const controller = createProofController();
     const { ctx, ui } = createContext();
@@ -77,10 +75,7 @@ describe("createProofController", () => {
     const mutation = controller.handleProductionWrite("src/math.ts", ctx);
 
     expect(ui.notify).not.toHaveBeenCalled();
-    expect(mutation).toEqual({
-      block: true,
-      reason: "PROOF SPECIFYING phase: specify the next behavior in a test before changing production code",
-    });
+    expect(mutation).toBeUndefined();
   });
 
   it("uses the same guidance for shell-based production writes", async () => {

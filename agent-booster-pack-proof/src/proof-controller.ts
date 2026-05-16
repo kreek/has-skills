@@ -225,11 +225,11 @@ export function createProofController() {
       setPhase("specifying", ctx);
 
       const label = testCwd !== ctx.cwd ? ` in ${path.basename(testCwd)}` : "";
-      if (ctx.hasUI !== false) ctx.ui.notify(`Proof on${label} \u2014 specify behavior in a test`);
+      if (ctx.hasUI !== false) ctx.ui.notify(`Proof on${label} \u2014 choose the right proof before editing`);
 
       let message =
         `Proof enabled \u2014 SPECIFYING phase. ` +
-        `Specify the next behavior in a test before changing production code.\n` +
+        `Choose the right proof before changing implementation; use tests when behavior needs executable proof.\n` +
         `Test command: ${testCommand}${label}`;
       if (config.command === "pytest") {
         message +=
@@ -251,12 +251,8 @@ export function createProofController() {
     handleProductionWrite(filePath: string, ctx: ExtensionContext): ToolCallMutation | undefined {
       if (phase !== "specifying" || !isProductionFile(filePath) || stubAllowed) return undefined;
 
-      if (ctx.hasUI !== false)
-        ctx.ui.notify("SPECIFYING: specify behavior in a test before editing production code", "warning");
-      return {
-        block: true,
-        reason: "PROOF SPECIFYING phase: specify the next behavior in a test before changing production code",
-      };
+      if (ctx.hasUI !== false) ctx.ui.notify("SPECIFYING: name the proof before editing production code", "warning");
+      return undefined;
     },
 
     async handleFileToolResult(event: ToolResultEvent, ctx: ExtensionContext): Promise<ToolResultMutation | undefined> {
@@ -290,7 +286,7 @@ export function createProofController() {
 
       const warning =
         "\n\n[PROOF WARNING] This command appears to write to a production file during SPECIFYING." +
-        " Proof-first best practice: specify the next behavior in a test before modifying production code." +
+        " Proof-first best practice: name the proof before modifying production code; use tests only when they are the right proof." +
         " This is a warning only — the command was not blocked.";
 
       return appendTextContent(event.content, warning);
