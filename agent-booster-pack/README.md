@@ -13,8 +13,9 @@ stay quiet until the user starts them.
 - [`agent-booster-pack-contract-first`](../agent-booster-pack-contract-first/)
   — manual Interface Design Gate workflow. Includes the `contract-first` skill.
 - [`agent-booster-pack-proof`](../agent-booster-pack-proof/) —
-  proof-first red-green-refactor runtime. Enforces a failing test
-  before production code lands. Includes the `proof` skill.
+  proof-first runtime. Nudges the agent to name the right proof before
+  implementation, using failing tests when behavior needs them. Includes the
+  `proof` skill.
 - [`agent-booster-pack-specify`](../agent-booster-pack-specify/) —
   manual Specify conversation guard. Design-partner mode for architecture,
   domain, durable-interface, and other multi-boundary decisions; enforces one

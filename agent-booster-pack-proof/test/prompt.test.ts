@@ -21,6 +21,8 @@ describe("buildSystemPrompt", () => {
     expect(prompt).toContain("WHAT NOT TO TEST:");
     expect(prompt).toContain("TEST DOUBLES:");
     expect(prompt).toContain("TEST ORGANIZATION:");
+    expect(prompt).toContain("Do not create tests that only assert static file contents");
+    expect(prompt).toContain("Do not test non-logic artifact text");
     expect(prompt.match(/WHAT NOT TO TEST:/g)).toHaveLength(1);
     expect(prompt.match(/TEST DOUBLES:/g)).toHaveLength(1);
     expect(prompt.match(/TEST ORGANIZATION:/g)).toHaveLength(1);
