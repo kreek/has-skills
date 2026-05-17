@@ -42,10 +42,10 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    leave the user with a clearer model of the system, the change, and the
    evidence. An agent that cannot clearly explain its change should stop and
    clarify, not push further.
-3. **Match process to risk.** Trivial mechanical work can move directly.
-   Architecture, domain, data, interface, security, persistence, release, and
-   compatibility choices need more explicit collaboration because they shape
-   later work.
+3. **Autonomous by default, consultative for hard-to-change choices.** Routine
+   implementation can move in Direct or Guided mode. Ask before locking in a
+   caller-facing contract, shared project/package/module structure, structural
+   runtime dependency, data model, or boundary future work will depend on.
 4. **Default to the smallest honest solution.** Implement only what was asked,
    prefer established tools, start with the happy path unless safety or data
    loss demands edge cases now, and add abstractions only after real semantic
@@ -57,15 +57,16 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    with the same meaning and rules, build one shared piece and use it
    everywhere. Applies to any code, not only cross-cutting infra.
 7. **Adopt before build.** Before writing code for a solved problem, audit
-   the ecosystem. Adopt when a maintained library is battle-tested and fits
-   at acceptable weight, style, and comprehension cost; build when it doesn't.
+   the ecosystem. For structural runtime choices, ask before researching or
+   selecting the dependency. Adopt when a maintained library is battle-tested
+   and fits at acceptable weight, style, and comprehension cost; build when it
+   doesn't.
 
 ## Workflow
 
 1. **Route the request.** Use Direct for trivial mechanical work, Guided by
-   default, Design-partner for user-owned design decisions, and Review-only
-   for critique without edits. Name the mode only when it sets useful
-   expectations.
+   default, Design-partner for hard-to-change decisions, and Review-only for
+   critique without edits. Name the mode only when it sets useful expectations.
 2. **Define the target.** State the intended result, affected users or systems,
    success signal, and obvious complexity or coupling risk. If done is unclear,
    propose acceptance criteria and ask one decision question at a time. For
@@ -73,18 +74,20 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    uncertainty, ask before adding shims.
 3. **Classify the work.** Mark disposable work as local and temporary. For
    production paths, shared libraries, contracts, schemas, auth, persistence,
-   and domain rules, make sure the user still understands the system before
-   adding code.
+   domain rules, shared structure, and structural dependencies, make sure the
+   user still understands the system before adding code.
    Route data shape and effects to `domain-modeling`, code organization to
    `architecture`, trust boundaries to `security`, proof to `proof`, routine
    commits to `commit`, and heavier git history to `git-workflow` instead of
    duplicating their rules here.
-4. **Set required gates before implementation.** Use `specify` before
-   planning unsettled architecture, domain, data, or interface decisions.
-   Use `contract-first` before implementing caller-facing APIs, exported
-   types,
-   event schemas, CLI/env/config formats, database migrations, service
-   adapters, and other cross-boundary contracts.
+4. **Set required consultation before implementation.** Use `specify` before
+   unsettled architecture, domain, data, interface, project structure, module
+   boundary, or structural dependency decisions. Use `contract-first` before
+   implementing caller-facing APIs, exported types, event schemas,
+   CLI/env/config formats, database migrations, service adapters, shared
+   package/module boundaries, and other cross-boundary contracts. Do not gate
+   local helpers, private file moves, or routine implementation details unless
+   they create a caller-facing or shared boundary.
 5. **Set the work location.** For feature and bug-fix work, inspect branch and
    dirty state. Ask once whether to use a topic branch in the current checkout.
 6. **Load the skills needed for correctness.** Use this table to decide when a
@@ -93,8 +96,8 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
 
    | Skill | Load when |
    | --- | --- |
-   | `specify` | The design is not yet settled. |
-   | `contract-first` | A durable interface needs approval before code locks it in. |
+   | `specify` | A hard-to-change design choice is not yet settled. |
+   | `contract-first` | A caller-facing interface or shared structure needs approval before code locks it in. |
    | `debugging` | A bug, failure, incident, flake, or regression needs root-cause evidence before a fix. |
    | `domain-modeling` | Data shape, states, invariants, transitions, or effects matter. |
    | `architecture` | Module boundaries, ownership, layering, or cross-component structure matter. |
@@ -149,6 +152,9 @@ Use these when the shortcut thought appears:
 
 - A new helper, layer, abstraction, adapter, fallback, or compatibility shim
   should name what it couples before it enters the system.
+- A caller-facing interface, project structure, module boundary, or structural
+  dependency needs one recommended option and user approval before code locks
+  it in.
 - Speculative flexibility waits until the requirement exists.
 - Repeated code with the same meaning and rules should be composed, not
   copied.

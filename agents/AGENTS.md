@@ -54,14 +54,13 @@
 - For non-trivial, ambiguous, or risky changes, state the short plan,
   assumptions, and tradeoffs before editing. Ask only when the answer changes
   the implementation or risk.
-- When a task creates or changes a durable interface — a durable caller-facing
-  boundary callers outside the module will bind to — design the contract/API
-  and high-level plan first, then get the user's approval before
-  implementation continues. The full enumeration and the gate's required
-  artifacts live in the `workflow` skill. For public renames or removals,
-  ask separately whether the change is breaking, aliased, deprecated, or
-  compatibility-neutral; approval of the new name/shape is not approval to
-  remove old surfaces.
+- When a task creates or changes a caller-facing interface — a boundary callers
+  outside the module will bind to — design the contract/API and high-level plan
+  first, then get the user's approval before implementation continues. The full
+  enumeration and the gate's required artifacts live in the `workflow` skill.
+  For public renames or removals, ask separately whether the change is breaking,
+  aliased, deprecated, or compatibility-neutral; approval of the new name/shape
+  is not approval to remove old surfaces.
 - Start with the happy path. Add edge cases when the requirement names them,
   they are security- or data-loss-relevant, or they are needed for a real
   boundary such as network, filesystem, database, or concurrency.
@@ -81,10 +80,12 @@ a task matches a skill trigger, loading that skill is mandatory, not optional.
 
 ABP routing is collaboration-aware, quality-driven, and risk-triggered. Quality
 is the goal; risk is the signal that a quality concern matters enough to change
-the next action. Working mode determines how much human participation the next
-action needs: Direct for trivial/mechanical work that can proceed on autopilot,
-Guided for normal feature/bug/refactor work, Design-partner for architecture/
-domain/durable-interface decisions, and Review-only for critique without edits.
+the next action. ABP is autonomous by default and consultative for
+hard-to-change choices. Working mode determines whether the agent should
+continue, ask for approval, or stay read-only: Direct for trivial/mechanical
+work that can proceed on autopilot, Guided for normal feature/bug/refactor work,
+Design-partner for hard-to-change architecture/domain/interface/structure/
+dependency decisions, and Review-only for critique without edits.
 Groups below are navigation aids for humans, not dispatch priority. Skills
 route through their trigger text and Handoffs graph.
 
@@ -109,33 +110,36 @@ the higher-priority concerns.
   ready to commit, ready for a PR, or passing. Also use it as the main skill
   when the requested work is tests, proof contracts, behavior evidence, or
   coverage decisions.
-- `contract-first`: use when a durable interface or boundary must be approved
-  before implementation lands.
+- `contract-first`: use when a caller-facing interface, boundary, or shared
+  structure must be approved before implementation lands.
 
 ### Foundational Design
 
 Use these before choosing abstractions or control flow for non-trivial code.
 They shape the problem, not just the implementation.
 
-- `contract-first`: use when an Interface Design Gate must approve a durable
-  function, API, CLI, config, event, schema, file format, or module boundary
-  before implementation lands.
+- `contract-first`: use when a gate must approve a caller-facing function, API,
+  CLI, config, event, schema, file format, package/module boundary, project
+  layout, or other shared structure before implementation lands.
 - `specify`: use as ABP's Design-partner engine: read the system, map current
   and proposed contracts, constraints, tradeoffs, states, and open questions,
-  ask one meaningful decision question at a time, route durable interfaces
-  through `contract-first`, then capture the agreed result as an ADR, RFC, tech
-  spec, or note. Mandatory when more than one contract changes, when a new
-  public surface is added, when a module boundary is crossed, or when any
-  durable interface is identified. Upstream of `domain-modeling` and
-  `architecture`, not a substitute for built-in plan mode.
+  recommend one option, ask the user to approve, revise, or rule it out, route
+  caller-facing interfaces and shared structure through `contract-first`, then
+  capture the agreed result as an ADR, RFC, tech spec, or note only when it
+  will be used.
+  Mandatory when more than one contract changes, when a new public surface is
+  added, when a shared module/package boundary is crossed, when structural
+  runtime dependencies are being selected, or when any caller-facing interface is
+  identified. Upstream of `domain-modeling` and `architecture`, not a
+  substitute for built-in plan mode.
 - `domain-modeling`: use for any data modeling work: domain data, fields, states,
   inputs, invariants, allowed combinations, transitions, or effects. Use it
   first after scaffolding when specs are clear and the next step is shaping
   feature data.
-- `architecture`: use when deciding module boundaries, organizing code by
-  domain/feature versus horizontal layers, applying DDD tactical patterns, or
-  shaping bounded contexts; also use when concerns that change independently
-  are being coupled or split.
+- `architecture`: use when deciding shared project/package/module boundaries,
+  organizing code by domain/feature versus horizontal layers, applying DDD
+  tactical patterns, or shaping bounded contexts; also use when concerns that
+  change independently are being coupled or split.
 
 ### Safety Gates
 
