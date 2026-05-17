@@ -39,7 +39,7 @@ describe("Pi single-package layout", () => {
     expect(pkg.files).toEqual(["src", "extensions", "skills", "README.md", "LICENSE"]);
   });
 
-  it("keeps only proof and self-review as active Pi runtime extensions", () => {
+  it("uses a single Pi extension entrypoint for packaged runtimes", () => {
     const pkg = readPackage(META_PACKAGE);
 
     expect(pkg.pi.extensions).toEqual(["./src/index.ts"]);

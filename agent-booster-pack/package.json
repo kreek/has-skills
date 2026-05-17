@@ -1,7 +1,7 @@
 {
   "name": "agent-booster-pack",
   "version": "9.1.1",
-  "description": "Agent Booster Pack for Pi: ABP skills plus proof and self-review runtimes in one package.",
+  "description": "Agent Booster Pack for Pi: ABP skills and runtime extensions in one package.",
   "type": "module",
   "engines": {
     "node": ">=18"
