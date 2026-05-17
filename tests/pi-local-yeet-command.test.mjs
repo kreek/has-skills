@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import releaseCommand, { buildYeetPrompt } from "../.pi/extensions/abp-release.js";
+import yeetCommand, { buildYeetPrompt } from "../.pi/extensions/yeet.js";
 
 function makePi() {
   const commands = new Map();
@@ -30,7 +30,7 @@ function makeContext(idle = true) {
   };
 }
 
-describe("ABP yeet slash command", () => {
+describe("repo-local Pi yeet slash command", () => {
   it("builds a non-empty prompt", () => {
     expect(buildYeetPrompt("").trim()).not.toEqual("");
   });
@@ -44,7 +44,7 @@ describe("ABP yeet slash command", () => {
   it("registers /yeet and sends the prompt when idle", async () => {
     const pi = makePi();
     const ctx = makeContext();
-    releaseCommand(pi);
+    yeetCommand(pi);
 
     expect(pi.commands.has("yeet")).toBe(true);
     expect(pi.commands.has("abp:commit-bump-merge-push")).toBe(false);
@@ -59,7 +59,7 @@ describe("ABP yeet slash command", () => {
   it("queues the prompt as a follow-up when the agent is busy", async () => {
     const pi = makePi();
     const ctx = makeContext(false);
-    releaseCommand(pi);
+    yeetCommand(pi);
 
     await pi.commands.get("yeet").handler("later", ctx);
 

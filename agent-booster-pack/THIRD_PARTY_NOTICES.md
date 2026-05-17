@@ -1,9 +1,8 @@
 # Third-party notices
 
-Agent Booster Pack for Pi includes small extension pieces adapted from
+Agent Booster Pack for Pi includes a small extension piece adapted from
 `~/sandbox/my-pi-setup`:
 
-- `.pi/extensions/abp-release.js`, adapted from `extensions/yeet.ts`.
 - `extensions/abp-header.js`, adapted from `extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.
