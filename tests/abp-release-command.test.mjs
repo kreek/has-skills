@@ -36,7 +36,8 @@ describe("ABP yeet slash command", () => {
 
     expect(prompt).toContain("Commit and push the current repository changes.");
     expect(prompt).toContain("Add all unstaged changes with `git add -A`");
-    expect(prompt).toContain("If the current branch is not `main`, output a URL to create a pull request");
+    expect(prompt).toContain("If the current branch is not `main`, create or update a pull request into `main`");
+    expect(prompt).toContain("Write a concise PR description with a summary and validation notes");
     expect(prompt).not.toContain("ABP release packaging workflow");
   });
 

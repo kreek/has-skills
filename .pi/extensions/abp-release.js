@@ -7,12 +7,14 @@ Steps:
 4. Push the commit to the current branch's remote.
    - If the current branch does not have an upstream remote branch, create one by pushing with upstream tracking.
    - If this repository has no git remotes configured, do not push.
-5. After pushing, output the remote URL for what was pushed if the repository has a remote.
+5. After pushing, handle the remote URL if the repository has a remote.
    - If the current branch is \`main\`, output the normal remote repository URL.
-   - If the current branch is not \`main\`, output a URL to create a pull request from the pushed branch into \`main\`.
+   - If the current branch is not \`main\`, create or update a pull request into \`main\`.
+   - Write a concise PR description with a summary and validation notes.
+   - Output the pull request URL.
    - Convert SSH git remotes like \`git@github.com:owner/repo.git\` to HTTPS URLs when printing.
 
-Keep the commit message concise.`;
+Keep the commit message and PR description concise.`;
 
 export function buildYeetPrompt(args = "") {
   const trimmed = args.trim();
