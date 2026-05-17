@@ -1,20 +1,16 @@
-const YEET_PROMPT = `Commit and push the current repository changes.
+const YEET_PROMPT = `Commit, merge, and push the current repository changes to main.
 
 Steps:
 1. Add all unstaged changes with \`git add -A\`.
 2. Inspect the staged changes and write a concise commit message that accurately summarizes them.
 3. Commit the changes with that message.
-4. Push the commit to the current branch's remote.
-   - If the current branch does not have an upstream remote branch, create one by pushing with upstream tracking.
-   - If this repository has no git remotes configured, do not push.
-5. After pushing, handle the remote URL if the repository has a remote.
-   - If the current branch is \`main\`, output the normal remote repository URL.
-   - If the current branch is not \`main\`, create or update a pull request into \`main\`.
-   - Write a concise PR description with a summary and validation notes.
-   - Output the pull request URL.
+4. If this repository has no git remotes configured, do not push.
+5. Switch to \`main\` and merge the committed branch into \`main\`.
+6. Push \`main\` to \`origin main\`.
+7. Output the normal remote repository URL.
    - Convert SSH git remotes like \`git@github.com:owner/repo.git\` to HTTPS URLs when printing.
 
-Keep the commit message and PR description concise.`;
+Keep the commit message concise.`;
 
 export function buildYeetPrompt(args = "") {
   const trimmed = args.trim();

@@ -34,10 +34,11 @@ describe("ABP yeet slash command", () => {
   it("builds an add, commit, and push prompt", () => {
     const prompt = buildYeetPrompt("");
 
-    expect(prompt).toContain("Commit and push the current repository changes.");
+    expect(prompt).toContain("Commit, merge, and push the current repository changes to main.");
     expect(prompt).toContain("Add all unstaged changes with `git add -A`");
-    expect(prompt).toContain("If the current branch is not `main`, create or update a pull request into `main`");
-    expect(prompt).toContain("Write a concise PR description with a summary and validation notes");
+    expect(prompt).toContain("Switch to `main` and merge the committed branch into `main`");
+    expect(prompt).toContain("Push `main` to `origin main`");
+    expect(prompt).not.toContain("create or update a pull request");
     expect(prompt).not.toContain("ABP release packaging workflow");
   });
 
@@ -59,7 +60,7 @@ describe("ABP yeet slash command", () => {
     await pi.commands.get("yeet").handler("", ctx);
 
     expect(pi.messages).toHaveLength(1);
-    expect(pi.messages[0]).toContain("Commit and push the current repository changes.");
+    expect(pi.messages[0]).toContain("Commit, merge, and push the current repository changes to main.");
     expect(ctx.notifications).toEqual([]);
   });
 
