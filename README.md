@@ -52,9 +52,15 @@ Inside Claude Code:
 codex plugin marketplace add kreek/agent-booster-pack
 ```
 
-Then open `/plugins` in Codex, select **Agent Booster Pack**, and install. To
-update later, run `codex plugin marketplace upgrade abp` and reinstall from
-`/plugins`.
+Then open `/plugins` in Codex, select **Agent Booster Pack**, and install.
+
+To update later, run:
+
+```sh
+codex plugin marketplace upgrade abp
+```
+
+Then reinstall from `/plugins`.
 
 The ABP self-review pass uses a Codex plugin Stop hook. Enable hooks in
 `~/.codex/config.toml`:
@@ -67,36 +73,32 @@ plugin_hooks = true
 
 ### Pi
 
-Pi is modular: ABP for Pi ships as a meta package plus four separable
-packages. Only the proof runtime is active by default. The other workflow
-runtimes install manual commands and stay quiet until you start them.
+ABP for Pi now ships as one package. It installs the bundled skills plus two
+runtime extensions: proof and self-review.
 
 ```sh
-# Everything: skills + proof runtime + manual workflow commands
 pi install github:kreek/agent-booster-pack
 
-# ABP is still changing quickly, so GitHub is the preferred Pi install source
-# for now. Once the package surface settles, npm releases will become the
-# stable channel again.
-#
-# Published npm packages are still available when you need a registry-pinned
-# install, or when you want only one part:
+# Registry-pinned install, when preferred:
 pi install npm:agent-booster-pack
-pi install npm:agent-booster-pack-skills            # general skills only
-pi install npm:agent-booster-pack-proof             # proof runtime + skill
-pi install npm:agent-booster-pack-contract-first    # Interface Design Gate
-pi install npm:agent-booster-pack-specify           # Design-partner mode
 ```
 
-After installing, run `/reload` inside Pi to activate.
+After installing, run `/reload` inside Pi to activate. Use `/proof` for
+proof-first mode and `/abp:self-review` for the same final-pass self-review gate
+used by the Claude and Codex ABP hooks.
 
 ### Manual (multi-agent or unsupported plugins)
 
 Use this if your agent reads `~/.agents/skills/`, or if you want one skill
 directory shared across Codex, Claude, Pi, and others.
 
-Prerequisites: Git, GNU Stow (`brew install stow`, `apt install stow`, or
-`dnf install stow`).
+Prerequisites: Git and GNU Stow. Install Stow with one of:
+
+```sh
+brew install stow   # macOS
+apt install stow    # Debian/Ubuntu
+dnf install stow    # Fedora/RHEL
+```
 
 ```sh
 git clone https://github.com/kreek/agent-booster-pack.git
@@ -119,35 +121,67 @@ uv.
 24 skills, grouped by the engineering pressure they apply. Open a skill for
 its triggers, principles, workflow, and verification.
 
-Ordered by typical use and importance. The Group column shows the
-engineering-pressure category each skill belongs to.
+### Always-on routing and proof
 
-| Skill | Group | Use when |
-|---|---|---|
-| [`workflow`](agents/.agents/skills/workflow/SKILL.md) | Always-on routing and proof | Choosing the working mode, scoped skill set, and proof plan. |
-| [`proof`](agents/.agents/skills/proof/SKILL.md) | Always-on routing and proof | Behavior, contracts, invariants, root causes, or completion claims need evidence. |
-| [`specify`](agents/.agents/skills/specify/SKILL.md) | Foundational design | Architecture or design decisions need human collaboration before code changes. |
-| [`code-review`](agents/.agents/skills/code-review/SKILL.md) | Correctness and change | Diffs, branches, PRs, requested changes, or generated code need review. |
-| [`debugging`](agents/.agents/skills/debugging/SKILL.md) | Correctness and change | Bugs, flakes, regressions, or symptoms need root-cause investigation. |
-| [`commit`](agents/.agents/skills/commit/SKILL.md) | Project and repo workflow | Reviewed work needs staging, logical commit grouping, or a right-sized commit message. |
-| [`domain-modeling`](agents/.agents/skills/domain-modeling/SKILL.md) | Foundational design | Data, states, invariants, allowed combinations, transitions, or effects need shaping. |
-| [`scaffolding`](agents/.agents/skills/scaffolding/SKILL.md) | Project and repo workflow | New projects, baseline tooling, package-manager defaults, test runners, linting, or CI need setup. |
-| [`architecture`](agents/.agents/skills/architecture/SKILL.md) | Foundational design | Module boundaries, bounded contexts, or independently changing concerns need design. |
-| [`contract-first`](agents/.agents/skills/contract-first/SKILL.md) | Always-on routing and proof | Durable interfaces need approval before implementation lands. |
-| [`error-handling`](agents/.agents/skills/error-handling/SKILL.md) | Correctness and change | Error types, propagation, retries, timeouts, crash boundaries, or recovery need design. |
-| [`security`](agents/.agents/skills/security/SKILL.md) | Safety gates | Auth, secrets, crypto, input validation, dependency trust, or trust boundaries are in scope. |
-| [`database`](agents/.agents/skills/database/SKILL.md) | Safety gates | Schemas, migrations, indexes, queries, transactions, or production data access are in scope. |
-| [`api`](agents/.agents/skills/api/SKILL.md) | Public/user surfaces | HTTP APIs, OpenAPI, status codes, pagination, idempotency, versioning, or webhooks are in scope. |
-| [`refactoring`](agents/.agents/skills/refactoring/SKILL.md) | Correctness and change | Structure changes must preserve behavior while improving clarity. |
-| [`async-systems`](agents/.agents/skills/async-systems/SKILL.md) | Production quality | Async tasks, workers, queues, streams, ordering, delivery, or backpressure are in scope. |
-| [`observability`](agents/.agents/skills/observability/SKILL.md) | Production quality | Logs, metrics, traces, health checks, dashboards, alerts, or telemetry need work. |
-| [`performance`](agents/.agents/skills/performance/SKILL.md) | Production quality | Latency, throughput, p99s, CPU, memory, I/O, caching, or resource saturation matters. |
-| [`documentation`](agents/.agents/skills/documentation/SKILL.md) | Public/user surfaces | READMEs, ADRs, runbooks, tutorials, reference docs, or comments are requested or approved. |
-| [`ui-design`](agents/.agents/skills/ui-design/SKILL.md) | Public/user surfaces | Pages, components, interaction flows, responsive layout, or visual design need work. |
-| [`accessibility`](agents/.agents/skills/accessibility/SKILL.md) | Public/user surfaces | WCAG, semantic HTML, ARIA, keyboard, focus, contrast, forms, or inclusive UI are in scope. |
-| [`official-source-check`](agents/.agents/skills/official-source-check/SKILL.md) | Correctness and change | Current external framework, runtime, SDK, browser, cloud, or platform behavior matters. |
-| [`git-workflow`](agents/.agents/skills/git-workflow/SKILL.md) | Project and repo workflow | Branch hygiene, rebases, conflicts, bisects, history recovery, force-push decisions, or GitHub CLI are in scope. |
-| [`release`](agents/.agents/skills/release/SKILL.md) | Safety gates | Approved release prep, versioning, changelogs, rollout, or rollback work is in scope. |
+The two skills the agent should reach for on every task, plus the gate for
+durable interfaces.
+
+- **[`workflow`](agents/.agents/skills/workflow/SKILL.md)**: Choosing the working mode, scoped skill set, and proof plan.
+- **[`proof`](agents/.agents/skills/proof/SKILL.md)**: Behavior, contracts, invariants, root causes, or completion claims need evidence.
+- **[`contract-first`](agents/.agents/skills/contract-first/SKILL.md)**: Durable interfaces need approval before implementation lands.
+
+### Foundational design
+
+Shape the problem before writing code: design partner, data, and boundaries.
+
+- **[`specify`](agents/.agents/skills/specify/SKILL.md)**: Architecture or design decisions need human collaboration before code changes.
+- **[`domain-modeling`](agents/.agents/skills/domain-modeling/SKILL.md)**: Data, states, invariants, allowed combinations, transitions, or effects need shaping.
+- **[`architecture`](agents/.agents/skills/architecture/SKILL.md)**: Module boundaries, bounded contexts, or independently changing concerns need design.
+
+### Correctness and change
+
+Day-to-day skills for reviewing, debugging, and reshaping code without
+regressions.
+
+- **[`code-review`](agents/.agents/skills/code-review/SKILL.md)**: Diffs, branches, PRs, requested changes, or generated code need review.
+- **[`debugging`](agents/.agents/skills/debugging/SKILL.md)**: Bugs, flakes, regressions, or symptoms need root-cause investigation.
+- **[`error-handling`](agents/.agents/skills/error-handling/SKILL.md)**: Error types, propagation, retries, timeouts, crash boundaries, or recovery need design.
+- **[`refactoring`](agents/.agents/skills/refactoring/SKILL.md)**: Structure changes must preserve behavior while improving clarity.
+- **[`official-source-check`](agents/.agents/skills/official-source-check/SKILL.md)**: Current external framework, runtime, SDK, browser, cloud, or platform behavior matters.
+
+### Safety gates
+
+Block-or-approve lenses that can stop an otherwise-good change.
+
+- **[`security`](agents/.agents/skills/security/SKILL.md)**: Auth, secrets, crypto, input validation, dependency trust, or trust boundaries are in scope.
+- **[`database`](agents/.agents/skills/database/SKILL.md)**: Schemas, migrations, indexes, queries, transactions, or production data access are in scope.
+- **[`release`](agents/.agents/skills/release/SKILL.md)**: Approved release prep, versioning, changelogs, rollout, or rollback work is in scope.
+
+### Public and user surfaces
+
+Anything users, integrators, or readers see — APIs, docs, UI, and inclusive
+design.
+
+- **[`api`](agents/.agents/skills/api/SKILL.md)**: HTTP APIs, OpenAPI, status codes, pagination, idempotency, versioning, or webhooks are in scope.
+- **[`documentation`](agents/.agents/skills/documentation/SKILL.md)**: READMEs, ADRs, runbooks, tutorials, reference docs, or comments are requested or approved.
+- **[`ui-design`](agents/.agents/skills/ui-design/SKILL.md)**: Pages, components, interaction flows, responsive layout, or visual design need work.
+- **[`accessibility`](agents/.agents/skills/accessibility/SKILL.md)**: WCAG, semantic HTML, ARIA, keyboard, focus, contrast, forms, or inclusive UI are in scope.
+
+### Production quality
+
+What keeps the system running once it ships.
+
+- **[`async-systems`](agents/.agents/skills/async-systems/SKILL.md)**: Async tasks, workers, queues, streams, ordering, delivery, or backpressure are in scope.
+- **[`observability`](agents/.agents/skills/observability/SKILL.md)**: Logs, metrics, traces, health checks, dashboards, alerts, or telemetry need work.
+- **[`performance`](agents/.agents/skills/performance/SKILL.md)**: Latency, throughput, p99s, CPU, memory, I/O, caching, or resource saturation matters.
+
+### Project and repo workflow
+
+Mechanics for packaging changes and keeping the repo navigable.
+
+- **[`commit`](agents/.agents/skills/commit/SKILL.md)**: Reviewed work needs staging, logical commit grouping, or a right-sized commit message.
+- **[`scaffolding`](agents/.agents/skills/scaffolding/SKILL.md)**: New projects, baseline tooling, package-manager defaults, test runners, linting, or CI need setup.
+- **[`git-workflow`](agents/.agents/skills/git-workflow/SKILL.md)**: Branch hygiene, rebases, conflicts, bisects, history recovery, force-push decisions, or GitHub CLI are in scope.
 
 Greenfield stack picks live as editable
 [Backstage Software Templates](https://backstage.io/docs/features/software-templates/)
@@ -222,6 +256,11 @@ maintenance steps to run after adding or renaming a skill. Skill authoring
 rules and pack-versioning policy live in
 [`AGENTS.md`](AGENTS.md#skill-anatomy-enforced-by-the-validator).
 
+## License
+
+MIT — see [`LICENSE`](LICENSE). Third-party/adapted extension notices are listed
+in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
 ## Uninstall
 
 For the manual install:
@@ -233,7 +272,14 @@ stow --target="$HOME" -D agents
 Manual cleanup may still be needed for tool-specific symlinks under
 `~/.claude/skills/`, `~/.codex/skills/`, and `~/.codeium/windsurf/skills/`.
 
-If you installed the Claude Code plugin, run `/plugin uninstall abp@abp`
-(and optionally `/plugin marketplace remove abp`) from inside Claude Code.
+If you installed the Claude Code plugin, run these from inside Claude Code:
+
+```text
+/plugin uninstall abp@abp
+/plugin marketplace remove abp
+```
+
+The marketplace remove is optional.
+
 For the Codex plugin, remove it from Codex's plugin UI or marketplace
 commands.
