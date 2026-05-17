@@ -1,48 +1,29 @@
 {
   "name": "agent-booster-pack",
   "version": "9.1.1",
-  "description": "Agent Booster Pack for Pi: collaborative skills + proof-first runtime + manual ABP workflows, in one install. Meta-package; depends on the four siblings.",
+  "description": "Agent Booster Pack for Pi: ABP skills plus proof and self-review runtimes in one package.",
   "type": "module",
   "engines": {
     "node": ">=18"
   },
   "pi": {
     "extensions": [
-      "./node_modules/agent-booster-pack-contract-first/extensions",
-      "./node_modules/agent-booster-pack-proof/src/index.ts",
-      "./node_modules/agent-booster-pack-specify/extensions",
-      "./extensions"
+      "./src/index.ts"
     ],
     "skills": [
-      "./node_modules/agent-booster-pack-skills/skills",
-      "./node_modules/agent-booster-pack-contract-first/skills/contract-first",
-      "./node_modules/agent-booster-pack-proof/skills/proof",
-      "./node_modules/agent-booster-pack-specify/skills/specify"
+      "./skills"
     ]
   },
   "files": [
+    "src",
     "extensions",
+    "skills",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "test": "vitest run test",
-    "build:siblings": "npm --prefix ../agent-booster-pack-skills run build && npm --prefix ../agent-booster-pack-contract-first run build && npm --prefix ../agent-booster-pack-proof run build && npm --prefix ../agent-booster-pack-specify run build",
-    "sync:bundled-packages": "node scripts/sync-bundled-packages.mjs",
-    "prepack": "npm run build:siblings && npm install --install-links --ignore-scripts --no-audit --no-fund && npm run sync:bundled-packages"
+    "test": "vitest run test"
   },
-  "dependencies": {
-    "agent-booster-pack-skills": "file:../agent-booster-pack-skills",
-    "agent-booster-pack-contract-first": "file:../agent-booster-pack-contract-first",
-    "agent-booster-pack-proof": "file:../agent-booster-pack-proof",
-    "agent-booster-pack-specify": "file:../agent-booster-pack-specify"
-  },
-  "bundledDependencies": [
-    "agent-booster-pack-skills",
-    "agent-booster-pack-contract-first",
-    "agent-booster-pack-proof",
-    "agent-booster-pack-specify"
-  ],
   "devDependencies": {
     "vitest": "^3.2.1"
   },
@@ -66,5 +47,21 @@
     "proof",
     "contract-first",
     "interface-design"
-  ]
+  ],
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@mariozechner/pi-tui": "*",
+    "@sinclair/typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@mariozechner/pi-coding-agent": {
+      "optional": true
+    },
+    "@mariozechner/pi-tui": {
+      "optional": true
+    },
+    "@sinclair/typebox": {
+      "optional": true
+    }
+  }
 }

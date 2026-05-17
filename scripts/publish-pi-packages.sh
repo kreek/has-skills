@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Publish ABP Pi npm packages in dependency order.
+# Publish the ABP Pi npm package.
 #
 # Usage:
 #   scripts/publish-pi-packages.sh [--dry-run]
 #
-# The package versions come from each package.json. Already-published exact
-# versions are skipped so the script can be re-run safely after a partial
+# The package version comes from agent-booster-pack/package.json. Already-published
+# exact versions are skipped so the script can be re-run safely after a partial
 # publish. Actual publishing mutates npm registry state; run it only when the
 # release commit is clean and tagged. If your npm account requires 2FA, npm
 # will prompt for the OTP interactively.
@@ -34,17 +34,10 @@ done
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
-package_dirs=(
-  "agent-booster-pack-skills"
-  "agent-booster-pack-contract-first"
-  "agent-booster-pack-proof"
-  "agent-booster-pack-specify"
-  "agent-booster-pack"
-)
+package_dir="agent-booster-pack"
 
 package_field() {
-  local package_dir="$1"
-  local field="$2"
+  local field="$1"
   node -e 'const fs = require("fs"); const pkg = JSON.parse(fs.readFileSync(process.argv[1], "utf8")); console.log(pkg[process.argv[2]]);' \
     "$package_dir/package.json" "$field"
 }
@@ -85,11 +78,10 @@ require_publish_ready() {
 }
 
 publish_package() {
-  local package_dir="$1"
   local name
   local version
-  name="$(package_field "$package_dir" name)"
-  version="$(package_field "$package_dir" version)"
+  name="$(package_field name)"
+  version="$(package_field version)"
 
   if is_published "$name" "$version"; then
     echo "skip $name@$version (already published)"
@@ -110,6 +102,4 @@ if ! $dry_run; then
   require_publish_ready
 fi
 
-for package_dir in "${package_dirs[@]}"; do
-  publish_package "$package_dir"
-done
+publish_package

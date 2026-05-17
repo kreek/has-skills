@@ -1,46 +1,13 @@
 # Agent Booster Pack
 
-The full collaborative ABP experience for [Pi](https://pi.dev), in one install.
+Agent Booster Pack (ABP) for [Pi](https://pi.dev), in one package.
 
-This is a **meta-package**: it installs the sibling ABP packages. Proof is the
-only default active runtime. The other ABP workflows are manual commands that
-stay quiet until the user starts them.
+The Pi runtime surface is intentionally small:
 
-- [`agent-booster-pack-skills`](../agent-booster-pack-skills/) — the general
-  ABP skills (collaborative routing, data, security, debugging, refactoring,
-  official-source checks, code review, accessibility, and more). Runtime-owned
-  skills ship with their matching extension packages.
-- [`agent-booster-pack-contract-first`](../agent-booster-pack-contract-first/)
-  — manual Interface Design Gate workflow. Includes the `contract-first` skill.
-- [`agent-booster-pack-proof`](../agent-booster-pack-proof/) —
-  proof-first runtime. Nudges the agent to name the right proof before
-  implementation, using failing tests when behavior needs them. Includes the
-  `proof` skill.
-- [`agent-booster-pack-specify`](../agent-booster-pack-specify/) —
-  manual Specify conversation guard. Design-partner mode for architecture,
-  domain, durable-interface, and other multi-boundary decisions; enforces one
-  user-facing decision question at a time while ABP Specify mode is active.
-  Includes the `specify` skill.
+- **Proof** — proof-first mode with `/proof`, `proof_start`, and `proof_done`.
+- **Self-review** — a final-pass self-review gate with `/abp:self-review`, aligned with the Claude and Codex ABP self-review hooks.
 
-The meta-package also includes manual commands:
-
-- **`/abp:branch`** checks Git isolation when the user asks. It prompts on
-  protected branches, dirty non-topic branches, and branches with unmerged
-  commits.
-- **`/abp:prework [intent]`** asks the agent to state plan, why, and
-  alternatives before edits. It does not block tool calls.
-- **Code Review Runtime** registers `/review [target]` and
-  `/abp:review [target]`, where `target`
-  defaults to `working-tree` and may be `staged`, `branch`, or a Git rev
-  range. It starts an active review session, asks the agent to use the
-  `code-review` skill, and exposes `review_complete`. The legacy
-  `review_check` tool still works for step-by-step progress.
-- **Final Value Guard** automatically asks for a stronger close-out after
-  changed turns, scaled to the size of the change. `/abp:final-value [intent]`
-  can request the same reflection manually.
-
-If you want only some of the four, install them individually instead
-of this meta-package. See each package's README for details.
+ABP skills are bundled in this package under `skills/`. There are no separate Pi packages for proof, contract-first, specify, or skills in this package layout.
 
 ## Install
 
@@ -54,18 +21,11 @@ Then in Pi:
 /reload
 ```
 
-That's it. Proof is active as the default runtime. The other ABP workflows are
-available as manual commands.
+## Migration notes
 
-## Migration from `pi-agent-booster-pack`
-
-If you were on `pi-agent-booster-pack@4.x`, this package replaces it
-and changes most ABP runtime behavior from automatic gates to manual commands.
-The old name is deprecated. Switch your install to `agent-booster-pack` to
-stay current.
-
-If you were on `pi-proof@1.x`, that's now `agent-booster-pack-proof`
-and is included here. The old name is deprecated.
+- The old Pi `Final Value Guard` is now **Self-review**.
+- `/abp:final-value` is removed; use `/abp:self-review`.
+- Pi runtime extensions for pre-work, scaffold, specify, contract-first, branch isolation, and code-review runtime are no longer installed by this package. Their skills remain available when present in the bundled skills directory.
 
 ## License
 
