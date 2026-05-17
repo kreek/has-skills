@@ -16,13 +16,16 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 - Adding or changing a public surface: function signature, exported type,
   endpoint, event/queue payload, CLI flag, environment variable, config key,
   file format, or database schema/migration step.
+- Choosing shared project/package/module structure or a structural runtime
+  dependency such as a framework, database, ORM, auth client, SDK, state
+  library, or job queue.
 - Ambiguous or risky implementation intent where the agent should turn fuzzy
   goals into an approved design direction before code lands.
 - The user asks to design, specify, draft an ADR/RFC/tech spec, or capture a
   design note.
 - `workflow` chooses the Design-partner mode because architecture, domain
-  modeling, durable interfaces, cross-boundary contracts, or multi-component
-  choices need human participation.
+  modeling, caller-facing interfaces, cross-boundary contracts, or
+  multi-component choices need human participation.
 
 ## When NOT to Use
 
@@ -31,9 +34,11 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 - Internal helper extraction with no caller-visible boundary.
 - Single-line bug fixes where no contract, state, data, or boundary changes.
 - Pure dependency bumps with no public surface change.
+- Small local file moves or private implementation organization that does not
+  establish a package/module boundary future work will depend on.
 - The user wants a concrete task plan after the design is already settled; use
   workflow or the harness planning mode instead.
-- A durable interface is already concrete and only needs approval; use
+- A caller-facing interface is already concrete and only needs approval; use
   `contract-first` directly.
 
 ## Core Ideas
@@ -44,10 +49,13 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 2. Stay above implementation sequencing. Specify owns contracts, states,
    tradeoffs, risks, and decisions. File-by-file edits, pseudocode, and task
    checklists belong to planning after the design direction is agreed.
-3. Contracts are any durable boundary: function signature, module export,
+3. Contracts are any caller-facing boundary: function signature, module export,
    public type, error vocabulary, CLI flag, environment variable, database
    schema or migration step, event payload, file format, or config key. "API"
    does not mean only HTTP.
+4. Consultation is not constant interruption. Ask only when a decision would
+   be expensive for the user to reverse later: caller-facing shape, shared
+   structure, data model, or structural dependency.
 
 ## Workflow
 
@@ -59,12 +67,11 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 3. **Learn with disposable spikes only when needed.** If code is the fastest
    way to reveal the shape, ask first, keep it local and small, and discard or
    rewrite it after convergence.
-4. **Propose target shapes.** Compare feasible options at the contract, state,
-   tradeoff, compatibility, migration, and risk level. Recommend one option
-   when the evidence supports it.
+4. **Propose one target shape.** Recommend one option, name the key tradeoff,
+   and mention rejected alternatives only when they explain the choice.
 5. **Ask the next design question.** Ask the smallest question that changes the
-   shape. List secondary uncertainties as notes, then revise the proposal from
-   the user's answer.
+   shape: approve, revise, or rule out the recommendation. List secondary
+   uncertainties as notes, then revise the proposal from the user's answer.
 6. **Route specialist design risks.** Use `domain-modeling` for data, state,
    effects, and invariants; `contract-first` for contract approval; and the
    domain skill for API, persistence, async, security, errors, observability,
@@ -89,11 +96,11 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 
 - [ ] Current surface is backed by `file:line` evidence or named greenfield
       conventions.
-- [ ] The proposed shape names contracts, states, tradeoffs, compatibility
-      pressure, unresolved decisions, and proof obligations.
+- [ ] The proposed shape recommends one option, names the key tradeoff,
+      compatibility pressure, unresolved decisions, and proof obligations.
 - [ ] User-owned decisions are approved, narrowed, or explicitly left open.
-- [ ] Durable interfaces have `contract-first` approval before implementation,
-      or implementation remains out of scope.
+- [ ] Caller-facing interfaces have `contract-first` approval before
+      implementation, or implementation remains out of scope.
 - [ ] Any artifact records the agreed shape and has a purpose-fit destination.
 
 ## Tripwires
