@@ -126,76 +126,62 @@ its triggers, principles, workflow, and verification.
 The two skills the agent should reach for on every task, plus the gate for
 durable interfaces.
 
-| Skill | Use when |
-|---|---|
-| [`workflow`](agents/.agents/skills/workflow/SKILL.md) | Choosing the working mode, scoped skill set, and proof plan. |
-| [`proof`](agents/.agents/skills/proof/SKILL.md) | Behavior, contracts, invariants, root causes, or completion claims need evidence. |
-| [`contract-first`](agents/.agents/skills/contract-first/SKILL.md) | Durable interfaces need approval before implementation lands. |
+- **[`workflow`](agents/.agents/skills/workflow/SKILL.md)**: Choosing the working mode, scoped skill set, and proof plan.
+- **[`proof`](agents/.agents/skills/proof/SKILL.md)**: Behavior, contracts, invariants, root causes, or completion claims need evidence.
+- **[`contract-first`](agents/.agents/skills/contract-first/SKILL.md)**: Durable interfaces need approval before implementation lands.
 
 ### Foundational design
 
 Shape the problem before writing code: design partner, data, and boundaries.
 
-| Skill | Use when |
-|---|---|
-| [`specify`](agents/.agents/skills/specify/SKILL.md) | Architecture or design decisions need human collaboration before code changes. |
-| [`domain-modeling`](agents/.agents/skills/domain-modeling/SKILL.md) | Data, states, invariants, allowed combinations, transitions, or effects need shaping. |
-| [`architecture`](agents/.agents/skills/architecture/SKILL.md) | Module boundaries, bounded contexts, or independently changing concerns need design. |
+- **[`specify`](agents/.agents/skills/specify/SKILL.md)**: Architecture or design decisions need human collaboration before code changes.
+- **[`domain-modeling`](agents/.agents/skills/domain-modeling/SKILL.md)**: Data, states, invariants, allowed combinations, transitions, or effects need shaping.
+- **[`architecture`](agents/.agents/skills/architecture/SKILL.md)**: Module boundaries, bounded contexts, or independently changing concerns need design.
 
 ### Correctness and change
 
 Day-to-day skills for reviewing, debugging, and reshaping code without
 regressions.
 
-| Skill | Use when |
-|---|---|
-| [`code-review`](agents/.agents/skills/code-review/SKILL.md) | Diffs, branches, PRs, requested changes, or generated code need review. |
-| [`debugging`](agents/.agents/skills/debugging/SKILL.md) | Bugs, flakes, regressions, or symptoms need root-cause investigation. |
-| [`error-handling`](agents/.agents/skills/error-handling/SKILL.md) | Error types, propagation, retries, timeouts, crash boundaries, or recovery need design. |
-| [`refactoring`](agents/.agents/skills/refactoring/SKILL.md) | Structure changes must preserve behavior while improving clarity. |
-| [`official-source-check`](agents/.agents/skills/official-source-check/SKILL.md) | Current external framework, runtime, SDK, browser, cloud, or platform behavior matters. |
+- **[`code-review`](agents/.agents/skills/code-review/SKILL.md)**: Diffs, branches, PRs, requested changes, or generated code need review.
+- **[`debugging`](agents/.agents/skills/debugging/SKILL.md)**: Bugs, flakes, regressions, or symptoms need root-cause investigation.
+- **[`error-handling`](agents/.agents/skills/error-handling/SKILL.md)**: Error types, propagation, retries, timeouts, crash boundaries, or recovery need design.
+- **[`refactoring`](agents/.agents/skills/refactoring/SKILL.md)**: Structure changes must preserve behavior while improving clarity.
+- **[`official-source-check`](agents/.agents/skills/official-source-check/SKILL.md)**: Current external framework, runtime, SDK, browser, cloud, or platform behavior matters.
 
 ### Safety gates
 
 Block-or-approve lenses that can stop an otherwise-good change.
 
-| Skill | Use when |
-|---|---|
-| [`security`](agents/.agents/skills/security/SKILL.md) | Auth, secrets, crypto, input validation, dependency trust, or trust boundaries are in scope. |
-| [`database`](agents/.agents/skills/database/SKILL.md) | Schemas, migrations, indexes, queries, transactions, or production data access are in scope. |
-| [`release`](agents/.agents/skills/release/SKILL.md) | Approved release prep, versioning, changelogs, rollout, or rollback work is in scope. |
+- **[`security`](agents/.agents/skills/security/SKILL.md)**: Auth, secrets, crypto, input validation, dependency trust, or trust boundaries are in scope.
+- **[`database`](agents/.agents/skills/database/SKILL.md)**: Schemas, migrations, indexes, queries, transactions, or production data access are in scope.
+- **[`release`](agents/.agents/skills/release/SKILL.md)**: Approved release prep, versioning, changelogs, rollout, or rollback work is in scope.
 
 ### Public and user surfaces
 
 Anything users, integrators, or readers see — APIs, docs, UI, and inclusive
 design.
 
-| Skill | Use when |
-|---|---|
-| [`api`](agents/.agents/skills/api/SKILL.md) | HTTP APIs, OpenAPI, status codes, pagination, idempotency, versioning, or webhooks are in scope. |
-| [`documentation`](agents/.agents/skills/documentation/SKILL.md) | READMEs, ADRs, runbooks, tutorials, reference docs, or comments are requested or approved. |
-| [`ui-design`](agents/.agents/skills/ui-design/SKILL.md) | Pages, components, interaction flows, responsive layout, or visual design need work. |
-| [`accessibility`](agents/.agents/skills/accessibility/SKILL.md) | WCAG, semantic HTML, ARIA, keyboard, focus, contrast, forms, or inclusive UI are in scope. |
+- **[`api`](agents/.agents/skills/api/SKILL.md)**: HTTP APIs, OpenAPI, status codes, pagination, idempotency, versioning, or webhooks are in scope.
+- **[`documentation`](agents/.agents/skills/documentation/SKILL.md)**: READMEs, ADRs, runbooks, tutorials, reference docs, or comments are requested or approved.
+- **[`ui-design`](agents/.agents/skills/ui-design/SKILL.md)**: Pages, components, interaction flows, responsive layout, or visual design need work.
+- **[`accessibility`](agents/.agents/skills/accessibility/SKILL.md)**: WCAG, semantic HTML, ARIA, keyboard, focus, contrast, forms, or inclusive UI are in scope.
 
 ### Production quality
 
 What keeps the system running once it ships.
 
-| Skill | Use when |
-|---|---|
-| [`async-systems`](agents/.agents/skills/async-systems/SKILL.md) | Async tasks, workers, queues, streams, ordering, delivery, or backpressure are in scope. |
-| [`observability`](agents/.agents/skills/observability/SKILL.md) | Logs, metrics, traces, health checks, dashboards, alerts, or telemetry need work. |
-| [`performance`](agents/.agents/skills/performance/SKILL.md) | Latency, throughput, p99s, CPU, memory, I/O, caching, or resource saturation matters. |
+- **[`async-systems`](agents/.agents/skills/async-systems/SKILL.md)**: Async tasks, workers, queues, streams, ordering, delivery, or backpressure are in scope.
+- **[`observability`](agents/.agents/skills/observability/SKILL.md)**: Logs, metrics, traces, health checks, dashboards, alerts, or telemetry need work.
+- **[`performance`](agents/.agents/skills/performance/SKILL.md)**: Latency, throughput, p99s, CPU, memory, I/O, caching, or resource saturation matters.
 
 ### Project and repo workflow
 
 Mechanics for packaging changes and keeping the repo navigable.
 
-| Skill | Use when |
-|---|---|
-| [`commit`](agents/.agents/skills/commit/SKILL.md) | Reviewed work needs staging, logical commit grouping, or a right-sized commit message. |
-| [`scaffolding`](agents/.agents/skills/scaffolding/SKILL.md) | New projects, baseline tooling, package-manager defaults, test runners, linting, or CI need setup. |
-| [`git-workflow`](agents/.agents/skills/git-workflow/SKILL.md) | Branch hygiene, rebases, conflicts, bisects, history recovery, force-push decisions, or GitHub CLI are in scope. |
+- **[`commit`](agents/.agents/skills/commit/SKILL.md)**: Reviewed work needs staging, logical commit grouping, or a right-sized commit message.
+- **[`scaffolding`](agents/.agents/skills/scaffolding/SKILL.md)**: New projects, baseline tooling, package-manager defaults, test runners, linting, or CI need setup.
+- **[`git-workflow`](agents/.agents/skills/git-workflow/SKILL.md)**: Branch hygiene, rebases, conflicts, bisects, history recovery, force-push decisions, or GitHub CLI are in scope.
 
 Greenfield stack picks live as editable
 [Backstage Software Templates](https://backstage.io/docs/features/software-templates/)
