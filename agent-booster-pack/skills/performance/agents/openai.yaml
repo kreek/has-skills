@@ -1,0 +1,4 @@
+interface:
+  display_name: "ABP: Performance"
+  short_description: "Measure bottlenecks and design caches"
+  default_prompt: "Use $performance to define the metric, baseline, profiling plan, and cache invalidation strategy if caching is involved."
