@@ -9,6 +9,8 @@ description: Use for proof and tests, claims, invariants, behavior specs, edge c
 
 `NO ENGINEERING CLAIM WITHOUT A NAMED PROOF.`
 
+A named proof is a Proof Contract whose check would fail if the claim were false.
+
 ## When to Use
 
 Completion gate:
@@ -44,40 +46,46 @@ Main skill when the requested work is proof itself:
 - Pure toolchain setup (test runner, lint, typecheck baseline). Use
   `scaffolding`.
 
+## Where Proof Enters
+
+Component handoffs are the primary proof target. A handoff is where one
+module, layer, or process passes data to another and the receiver assumes a
+contract. Prove behavior where data shape, value, state, or error shape
+changes observably. Tests should still pass against any implementation that
+preserves the contract.
+
+The outermost caller-visible boundary (HTTP endpoint, CLI, UI, public API)
+is the outermost handoff and always counts as one: it is the seam between
+the system and its caller, and its contract is what the user actually
+depends on.
+
+Handoff tests usually cover internal helpers. Add dedicated unit tests for
+non-trivial pure logic, not for every function a handoff test already
+drives.
+
 ## Core Ideas
 
-1. A proof is a named obligation tied to a claim. Missing evidence is an
-   explicit `unproven` status, not silence that implies correctness.
-2. Test-first is optional. Behavior-changing claims need executable proof, but
-   new tests are not automatic. Do not add tests for mechanical, prose-only,
-   or tooling-guaranteed facts. Do not test static text that only changes when
-   someone edits that file by hand.
-3. Completion is a claim. A passing check counts only when it proves the
+1. A proof is an explicit obligation tied to a claim. When you cannot prove
+   a claim, mark it `unproven`. Silence is not proof.
+2. Test-first is optional. Behavior-changing claims need executable proof,
+   but new tests are not automatic. Do not add tests for mechanical,
+   prose-only, or tooling-guaranteed facts. Do not test static text that
+   only changes when someone edits that file by hand.
+3. Proof scales with claim weight. A typo fix needs nothing. A new endpoint
+   needs a contract test. A subtle bug fix needs a regression guard.
+4. Completion is a claim. A passing check counts only when it proves the
    latest request was satisfied.
-4. Proof should teach the behavior, not only satisfy a checker. A good proof
+5. Proof should teach the behavior, not only satisfy a checker. A good proof
    reads like a specification of the system contract for the next developer.
-5. Different claims need different evidence: data claims need invariants,
-   behavior claims need boundary checks, bug-fix claims need root-cause
-   evidence plus a regression guard, refactor claims need before/after
-   behavior preservation.
-6. Component handoffs are the primary proof target. A handoff is where one
-   module, layer, or process passes data to another and the receiver assumes a
-   contract. Prove behavior where data shape, value, state, or error shape
-   changes observably. Assertions should survive an implementation swap that
-   preserves the contract.
-7. The outermost caller-visible boundary (HTTP endpoint, CLI, UI, public
-   API) is the outermost handoff and always counts as one: it is the seam
-   between the system and its caller, and its contract is what the user
-   actually depends on.
-8. Handoff tests usually cover internal helpers. Add dedicated unit tests for
-   non-trivial pure logic, not for every function a handoff test already
-   drives.
-9. Keep tests focused on one behavior. Use real collaborators inside the
+6. Different claims need different evidence. Data claims need invariants.
+   Behavior claims need boundary checks. Bug fixes need root-cause evidence
+   and a regression guard. Refactors need before/after behavior preservation.
+7. Keep tests focused on one behavior. Use real collaborators inside the
    boundary; mock only true system boundaries. Do not test framework,
    language, runtime behavior, or static copy unless your code makes it a
    contract.
-10. Flaky tests are bugs in the test, code, or environment. Do not hide them
-    with sleeps or retries.
+8. Flaky tests are bugs in the test, code, or environment. Do not hide them
+   with sleeps or retries.
 
 ## Proof Contract
 
@@ -101,18 +109,18 @@ For every non-trivial engineering claim, record:
    framework guarantees, and language semantics.
 2. For each remaining claim, fill the Proof Contract before declaring
    the work complete.
-3. When the request names files, scripts, config, endpoints, commands,
-   artifacts, or documents, make an acceptance map: requirement -> artifact ->
-   check. A passing command is incomplete proof if it does not exercise
-   the artifact the requirement asked for. For files that contain data or
-   wiring, not logic, prove how the system consumes them. Run, load, parse, or
-   inspect the artifact instead of adding tests that assert literal text.
-4. For removals or replacements, prove the behavior that remains or replaces
+3. Map each named requirement to the artifact that satisfies it and the
+   check that proves it. A passing command is incomplete proof if it does
+   not exercise the named artifact.
+4. For data, wiring, config, generated output, or documents, prove the
+   artifact the way the system uses it: run, load, parse, render, or inspect
+   it. Do not add brittle tests that only assert literal text.
+5. For removals or replacements, prove the behavior that remains or replaces
    the old surface. Do not write tests for ghosts. Verify cleanup with
    targeted search rather than tests. The exception: if the removal returns
-   an explicit rejection (404, 410, deprecation error), test the rejection —
-   it is new behavior.
-5. Load only the narrow reference needed:
+   an explicit rejection (404, 410, deprecation error), test the rejection.
+   It is new behavior.
+6. Load only the narrow reference needed:
    - `references/data-shape-boundaries.md` for worked handoff examples —
      pipeline seams, parser/validator edges, middleware chains, sans-IO
      protocols, and functional-core/imperative-shell crossings.
@@ -120,18 +128,18 @@ For every non-trivial engineering claim, record:
    - `references/removals.md` for removals and replacements.
    - `references/test-theater.md` when tests assert implementation shape
      instead of behavior.
-6. When a claim needs a test, name the behavior in caller language and assert
+7. When a claim needs a test, name the behavior in caller language and assert
    the observable result.
-7. Choose the narrowest runnable check that can prove the claim: single test by
-   name or line when supported, then one test file, then package or suite only
-   when the narrow check is clean or exposes wider risk.
+8. Choose the narrowest check that can prove the claim. Prefer a single test
+   by name or line. Fall back to one test file. Run the package or full suite
+   only when the narrow check is clean and you suspect wider drift.
 
 ## Before Saying Done
 
 1. Re-read the latest user request and corrections; name the acceptance in
    caller language.
-2. Inspect any named artifact after the last edit and confirm the proof reads
-   or exercises it.
+2. Inspect any artifact the request mentions after the last edit and confirm
+   the proof reads or exercises it.
 3. Run or inspect the fresh proof chosen in the workflow.
 4. Report the actual state: proven, partially proven, blocked, or unproven.
 
@@ -149,8 +157,8 @@ For every non-trivial engineering claim, record:
 - [ ] Tests are order-independent and do not rely on arbitrary sleeps.
 - [ ] Named files, scripts, configs, commands, or documents from the request
       are mapped to artifacts and checks.
-- [ ] Adjacent substitutes, helper-only checks, and smoke checks are labeled as
-      partial proof instead of full acceptance evidence.
+- [ ] Smoke checks, helper-only checks, and proofs of adjacent behavior are
+      labeled as partial. They do not count as acceptance.
 
 ## Tripwires
 
