@@ -45,8 +45,16 @@ describe("ABP Pi startup header", () => {
     expect(plainText).toContain("   /   |  / __ )/ __ \\");
     expect(plainText).toContain("/_/  |_/_____/_/");
     expect(plainText).toContain("test-model · repo");
+    expect(plainText).not.toContain("practical guidance");
+    expect(plainText).not.toContain("proven software");
     expect(plainText).not.toContain("╭");
     expect(plainText).not.toContain("╰");
+  });
+
+  it("colors the startup logo with pi's context green", () => {
+    const lines = renderAbpHeader(80, "test-model · repo");
+
+    expect(lines.join("\n")).toContain("\x1b[38;2;181;189;104m    ___    ____  ____ ");
   });
 
   it("installs the startup header when a UI session starts", async () => {

@@ -2,8 +2,7 @@ import path from "node:path";
 
 const RESET = "\x1b[0m";
 const BOLD = "\x1b[1m";
-const ACCENT = "\x1b[38;2;255;195;56m";
-const BLUE = "\x1b[38;2;84;169;255m";
+const ACCENT = "\x1b[38;2;181;189;104m";
 const DIM = "\x1b[2m";
 const ANSI_PATTERN = /[\u001B\u009B][[\]()#;?]*(?:(?:(?:[a-zA-Z\d]*(?:;[a-zA-Z\d]*)*)?\u0007)|(?:(?:\d{1,4}(?:;\d{0,4})*)?[\dA-PR-TZcf-nq-uy=><~]))/g;
 
@@ -35,13 +34,11 @@ function projectName() {
 
 export function renderAbpHeader(width, contextText) {
   const title = color("AGENT BOOSTER PACK", BOLD + ACCENT);
-  const tagline = color("practical guidance for simpler, proven software", BLUE);
   const context = color(contextText, DIM);
   return [
     "",
     ...LOGO_LINES.map((line) => center(color(line, ACCENT), width)),
     center(title, width),
-    center(tagline, width),
     center(context, width),
     "",
   ];
