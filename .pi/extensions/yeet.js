@@ -22,9 +22,9 @@ export function buildYeetPrompt(args = "") {
   return `${YEET_PROMPT}\n\nAdditional instructions from the user:\n${trimmed}`;
 }
 
-export default function abpYeetCommand(pi) {
+export default function yeetCommand(pi) {
   pi.registerCommand("yeet", {
-    description: "Add, commit, and push the current repo changes",
+    description: "Commit, merge to main, and push the current repo changes",
     handler: async (args, ctx) => {
       const prompt = buildYeetPrompt(args ?? "");
 
