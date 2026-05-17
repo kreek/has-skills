@@ -29,4 +29,5 @@ Then in Pi:
 
 ## License
 
-MIT — see `LICENSE`.
+MIT — see `LICENSE`. Third-party/adapted extension notices are listed in
+`THIRD_PARTY_NOTICES.md`.

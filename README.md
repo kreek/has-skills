@@ -270,6 +270,11 @@ maintenance steps to run after adding or renaming a skill. Skill authoring
 rules and pack-versioning policy live in
 [`AGENTS.md`](AGENTS.md#skill-anatomy-enforced-by-the-validator).
 
+## License
+
+MIT — see [`LICENSE`](LICENSE). Third-party/adapted extension notices are listed
+in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
 ## Uninstall
 
 For the manual install:
