@@ -51,7 +51,8 @@ description: Use for requested/approved docs, READMEs, ADRs, runbooks, API docs,
    mechanics.
 7. Write like Hemingway, not David Foster Wallace. Short, direct sentences.
    Concrete nouns and verbs. No throat-clearing, no clever style, no
-   unexplained jargon. Keep only words that earn their place.
+   unexplained jargon. Do not use em dashes; use periods, colons,
+   commas, or parentheses instead. Keep only words that earn their place.
 8. Delete stale docs when you cannot fix them now.
 9. Comments explain why and how when names, types, schemas, tests, or
    local structure cannot. Encode the rule in code or tests first; add a
