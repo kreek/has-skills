@@ -13,9 +13,9 @@ description: Use for proof and tests, claims, invariants, behavior specs, edge c
 
 Completion gate:
 
-- Before saying work is done, fixed, ready to commit, ready for a PR, or
-  passing. This includes marking a claim explicitly `unproven` with a
-  named blocker.
+- Before your next response would state or imply that work is done, fixed,
+  ready to commit, ready for a PR, or passing. Do not settle for a vague
+  `unproven`; name both the claim and the missing evidence.
 
 Main skill when the requested work is proof itself:
 
@@ -52,40 +52,30 @@ Main skill when the requested work is proof itself:
    new tests are not automatic. Do not add tests for mechanical, prose-only,
    or tooling-guaranteed facts. Do not test static text that only changes when
    someone edits that file by hand.
-3. A completion claim is still an engineering claim. Passing checks count
-   only when they prove the latest request was actually satisfied.
+3. Completion is a claim. A passing check counts only when it proves the
+   latest request was satisfied.
 4. Proof should teach the behavior, not only satisfy a checker. A good proof
    reads like a specification of the system contract for the next developer.
 5. Different claims need different evidence: data claims need invariants,
    behavior claims need boundary checks, bug-fix claims need root-cause
    evidence plus a regression guard, refactor claims need before/after
    behavior preservation.
-6. Component handoffs are the primary proof target. A handoff is anywhere
-   one module, layer, or process passes data to another and the receiver
-   assumes a contract: parser → validator, validator → domain, domain →
-   persistence, service → service, producer → queue → consumer,
-   functional core → imperative shell. These seams concentrate production
-   defects; prove behavior at each handoff where data shape, value, state,
-   or error shape changes observably. Assertions should survive an
-   implementation swap that preserves the contract.
+6. Component handoffs are the primary proof target. A handoff is where one
+   module, layer, or process passes data to another and the receiver assumes a
+   contract. Prove behavior where data shape, value, state, or error shape
+   changes observably. Assertions should survive an implementation swap that
+   preserves the contract.
 7. The outermost caller-visible boundary (HTTP endpoint, CLI, UI, public
    API) is the outermost handoff and always counts as one: it is the seam
    between the system and its caller, and its contract is what the user
    actually depends on.
-8. When data, logic, and I/O are properly separated and units stay pure,
-   unit tests stay slim by design. ABP departs from test-everything TDD
-   here: internal helpers are already exercised by handoff tests above
-   them. Reserve dedicated unit tests for non-trivial pure algorithms in
-   isolation — parsers, state machines, sort/dedup/pathfinding,
-   property-checkable invariants — not for every function the handoff
-   test already drives.
-9. Keep tests focused on one behavior and use real collaborators inside the
-   boundary. Mock only true system boundaries such as clock, network,
-   third-party service, process, filesystem, or expensive infrastructure.
-   Do not test framework, language, runtime behavior, or static copy unless
-   your code adds a contract on top of it. User-facing text deserves direct
-   assertions only when it is parsed later, documented as contract, varies by
-   branch, or carries a safety/fail-closed instruction.
+8. Handoff tests usually cover internal helpers. Add dedicated unit tests for
+   non-trivial pure logic, not for every function a handoff test already
+   drives.
+9. Keep tests focused on one behavior. Use real collaborators inside the
+   boundary; mock only true system boundaries. Do not test framework,
+   language, runtime behavior, or static copy unless your code makes it a
+   contract.
 10. Flaky tests are bugs in the test, code, or environment. Do not hide them
     with sleeps or retries.
 
