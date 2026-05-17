@@ -1,0 +1,112 @@
+---
+name: database
+description: Use for databases, schemas, migrations, indexes, transactions, query plans, and locking.
+---
+
+# Database
+
+## Iron Law
+
+`PROTECT PRODUCTION DATA FIRST: PROVE ROLLOUT, LOCKING, AND RECOVERY BEFORE CHANGE.`
+
+## When to Use
+
+- Schema design, migrations, indexes, query plans, isolation levels,
+  connection pools, soft delete, N+1 fixes, online DDL,
+  transactional outbox/CDC, or production data changes.
+
+## When NOT to Use
+
+- API contract design; use `api`.
+- Rollout sequencing outside the database; pair with `release`.
+- Cache freshness and invalidation; use `performance`.
+
+## Core Ideas
+
+1. Use the project's existing database unless the task is choosing a store.
+   For greenfield defaults and store-selection caveats, use `architecture`.
+2. Expand, migrate, verify, switch, then contract in separate
+   deployable steps.
+3. Review SQL and lock behavior, not just ORM code.
+4. Backfills are batched, resumable, observable, and reversible.
+5. Constraints enforce invariants. Every uniqueness invariant needs a DB-level
+   `UNIQUE`, `EXCLUDE`, composite, or partial equivalent. Application-layer
+   checks race under concurrency.
+6. Indexes support known access paths. New foreign keys and known `WHERE`,
+   `JOIN`, or `ORDER BY` predicates need supporting indexes in the same
+   migration, or a stated reason they do not.
+7. Query changes need plans on production-shaped data.
+8. Isolation level is a design decision; retries are part of
+   serializable correctness.
+9. State changes and durable publication need atomicity through
+   transactional outbox, CDC, or an equivalent handoff when the two
+   cannot silently diverge.
+10. Data recovery is part of the change: backup/PITR must cover the
+    blast radius.
+
+## Workflow
+
+1. Classify the change as schema, data, query, index, constraint,
+   transaction, or operational tuning. Identify table size, write rate,
+   lock risk, rollback path, and deploy order.
+2. Review migration files directly for destructive operations and lock
+   behavior. Capture EXPLAIN/ANALYZE for important query changes on
+   representative data.
+3. Split unsafe changes into expand-contract phases. Document
+   verification and rollback in the PR or deploy note.
+
+## Verification
+
+- [ ] Migration SQL was reviewed for destructive changes and locking.
+- [ ] Destructive or tightening changes are split across expand-contract
+      phases.
+- [ ] Backfills are batched and resumable; each batch holds locks
+      briefly.
+- [ ] Every uniqueness invariant in the change is enforced by a DB constraint
+      or equivalent engine-specific mechanism, not application-layer logic.
+- [ ] New FK columns and known query predicates (`WHERE`, `JOIN`, `ORDER BY`)
+      have supporting indexes in the same migration, or the omission is
+      explicitly justified.
+- [ ] Index/constraint creation uses the online mechanism for the
+      target database.
+- [ ] Engine-specific DDL uses `references/online-ddl.md` and was verified
+      against the target engine before claiming done. SQLite passing is not
+      proof of Postgres behavior.
+- [ ] Important query changes include representative EXPLAIN/ANALYZE
+      evidence.
+- [ ] Isolation level and retry behavior are explicit for transactional
+      changes.
+- [ ] State changes and event/job publication cannot diverge silently
+      when the workflow depends on both.
+- [ ] Rollback and backup/PITR coverage are documented.
+
+## Tripwires
+
+Use these when the shortcut thought appears:
+
+- Use the target engine's online mechanism or document why production size and
+  write rate cannot matter.
+- Measure lock behavior on representative load or assume the worst case.
+- Ship the backfill plan now or leave the schema expand-only.
+- Decide soft-delete lifecycle once and enforce reads, indexes, and schema
+  around it.
+- Observe a full traffic cycle before dropping an index.
+- Enforce correctness invariants with DB constraints, not application checks.
+- Add supporting indexes in the same migration when access paths are known.
+- Check target-engine semantics for partial, expression, deferrable, exclusion,
+  and specialized indexes before relying on them.
+- Load `security` before adding password, token, API key, MFA, recovery-code, or
+  sensitive-PII storage.
+
+## Handoffs
+
+- `release`: deploy ordering, rollback rehearsal, feature flags.
+- `performance`: measured query latency or throughput change.
+- `observability`: migration and query dashboards/alerts.
+- `async-systems`: stream or worker consumers after durable handoff.
+- `security`: credentials, secrets, tokens, MFA factors, sensitive PII.
+
+## References
+
+- `references/online-ddl.md`: online migration patterns.
+- `references/explain-and-isolation.md`: EXPLAIN and isolation notes.
