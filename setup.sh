@@ -162,6 +162,7 @@ confirm_setup_start() {
 ABP setup will:
   - run GNU Stow from this checkout to link shared skills into ~/.agents/skills
   - link ~/.claude/skills to ~/.agents/skills when safe
+  - enable Codex hooks and plugin hooks in ~/.codex/config.toml when Codex is installed
   - link individual ABP skills into ~/.codex/skills when Codex is installed
     without the ABP Codex plugin, or prune those legacy links when the plugin
     is present
@@ -171,7 +172,8 @@ ABP setup will:
   - sync plugin/ skill links when node is available
 
 It will not overwrite real skill directories or third-party symlinks without
-showing the exact path and asking again.
+showing the exact path and asking again. It may update ABP-owned Codex feature
+flags in ~/.codex/config.toml while preserving other settings.
 EOF
 
 	if confirm "Continue with setup?"; then
@@ -280,7 +282,81 @@ codex_abp_plugin_installed() {
 	return 1
 }
 
+codex_installed() {
+	command -v codex >/dev/null 2>&1 || [ -d "$HOME/.codex" ]
+}
+
+configure_codex_hooks() {
+	local codex_dir="$HOME/.codex"
+	local config="$codex_dir/config.toml"
+	local tmp
+
+	if ! codex_installed; then
+		echo "Codex not installed; skipping hook configuration (no ~/.codex or codex command)"
+		return
+	fi
+
+	mkdir -p "$codex_dir"
+	if [ ! -f "$config" ]; then
+		cat >"$config" <<EOF
+[features]
+hooks = true
+plugin_hooks = true
+EOF
+		echo "Codex: enabled hooks and plugin hooks in ${config/#$HOME/~}"
+		return
+	fi
+
+	tmp=$(mktemp)
+	awk '
+	function emit_missing() {
+		if (in_features) {
+			if (!have_hooks) print "hooks = true"
+			if (!have_plugin_hooks) print "plugin_hooks = true"
+			in_features = 0
+		}
+	}
+	/^[[:space:]]*\[features\][[:space:]]*(#.*)?$/ {
+		emit_missing()
+		print
+		in_features = 1
+		seen_features = 1
+		have_hooks = 0
+		have_plugin_hooks = 0
+		next
+	}
+	/^[[:space:]]*\[[^]]+\][[:space:]]*(#.*)?$/ {
+		emit_missing()
+		print
+		next
+	}
+	in_features && /^[[:space:]]*hooks[[:space:]]*=/ {
+		print "hooks = true"
+		have_hooks = 1
+		next
+	}
+	in_features && /^[[:space:]]*plugin_hooks[[:space:]]*=/ {
+		print "plugin_hooks = true"
+		have_plugin_hooks = 1
+		next
+	}
+	{ print }
+	END {
+		emit_missing()
+		if (!seen_features) {
+			print ""
+			print "[features]"
+			print "hooks = true"
+			print "plugin_hooks = true"
+		}
+	}
+	' "$config" >"$tmp"
+	mv "$tmp" "$config"
+	echo "Codex: enabled hooks and plugin hooks in ${config/#$HOME/~}"
+}
+
 # Codex CLI: ~/.codex/skills/
+configure_codex_hooks
 if codex_abp_plugin_installed; then
 	echo "Codex: ABP plugin installed; pruning manual ABP skill links"
 	remove_abp_skill_links "Codex" "$HOME/.codex/skills"

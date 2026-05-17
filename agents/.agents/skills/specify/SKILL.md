@@ -124,6 +124,5 @@ Use these when the shortcut thought appears:
 ## References
 
 - ADR template: status, date, context, decision, consequences.
-- `agent-booster-pack-contract-first` optional runtime package: ships from this
-  repo at `agent-booster-pack-contract-first/` and provides the manual
-  `/abp:contract` Interface Design Gate workflow.
+- The standalone Pi contract-first runtime package has been removed; use this
+  skill directly when interface design needs an explicit gate.
