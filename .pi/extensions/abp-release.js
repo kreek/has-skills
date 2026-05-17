@@ -1,13 +1,16 @@
 const YEET_PROMPT = `Commit, merge, and push the current repository changes to main.
 
 Steps:
-1. Add all unstaged changes with \`git add -A\`.
-2. Inspect the staged changes and write a concise commit message that accurately summarizes them.
-3. Commit the changes with that message.
-4. If this repository has no git remotes configured, do not push.
-5. Switch to \`main\` and merge the committed branch into \`main\`.
-6. Push \`main\` to \`origin main\`.
-7. Output the normal remote repository URL.
+1. Stay on the current topic branch for the initial commit.
+2. Add all unstaged changes with \`git add -A\`.
+3. Inspect the staged changes and write a concise commit message that accurately summarizes them.
+4. Commit the changes with that message.
+5. If this repository has no git remotes configured, do not push.
+6. Switch to \`main\` and merge the topic branch into \`main\`.
+7. Bump the version if the merged changes require it.
+8. Commit the version bump on \`main\` if one was needed.
+9. Push \`main\` to \`origin main\`.
+10. Output the normal remote repository URL.
    - Convert SSH git remotes like \`git@github.com:owner/repo.git\` to HTTPS URLs when printing.
 
 Keep the commit message concise.`;
