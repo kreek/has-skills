@@ -282,7 +282,7 @@ export function validateCodexPluginPackage(skillsDir) {
   const problems = [];
   const marketplacePath = join(root, ".agents/plugins/marketplace.json");
   const manifestPath = join(root, "plugin/.codex-plugin/plugin.json");
-  const hooksPath = join(root, "plugin/.codex-plugin/hooks.json");
+  const hooksPath = join(root, "plugin/hooks.json");
   const claudeMarketplacePath = join(root, ".claude-plugin/marketplace.json");
   const claudeManifestPath = join(root, "plugin/.claude-plugin/plugin.json");
 

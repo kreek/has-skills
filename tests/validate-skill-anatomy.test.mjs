@@ -164,7 +164,7 @@ function makeCodexPluginPackage(
           ],
         },
       };
-      writeFileSync(join(root, "plugin/.codex-plugin/hooks.json"), JSON.stringify(hooks), "utf8");
+      writeFileSync(join(root, "plugin/hooks.json"), JSON.stringify(hooks), "utf8");
     }
 
     const claudeMarketplace = {
@@ -327,7 +327,7 @@ describe("validate-skill-anatomy CLI", () => {
     const result = runScript(skillsDir);
 
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain("plugin/.codex-plugin/hooks.json");
+    expect(result.stdout).toContain("plugin/hooks.json");
     expect(result.stdout).toContain("must register the ABP self-review Stop hook");
   });
 
