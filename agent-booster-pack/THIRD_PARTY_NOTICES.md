@@ -1,9 +1,11 @@
 # Third-party notices
 
 Agent Booster Pack for Pi includes a small extension piece adapted from
-`~/sandbox/my-pi-setup`:
+`davis7dotsh/my-pi-setup` at
+`https://github.com/davis7dotsh/my-pi-setup`:
 
-- `extensions/abp-header.ts`, adapted from `extensions/flow-title.ts`.
+- `extensions/abp-header.ts`, adapted from
+  `https://github.com/davis7dotsh/my-pi-setup/blob/e5a5beb9029f207a82fe4d50b024ad7696fb7ae0/extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.
 
