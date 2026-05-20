@@ -2,6 +2,7 @@
   "name": "agent-booster-pack-eval",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.33.0",
   "type": "module",
   "scripts": {
     "eval": "do-eval tui --project .",
@@ -10,29 +11,29 @@
     "eval:regression": "do-eval regression allSkills --project .",
     "eval:bench": "do-eval bench allSkills --project .",
     "eval:web": "do-eval ui --project .",
-    "bench": "npm run eval:bench",
+    "bench": "pnpm run eval:bench",
     "bench:smoke": "do-eval bench smoke --project .",
     "bench:core": "do-eval bench core --project .",
     "bench:routing": "do-eval bench routing --project .",
     "bench:large": "do-eval bench largeProject --project .",
     "bench:all": "do-eval bench allSkills --project .",
     "bench:link": "do-eval bench linkShortener --project .",
-    "regression": "npm run eval:regression",
+    "regression": "pnpm run eval:regression",
     "regression:smoke": "do-eval regression smoke --project .",
     "regression:core": "do-eval regression core --project .",
     "regression:routing": "do-eval regression routing --project .",
     "regression:large": "do-eval regression largeProject --project .",
     "regression:all": "do-eval regression allSkills --project .",
     "regression:check": "do-eval regression regressionCheck --project .",
-    "trial": "npm run eval:trial --",
-    "list": "npm run eval:list",
-    "view": "npm run eval:web",
+    "trial": "pnpm run eval:trial --",
+    "list": "pnpm run eval:list",
+    "view": "pnpm run eval:web",
     "test": "vitest run test",
     "typecheck": "tsc --noEmit",
-    "tui": "npm run eval"
+    "tui": "pnpm run eval"
   },
   "dependencies": {
-    "do-eval": "file:../../pi-do-eval"
+    "do-eval": "file:../../pi-extensions/pi-do-eval"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",

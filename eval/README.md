@@ -54,8 +54,11 @@ This package depends on the local `do-eval` checkout through
 
 ```sh
 cd eval
-npm install
+pnpm install
 ```
+
+The workspace uses pnpm's `minimumReleaseAge` setting to avoid installing
+registry versions published in the last 24 hours.
 
 Set a model if the default is not what you want:
 
@@ -76,26 +79,26 @@ from `~/.codex/auth.json`. Each run gets a temporary isolated Codex home.
 ## Commands
 
 ```sh
-npm run list              # show profiles, suites, and bench configs
-npm run view              # start the do-eval web UI on http://localhost:4242
+pnpm run list             # show profiles, suites, and bench configs
+pnpm run view             # start the do-eval web UI on http://localhost:4242
 
 # Regression — the default workflow. Runs codexWithAbpSkills only.
-npm run regression:check  # the two trials known to have regressed
-npm run regression:core   # always-on and core design/correctness skills
-npm run regression:smoke  # cheap routing wiring check
-npm run regression:all    # full ABP-only sweep
+pnpm run regression:check # the two trials known to have regressed
+pnpm run regression:core  # always-on and core design/correctness skills
+pnpm run regression:smoke # cheap routing wiring check
+pnpm run regression:all   # full ABP-only sweep
 
-npm run trial -- proof-first-bugfix --profile codexWithAbpSkills
+pnpm run trial -- proof-first-bugfix --profile codexWithAbpSkills
 
 # Bench — cross-profile comparison. Reserved for re-baselining.
-npm run bench:smoke       # compare Codex baseline vs Codex + ABP
-npm run bench:core
-npm run bench:routing
-npm run bench:large
-npm run bench:all
+pnpm run bench:smoke      # compare Codex baseline vs Codex + ABP
+pnpm run bench:core
+pnpm run bench:routing
+pnpm run bench:large
+pnpm run bench:all
 
-npm test                  # run eval harness tests
-npm run typecheck         # type-check the eval harness
+pnpm test                 # run eval harness tests
+pnpm run typecheck        # type-check the eval harness
 ```
 
 Use **Regression** for routine ABP change-validation: one profile (ABP),

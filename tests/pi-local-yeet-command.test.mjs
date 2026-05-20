@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import yeetCommand, { buildYeetPrompt } from "../.pi/extensions/yeet.js";
+import yeetCommand, { buildYeetPrompt } from "../.pi/extensions/yeet.ts";
 
 function makePi() {
   const commands = new Map();
@@ -33,6 +33,16 @@ function makeContext(idle = true) {
 describe("repo-local Pi yeet slash command", () => {
   it("builds a non-empty prompt", () => {
     expect(buildYeetPrompt("").trim()).not.toEqual("");
+  });
+
+  it("pushes the current branch without merging to main", () => {
+    const prompt = buildYeetPrompt("");
+
+    expect(prompt).toContain("Push the commit to the current branch's remote.");
+    expect(prompt).toContain("create one by pushing with upstream tracking");
+    expect(prompt).toContain("output a URL to create a pull request from the pushed branch into `main`");
+    expect(prompt).not.toContain("Push `main` to `origin main`.");
+    expect(prompt).not.toContain("merge the topic branch into `main`");
   });
 
   it("appends additional user instructions", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import abpHeader, { renderAbpHeader } from "../agent-booster-pack/extensions/abp-header.js";
+import abpHeader, { renderAbpHeader } from "../agent-booster-pack/extensions/abp-header.ts";
 
 function makePi() {
   const handlers = new Map();

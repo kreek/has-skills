@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "GitHub-installable Agent Booster Pack package for Pi.",
+  "packageManager": "pnpm@10.33.0",
   "type": "module",
   "pi": {
     "extensions": [
@@ -13,6 +14,7 @@
     ]
   },
   "scripts": {
+    "check:links": "node scripts/validate-markdown-links.mjs",
     "test": "vitest run tests"
   },
   "files": [
@@ -25,6 +27,8 @@
     "LICENSE"
   ],
   "devDependencies": {
+    "remark-cli": "^12.0.1",
+    "remark-validate-links": "^13.1.0",
     "vitest": "^3.2.1"
   }
 }

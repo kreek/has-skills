@@ -3,18 +3,13 @@
 This file provides guidance to coding agents (Claude Code, Codex, Cursor, and
 others that read `AGENTS.md`) when working with code in this repository.
 
-The skill-pack doctrine in [`agents/AGENTS.md`](agents/AGENTS.md) (priority
-rules, proof obligations, code-and-data discipline, user-change
-preservation) also governs work in this repo. Read it alongside this
-file; the two are additive.
-
 ## What this repo is
 
 Agent Booster Pack is a portable skill pack for coding agents (Claude Code,
 Codex, Cursor, Copilot, Gemini CLI, Google Antigravity, OpenCode, Pi,
 Windsurf). It ships
 prose (`SKILL.md` files plus a few maintenance helpers), not application code.
-Most edits are to skill bodies, the top-level `AGENTS.md` index, or the
+Most edits are to skill bodies, the top-level `AGENTS.md`, or the
 `README.md`. There is no application build or service to run; tests cover
 repo maintenance helpers, plugin packaging, and extension packages.
 
@@ -22,10 +17,10 @@ repo maintenance helpers, plugin packaging, and extension packages.
 
 - **Canonical skills**: `agents/.agents/skills/<name>/SKILL.md`. Every skill
   lives here; siblings may add `agents/`, `references/`, and `scripts/`.
-- **Top-level index**: `agents/AGENTS.md`. Lists every skill with a one-line
-  trigger for repo-maintainer reference. Normal ABP use relies on skill
-  frontmatter, plugin metadata, and the `workflow` skill; users do not need to
-  install or merge system instruction files.
+- **Repo instructions**: this `AGENTS.md` is the only agent instruction file in
+  the repo. Normal ABP use relies on skill frontmatter, plugin metadata, and the
+  `workflow` skill; users do not need to install or merge system instruction
+  files.
 - **Claude Code plugin mirror**: `plugin/skills/<name>` contains generated
   copies of canonical skills from `agents/.agents/skills/<name>`.
   `.claude-plugin/marketplace.json` points Claude Code at the `plugin/` root,
@@ -68,18 +63,18 @@ node scripts/validate-skill-anatomy.mjs
 
 # Validate local Markdown links and anchors. Remote URL checks are omitted by
 # default so this stays deterministic for local development.
-uv run refcheck . --no-color
+pnpm run check:links
 
 # Self-test the validator itself (uses a tmp dir of fixtures).
 node scripts/validate-skill-anatomy.mjs --self-test
 
 # Repo-owned tests.
-npm test
+pnpm test
 ```
 
 There is no product application test suite; repo-level Vitest, the anatomy
-validator, and `refcheck` are maintenance checks. Treat clean Vitest,
-`validate-skill-anatomy.mjs`, and `refcheck` commands as the bar for script
+validator, and `check:links` are maintenance checks. Treat clean Vitest,
+`validate-skill-anatomy.mjs`, and `check:links` commands as the bar for script
 changes.
 
 ## Validation scope and token discipline
@@ -89,11 +84,11 @@ when the changed files require it or the narrow check exposes cross-package
 risk.
 
 - Pi runtime extension changes under `agent-booster-pack/extensions/` or
-  `agent-booster-pack/test/`: run `cd agent-booster-pack && npm test`.
+  `agent-booster-pack/test/`: run `pnpm --dir agent-booster-pack test`.
 - Canonical skill prose changes: run `node scripts/validate-skill-anatomy.mjs`
-  and targeted `cmp` checks for the changed skill mirrors. Use root `npm test`
+  and targeted `cmp` checks for the changed skill mirrors. Use root `pnpm test`
   only when sibling package mirrors, packaging scripts, or repo tests changed.
-- Markdown link/doc-wide changes: run `uv run refcheck . --no-color` only when
+- Markdown link/doc-wide changes: run `pnpm run check:links` only when
   links or broad docs moved. Do not run it for ordinary runtime or narrow skill
   edits.
 - Release/package metadata changes: run the release/package checks that match
@@ -187,17 +182,13 @@ Adding or renaming a skill needs four updates, in order:
 
 1. Canonical files under `agents/.agents/skills/<name>/` (and a test that
    the body satisfies the validator's required sections).
-2. `agents/AGENTS.md`: add the routing line under the right grouping
-   (Foundational Design / Safety Gates / Correctness And Change Control /
-   Production Quality / Communication And UX / Workflow) for maintainer
-   reference.
-3. `README.md`: update the human-facing skill list and its
+2. `README.md`: update the human-facing skill list and its
    `[skill-<name>]:` reference link at the bottom.
-4. `workflow`: update the meta-skill only when the new or renamed skill changes
+3. `workflow`: update the meta-skill only when the new or renamed skill changes
    the broad ABP routing workflow.
-5. `./setup.sh` to regenerate `plugin/skills/<name>` and refresh or prune
+4. `./setup.sh` to regenerate `plugin/skills/<name>` and refresh or prune
    per-agent manual-install links. The validator's drift check fails CI/local
-   runs if step 5 is skipped.
+   runs if step 4 is skipped.
 
 Neighbouring skills may need their `Handoffs` updated when routing
 changes. Do not duplicate skill prose between files.
@@ -212,7 +203,7 @@ content changes so plugin managers see the same package version.
 
 | Bump | Trigger |
 |---|---|
-| **major** (X.0.0) | Skill renamed or removed; an Iron Law or non-negotiable rule reversed; `agents/AGENTS.md` priority order rearranged; anything that changes what agents will refuse vs accept |
+| **major** (X.0.0) | Skill renamed or removed; an Iron Law or non-negotiable rule reversed; anything that changes what agents will refuse vs accept |
 | **minor** (1.X.0) | New skill added; new reference file under `references/`; new section in an existing `SKILL.md`; doctrine clarified or strengthened without reversal; new tooling expectation that's strictly additive |
 | **patch** (1.0.X) | Typos, link fixes, formatting, internal re-flow that doesn't change meaning |
 
@@ -226,8 +217,13 @@ the pack is past that and should not regress to it.
 - No commits to `main`. Use `feature/`, `fix/`, `refactor/`, `chore/`
   branches.
 - Markdown, JavaScript, and TypeScript are the repo-owned languages. Use
-  Vitest for repo-owned JS/TS tests and `refcheck` for local Markdown link
+  Vitest for repo-owned JS/TS tests and `check:links` for local Markdown link
   validation. Keep Markdown prose manually formatted; do not add a docs
   formatter.
+- Pi extension source must be TypeScript, not JavaScript. Use `.ts` for
+  repo-local `.pi/extensions/` commands and packaged
+  `agent-booster-pack/extensions/` runtime extensions; keep generated,
+  third-party, or ordinary maintenance scripts in their existing language
+  unless the task is explicitly to migrate them.
 - Do not add author-attribution trailers (`Co-Authored-By`,
   `Generated by`) to commits.

@@ -3,7 +3,7 @@
 Agent Booster Pack for Pi includes a small extension piece adapted from
 `~/sandbox/my-pi-setup`:
 
-- `extensions/abp-header.js`, adapted from `extensions/flow-title.ts`.
+- `extensions/abp-header.ts`, adapted from `extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.
 

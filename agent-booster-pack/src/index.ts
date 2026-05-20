@@ -1,7 +1,7 @@
 import proofExtension from "./proof/index.js";
-import selfReviewGuard from "../extensions/self-review-guard.js";
-import openaiCodexFastMode from "../extensions/openai-codex-fast-mode.js";
-import abpHeader from "../extensions/abp-header.js";
+import selfReviewGuard from "../extensions/self-review-guard.ts";
+import openaiCodexFastMode from "../extensions/openai-codex-fast-mode.ts";
+import abpHeader from "../extensions/abp-header.ts";
 
 export default function agentBoosterPack(pi) {
   proofExtension(pi);
