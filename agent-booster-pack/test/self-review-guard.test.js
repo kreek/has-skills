@@ -5,7 +5,7 @@ import selfReviewGuard, {
   selfReviewPromptFor,
   selfReviewPromptForSessionEntries,
   shouldRequestSelfReview,
-} from "../extensions/self-review-guard.js";
+} from "../extensions/self-review-guard.ts";
 
 const assistantToolCall = (name, args = {}) => ({
   role: "assistant",

@@ -3,8 +3,8 @@
 Agent Booster Pack includes small Pi extension pieces adapted from
 `~/sandbox/my-pi-setup`:
 
-- `.pi/extensions/yeet.js`, adapted from `extensions/yeet.ts`.
-- `agent-booster-pack/extensions/abp-header.js`, adapted from `extensions/flow-title.ts`.
+- `.pi/extensions/yeet.ts`, adapted from `extensions/yeet.ts`.
+- `agent-booster-pack/extensions/abp-header.ts`, adapted from `extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.
 

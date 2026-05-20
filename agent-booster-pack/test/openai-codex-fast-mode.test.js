@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import openaiCodexFastMode from "../extensions/openai-codex-fast-mode.js";
+import openaiCodexFastMode from "../extensions/openai-codex-fast-mode.ts";
 
 function registeredBeforeProviderRequestHandler() {
   const handlers = new Map();
