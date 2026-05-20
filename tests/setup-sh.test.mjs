@@ -72,6 +72,18 @@ echo "LINK: .agents => test fixture"
   );
 }
 
+function createFakeAgy(home) {
+  const binDir = join(home, "bin");
+  mkdirSync(binDir, { recursive: true });
+  writeExecutable(
+    join(binDir, "agy"),
+    `#!/bin/sh
+echo "$@" >> "$HOME/agy-invocations.log"
+exit 0
+`,
+  );
+}
+
 describe("setup.sh preflight", () => {
   afterEach(() => {
     if (tmp) cleanupTempDir(tmp);
@@ -120,11 +132,11 @@ describe("setup.sh confirmation", () => {
     tmp = undefined;
   });
 
-  it("links skills after interactive confirmation", () => {
+  it("links skills and installs the Antigravity plugin after confirmation", () => {
     tmp = makeTempDir();
     createFakeStow(tmp);
+    createFakeAgy(tmp);
     mkdirSync(join(tmp, ".codex"), { recursive: true });
-    mkdirSync(join(tmp, ".gemini/antigravity-cli"), { recursive: true });
 
     const result = runSetupInteractively(tmp, "y\n");
 
@@ -132,10 +144,9 @@ describe("setup.sh confirmation", () => {
     expect(existsSync(join(tmp, ".agents/skills/testing/SKILL.md"))).toBe(true);
     expect(lstatSync(join(tmp, ".claude/skills")).isSymbolicLink()).toBe(true);
     expect(lstatSync(join(tmp, ".codex/skills/testing")).isSymbolicLink()).toBe(true);
-    expect(lstatSync(join(tmp, ".gemini/config/plugins/abp/plugin.json")).isSymbolicLink()).toBe(true);
-    expect(readlinkSync(join(tmp, ".gemini/config/plugins/abp/plugin.json"))).toBe(join(ROOT, "plugin/plugin.json"));
-    expect(lstatSync(join(tmp, ".gemini/config/plugins/abp/skills")).isSymbolicLink()).toBe(true);
-    expect(readlinkSync(join(tmp, ".gemini/config/plugins/abp/skills"))).toBe(join(ROOT, "plugin/skills"));
+    expect(readFileSync(join(tmp, "agy-invocations.log"), "utf8")).toBe(
+      `plugin install ${join(ROOT, "plugin")}\n`,
+    );
     expect(readFileSync(join(tmp, ".codex/config.toml"), "utf8")).toBe(
       "[features]\nhooks = true\nplugin_hooks = true\n",
     );
@@ -210,20 +221,14 @@ describe("setup.sh confirmation", () => {
     expect(readFileSync(marker, "utf8")).toBe("personal skill\n");
   });
 
-  it("does not follow an existing Antigravity plugin symlink", () => {
+  it("skips the Antigravity plugin when agy is not installed", () => {
     tmp = makeTempDir();
     createFakeStow(tmp);
-    mkdirSync(join(tmp, ".gemini/config/plugins"), { recursive: true });
-    const existingPlugin = join(tmp, "existing-antigravity-plugin");
-    mkdirSync(existingPlugin, { recursive: true });
-    writeFileSync(join(existingPlugin, "plugin.json"), '{"name":"existing"}\n', "utf8");
-    symlinkSync(existingPlugin, join(tmp, ".gemini/config/plugins/abp"));
 
-    const result = runSetupInteractively(tmp, "y\nn\n");
+    const result = runSetupInteractively(tmp, "y\n");
 
     expect(result.status).toBe(0);
-    expect(result.stdout).toContain("is a symlink to");
-    expect(readlinkSync(join(tmp, ".gemini/config/plugins/abp"))).toBe(existingPlugin);
-    expect(readFileSync(join(existingPlugin, "plugin.json"), "utf8")).toBe('{"name":"existing"}\n');
+    expect(result.stdout).toContain("Google Antigravity (agy) not installed");
+    expect(existsSync(join(tmp, "agy-invocations.log"))).toBe(false);
   });
 });

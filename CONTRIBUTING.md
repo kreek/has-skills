@@ -178,8 +178,15 @@ Codex:
 codex plugin marketplace add /path/to/agent-booster-pack
 ```
 
+Google Antigravity (`agy`):
+
+```sh
+agy plugin install /path/to/agent-booster-pack/plugin
+```
+
 The Claude Code plugin reads `plugin/.claude-plugin/plugin.json`; the Codex
 plugin reads `plugin/.codex-plugin/plugin.json`; Google Antigravity treats
-`plugin/plugin.json` as the plugin marker. All load the generated skill mirror
-under `plugin/skills/`. Edit canonical skills under
-`agents/.agents/skills/`, then run `./setup.sh` to refresh the mirror.
+`plugin/plugin.json` as the plugin marker and `agy plugin install` copies the
+plugin into `~/.gemini/antigravity-cli/plugins/` (re-run to pick up edits). All
+load the generated skill mirror under `plugin/skills/`. Edit canonical skills
+under `agents/.agents/skills/`, then run `./setup.sh` to refresh the mirror.

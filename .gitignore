@@ -6,6 +6,7 @@ __pycache__/
 node_modules/
 .claude/
 .idea/
+.antigravitycli/
 reference/
 agent-booster-pack-skills/skills/
 agent-booster-pack-proof/skills/
