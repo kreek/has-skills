@@ -86,7 +86,7 @@ One non-negotiable rule, if the skill has one.
 ## Branching and commits
 
 - Branch per change: `feature/`, `fix/`, `refactor/`, `chore/`, `docs/`.
-- Never commit directly to `main` or `master`.
+- Feature work and bug fixes should use a branch.
 - Imperative-mood commit subjects, ≤72 characters, explain *why* not
   *what*. No AI-attribution trailers (`Co-Authored-By`,
   `Generated-by`, etc.).
