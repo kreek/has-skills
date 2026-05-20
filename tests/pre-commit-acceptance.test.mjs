@@ -24,7 +24,6 @@ describe("pre-commit acceptance command selection", () => {
   it("checks skill anatomy for skill and agent instruction changes", () => {
     const commands = commandStrings([
       "agents/.agents/skills/proof/SKILL.md",
-      "agents/AGENTS.md",
       "plugin/skills/proof",
     ]);
 
@@ -32,15 +31,15 @@ describe("pre-commit acceptance command selection", () => {
   });
 
   it("keeps markdown link checks out of pre-commit", () => {
-    expect(commandStrings(["README.md"])).not.toContain("uv run refcheck . --no-color");
+    expect(commandStrings(["README.md"])).not.toContain("pnpm run check:links");
   });
 
   it("keeps Vitest suites out of pre-commit", () => {
     const scriptCommands = commandStrings(["scripts/pre-commit-acceptance.mjs"]);
-    const packageCommands = commandStrings(["agent-booster-pack/extensions/self-review-guard.js"]);
+    const packageCommands = commandStrings(["agent-booster-pack/extensions/self-review-guard.ts"]);
 
-    expect(scriptCommands).not.toContain("npm test");
-    expect(packageCommands).not.toContain("npm --prefix agent-booster-pack test");
+    expect(scriptCommands).not.toContain("pnpm test");
+    expect(packageCommands).not.toContain("pnpm --dir agent-booster-pack test");
   });
 
   it("checks shell scripts with shellcheck and shfmt", () => {

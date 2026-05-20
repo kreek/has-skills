@@ -5,9 +5,8 @@ need to know before opening a PR.
 
 ## Project conventions
 
-- Read [`AGENTS.md`](AGENTS.md) and [`agents/AGENTS.md`](agents/AGENTS.md)
-  before authoring or editing skills. They define the engineering
-  defaults the skill bodies assume.
+- Read [`AGENTS.md`](AGENTS.md) before authoring or editing skills. It defines
+  the engineering defaults the skill bodies assume.
 - Skills live under `agents/.agents/skills/<name>/SKILL.md`. The
   `plugin/skills/` tree is symlinked from there; edit the canonical
   copy only.
@@ -99,7 +98,7 @@ Run before opening a PR:
 
 ```sh
 make test
-uv run refcheck . --no-color
+pnpm run check:links
 node scripts/validate-skill-anatomy.mjs
 ```
 
@@ -148,7 +147,6 @@ package's `scripts/build-skills.mjs`; those bundles are gitignored.
 
 Then update, as relevant:
 
-- [`agents/AGENTS.md`](agents/AGENTS.md) — repo-maintainer skill index.
 - [`workflow`](agents/.agents/skills/workflow/SKILL.md) — when routing for broad
   tasks changes.
 - [`README.md`](README.md) — the human-facing skill list.
