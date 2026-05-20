@@ -198,6 +198,11 @@ function makeCodexPluginPackage(
   }
 }
 
+function makeAntigravityPluginPackage(root, { name = "abp", includeManifest = true } = {}) {
+  if (!includeManifest) return;
+  writeFileSync(join(root, "plugin/plugin.json"), JSON.stringify({ name }), "utf8");
+}
+
 describe("validate-skill-anatomy CLI", () => {
   afterEach(() => {
     if (tmp) cleanupTempDir(tmp);
@@ -218,6 +223,7 @@ describe("validate-skill-anatomy CLI", () => {
     mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
     cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
     makeCodexPluginPackage(tmp);
+    makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
@@ -225,6 +231,7 @@ describe("validate-skill-anatomy CLI", () => {
     expect(result.stdout).toContain("all skills conform to the anatomy");
     expect(result.stdout).toContain("plugin/ skill mirror in sync with source");
     expect(result.stdout).toContain("codex plugin package valid");
+    expect(result.stdout).toContain("antigravity plugin package valid");
     expect(readFileSync(join(tmp, "plugin/skills/good/SKILL.md"), "utf8")).toBe(
       readFileSync(join(skillsDir, "good/SKILL.md"), "utf8"),
     );
@@ -266,6 +273,7 @@ describe("validate-skill-anatomy CLI", () => {
     makeSkill(skillsDir, "good");
     mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
     makeCodexPluginPackage(tmp);
+    makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
@@ -283,6 +291,7 @@ describe("validate-skill-anatomy CLI", () => {
     mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
     cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
     makeCodexPluginPackage(tmp, { includeMarketplace: false });
+    makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
@@ -305,6 +314,7 @@ describe("validate-skill-anatomy CLI", () => {
       manifestSkillsPath: "./wrong/",
       manifestHooksPath: "./wrong-hooks.json",
     });
+    makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
@@ -323,6 +333,7 @@ describe("validate-skill-anatomy CLI", () => {
     mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
     cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
     makeCodexPluginPackage(tmp, { hookCommand: "node ./scripts/other.mjs" });
+    makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
@@ -343,6 +354,7 @@ describe("validate-skill-anatomy CLI", () => {
       claudeEntryVersion: "2.2.0",
       claudeManifestVersion: "2.3.0",
     });
+    makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
@@ -351,5 +363,21 @@ describe("validate-skill-anatomy CLI", () => {
     expect(result.stdout).toContain("abp.version must match metadata.version");
     expect(result.stdout).toContain("plugin/.codex-plugin/plugin.json");
     expect(result.stdout).toContain("plugin/.claude-plugin/plugin.json");
+  });
+
+  it("reports invalid Google Antigravity plugin fields", () => {
+    tmp = makeTempDir();
+    const skillsDir = join(tmp, "agents/.agents/skills");
+    makeSkill(skillsDir, "good");
+    mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
+    cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
+    makeCodexPluginPackage(tmp);
+    makeAntigravityPluginPackage(tmp, { name: "wrong" });
+
+    const result = runScript(skillsDir);
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toContain("antigravity plugin:");
+    expect(result.stdout).toContain("plugin/plugin.json name must be 'abp'");
   });
 });

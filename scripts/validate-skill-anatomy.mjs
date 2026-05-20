@@ -404,6 +404,32 @@ export function validateCodexPluginPackage(skillsDir) {
   return problems.length;
 }
 
+export function validateAntigravityPluginPackage(skillsDir) {
+  const root = repoRootForSkillsDir(skillsDir);
+  const problems = [];
+  const manifestPath = join(root, "plugin/plugin.json");
+  const pluginSkillsPath = join(root, "plugin/skills");
+
+  const [manifest, manifestProblem] = readJsonObject(manifestPath);
+  if (manifestProblem) problems.push(manifestProblem);
+  else if (manifest && manifest.name !== "abp") {
+    problems.push(`${manifestPath} name must be 'abp'`);
+  }
+
+  if (!existsSync(pluginSkillsPath) || !statSync(pluginSkillsPath).isDirectory()) {
+    problems.push(`${pluginSkillsPath} must exist for Google Antigravity skills`);
+  }
+
+  if (problems.length > 0) {
+    for (const problem of problems) console.log(`antigravity plugin: ${problem}`);
+    console.log("");
+    console.log(`${problems.length} antigravity plugin package problem(s)`);
+  } else {
+    console.log("antigravity plugin package valid");
+  }
+  return problems.length;
+}
+
 function writeFixture(path, text) {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, text, { encoding: "utf8", flag: "w" });
@@ -520,7 +546,8 @@ Validate SKILL.md frontmatter, required sections, and plugin drift.`);
   printSkillFindings(skillsDir, findings);
   const drift = validatePluginDrift(skillsDir);
   const codexPluginProblems = validateCodexPluginPackage(skillsDir);
-  return findings.length || drift || codexPluginProblems ? 1 : 0;
+  const antigravityPluginProblems = validateAntigravityPluginPackage(skillsDir);
+  return findings.length || drift || codexPluginProblems || antigravityPluginProblems ? 1 : 0;
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

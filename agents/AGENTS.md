@@ -282,7 +282,8 @@ effects at the boundary.
 ## Working with the agent harness
 
 ABP rides on top of modern coding-agent harnesses (Claude Code, Codex, Cursor,
-Copilot, Gemini CLI, OpenCode, Pi, Windsurf). Those harnesses already enforce
+Copilot, Gemini CLI, Google Antigravity, OpenCode, Pi, Windsurf). Those
+harnesses already enforce
 the table-stakes basics: prefer `rg` over `grep`, preserve unrelated user
 changes, no destructive commands without ask (`rm -rf`, `git reset --hard`,
 force-push, branch delete), no commit/branch/PR creation without ask, narrow

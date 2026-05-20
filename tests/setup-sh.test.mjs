@@ -105,6 +105,8 @@ describe("setup.sh preflight", () => {
     expect(result.status).toBe(1);
     expect(result.stdout).toContain("ABP setup will:");
     expect(result.stdout).toContain("run GNU Stow");
+    expect(result.stdout).toContain("Google");
+    expect(result.stdout).toContain("Antigravity");
     expect(result.stdout).toContain("Setup cancelled.");
     expect(existsSync(join(tmp, ".agents"))).toBe(false);
     expect(existsSync(join(tmp, ".claude/skills"))).toBe(false);
@@ -122,6 +124,7 @@ describe("setup.sh confirmation", () => {
     tmp = makeTempDir();
     createFakeStow(tmp);
     mkdirSync(join(tmp, ".codex"), { recursive: true });
+    mkdirSync(join(tmp, ".gemini/antigravity-cli"), { recursive: true });
 
     const result = runSetupInteractively(tmp, "y\n");
 
@@ -129,6 +132,10 @@ describe("setup.sh confirmation", () => {
     expect(existsSync(join(tmp, ".agents/skills/testing/SKILL.md"))).toBe(true);
     expect(lstatSync(join(tmp, ".claude/skills")).isSymbolicLink()).toBe(true);
     expect(lstatSync(join(tmp, ".codex/skills/testing")).isSymbolicLink()).toBe(true);
+    expect(lstatSync(join(tmp, ".gemini/config/plugins/abp/plugin.json")).isSymbolicLink()).toBe(true);
+    expect(readlinkSync(join(tmp, ".gemini/config/plugins/abp/plugin.json"))).toBe(join(ROOT, "plugin/plugin.json"));
+    expect(lstatSync(join(tmp, ".gemini/config/plugins/abp/skills")).isSymbolicLink()).toBe(true);
+    expect(readlinkSync(join(tmp, ".gemini/config/plugins/abp/skills"))).toBe(join(ROOT, "plugin/skills"));
     expect(readFileSync(join(tmp, ".codex/config.toml"), "utf8")).toBe(
       "[features]\nhooks = true\nplugin_hooks = true\n",
     );
@@ -201,5 +208,22 @@ describe("setup.sh confirmation", () => {
     expect(result.status).toBe(0);
     expect(result.stdout).toContain("exists as a real directory");
     expect(readFileSync(marker, "utf8")).toBe("personal skill\n");
+  });
+
+  it("does not follow an existing Antigravity plugin symlink", () => {
+    tmp = makeTempDir();
+    createFakeStow(tmp);
+    mkdirSync(join(tmp, ".gemini/config/plugins"), { recursive: true });
+    const existingPlugin = join(tmp, "existing-antigravity-plugin");
+    mkdirSync(existingPlugin, { recursive: true });
+    writeFileSync(join(existingPlugin, "plugin.json"), '{"name":"existing"}\n', "utf8");
+    symlinkSync(existingPlugin, join(tmp, ".gemini/config/plugins/abp"));
+
+    const result = runSetupInteractively(tmp, "y\nn\n");
+
+    expect(result.status).toBe(0);
+    expect(result.stdout).toContain("is a symlink to");
+    expect(readlinkSync(join(tmp, ".gemini/config/plugins/abp"))).toBe(existingPlugin);
+    expect(readFileSync(join(existingPlugin, "plugin.json"), "utf8")).toBe('{"name":"existing"}\n');
   });
 });

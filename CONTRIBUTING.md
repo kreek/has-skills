@@ -179,6 +179,7 @@ codex plugin marketplace add /path/to/agent-booster-pack
 ```
 
 The Claude Code plugin reads `plugin/.claude-plugin/plugin.json`; the Codex
-plugin reads `plugin/.codex-plugin/plugin.json`. Both load the generated skill
-mirror under `plugin/skills/`. Edit canonical skills under
+plugin reads `plugin/.codex-plugin/plugin.json`; Google Antigravity treats
+`plugin/plugin.json` as the plugin marker. All load the generated skill mirror
+under `plugin/skills/`. Edit canonical skills under
 `agents/.agents/skills/`, then run `./setup.sh` to refresh the mirror.

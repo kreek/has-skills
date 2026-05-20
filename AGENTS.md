@@ -11,7 +11,8 @@ file; the two are additive.
 ## What this repo is
 
 Agent Booster Pack is a portable skill pack for coding agents (Claude Code,
-Codex, Cursor, Copilot, Gemini CLI, OpenCode, Pi, Windsurf). It ships
+Codex, Cursor, Copilot, Gemini CLI, Google Antigravity, OpenCode, Pi,
+Windsurf). It ships
 prose (`SKILL.md` files plus a few maintenance helpers), not application code.
 Most edits are to skill bodies, the top-level `AGENTS.md` index, or the
 `README.md`. There is no application build or service to run; tests cover
@@ -34,6 +35,10 @@ repo maintenance helpers, plugin packaging, and extension packages.
   the `plugin/` root, and `plugin/.codex-plugin/plugin.json` exposes the same
   generated skill mirror to Codex as a plugin. Keep the Codex marketplace and
   manifest in sync with Claude plugin packaging.
+- **Google Antigravity plugin package**: `plugin/plugin.json` is the
+  Antigravity marker for ABP. Local installs create an Antigravity plugin
+  directory that links only `plugin/plugin.json` and the generated
+  `plugin/skills/` mirror under `~/.gemini/config/plugins/abp`.
 - **Install layout**: `agents/` is a GNU Stow package. `./setup.sh` is the
   one-click local installer: it explains the actions, asks for approval, runs
   Stow to link the shared skills under `~/.agents/`, fans those out to
@@ -57,7 +62,7 @@ node scripts/generate-plugin-symlinks.mjs
 
 # Validate every SKILL.md against the playbook anatomy (frontmatter,
 # required sections, no inline expert attribution), plugin/ drift, and
-# Codex plugin marketplace/manifest shape. Run this before publishing
+# Codex and Google Antigravity plugin shapes. Run this before publishing
 # skill changes.
 node scripts/validate-skill-anatomy.mjs
 
