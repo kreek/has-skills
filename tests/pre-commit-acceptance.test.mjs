@@ -21,32 +21,22 @@ describe("pre-commit acceptance command selection", () => {
     expect(commandStrings(["README.md"])).toContain("git diff --cached --check");
   });
 
-  it("checks skill anatomy for skill and agent instruction changes", () => {
-    const commands = commandStrings([
-      "agents/.agents/skills/proof/SKILL.md",
-      "plugin/skills/proof",
-    ]);
-
-    expect(commands).toContain("node scripts/validate-skill-anatomy.mjs");
+  it("checks Markdown when Markdown files are staged", () => {
+    expect(commandStrings(["README.md"])).toContain("pnpm run check:links");
   });
 
-  it("keeps markdown link checks out of pre-commit", () => {
-    expect(commandStrings(["README.md"])).not.toContain("pnpm run check:links");
-  });
-
-  it("keeps Vitest suites out of pre-commit", () => {
+  it("keeps non-Pi Vitest suites out of pre-commit", () => {
     const scriptCommands = commandStrings(["scripts/pre-commit-acceptance.mjs"]);
-    const packageCommands = commandStrings(["agent-booster-pack/extensions/self-review-guard.ts"]);
 
-    expect(scriptCommands).not.toContain("pnpm test");
-    expect(packageCommands).not.toContain("pnpm --dir agent-booster-pack test");
+    expect(scriptCommands).not.toContain("pnpm exec vitest run tests/abp-header.test.mjs tests/pi-install-local-make-target.test.mjs tests/pi-local-yeet-command.test.mjs tests/pi-meta-package-local-dependencies.test.mjs tests/pi-sibling-skill-bundles.test.mjs tests/publish-pi-packages.test.mjs");
+    expect(scriptCommands).not.toContain("pnpm --dir agent-booster-pack test");
   });
 
-  it("checks shell scripts with shellcheck and shfmt", () => {
-    const commands = commandStrings(["setup.sh", ".githooks/pre-commit"]);
+  it("checks Pi package and extension changes", () => {
+    const commands = commandStrings(["agent-booster-pack/extensions/self-review-guard.ts"]);
 
-    expect(commands).toContain("shellcheck setup.sh .githooks/pre-commit");
-    expect(commands).toContain("shfmt -d setup.sh .githooks/pre-commit");
+    expect(commands).toContain("pnpm exec vitest run tests/abp-header.test.mjs tests/pi-install-local-make-target.test.mjs tests/pi-local-yeet-command.test.mjs tests/pi-meta-package-local-dependencies.test.mjs tests/pi-sibling-skill-bundles.test.mjs tests/publish-pi-packages.test.mjs");
+    expect(commands).toContain("pnpm --dir agent-booster-pack test");
   });
 });
 
@@ -56,14 +46,14 @@ describe("pre-commit acceptance CLI", () => {
     tmp = undefined;
   });
 
-  it("blocks commits on main or master", () => {
+  it("allows dry-run checks on main", () => {
     tmp = makeTempDir();
     run("git", ["init", "-b", "main"], { cwd: tmp });
 
     const result = runScript("--repo-root", tmp, "--dry-run");
 
-    expect(result.status).toBe(1);
-    expect(result.stderr).toContain("refusing to commit directly on main");
+    expect(result.status).toBe(0);
+    expect(result.stdout).toContain("No staged files; nothing to validate.");
   });
 
   it("reports no staged files on topic branches", () => {

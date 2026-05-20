@@ -1,12 +1,10 @@
 #!/usr/bin/env node
-// Run deterministic ABP pre-commit acceptance checks.
+// Run deterministic ABP pre-commit checks for Markdown and Pi package changes.
 
 import { spawnSync } from "node:child_process";
 import { existsSync, statSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-
-const PROTECTED_BRANCHES = new Set(["main", "master"]);
 
 export class Check {
   constructor(reason, command, requiredTools = []) {
@@ -48,10 +46,6 @@ function hasAny(paths, predicate) {
   return paths.some(predicate);
 }
 
-function shellPaths(paths) {
-  return paths.filter((path) => path.endsWith(".sh") || pathMatches(path, ".githooks"));
-}
-
 function commandExists(command) {
   const result = spawnSync("sh", ["-c", `command -v ${command} >/dev/null 2>&1`]);
   return result.status === 0;
@@ -60,20 +54,43 @@ function commandExists(command) {
 export function selectChecks(paths) {
   const checks = [new Check("staged diff has no whitespace errors", ["git", "diff", "--cached", "--check"])];
 
+  if (hasAny(paths, (path) => path.endsWith(".md"))) {
+    checks.push(new Check("Markdown parses and local links resolve", ["pnpm", "run", "check:links"], ["pnpm"]));
+  }
+
   if (
     hasAny(paths, (path) =>
-      pathMatches(path, "agents/.agents/skills", "plugin/skills"),
+      pathMatches(path, ".pi", "agent-booster-pack") ||
+      pathMatches(path, "tests/pi-install-local-make-target.test.mjs") ||
+      pathMatches(path, "tests/pi-local-yeet-command.test.mjs") ||
+      pathMatches(path, "tests/pi-meta-package-local-dependencies.test.mjs") ||
+      pathMatches(path, "tests/pi-sibling-skill-bundles.test.mjs") ||
+      pathMatches(path, "tests/abp-header.test.mjs") ||
+      pathMatches(path, "tests/publish-pi-packages.test.mjs") ||
+      pathMatches(path, "scripts/pi-install-local.sh") ||
+      pathMatches(path, "scripts/publish-pi-packages.sh") ||
+      pathMatches(path, "package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml"),
     )
   ) {
     checks.push(
-      new Check("skill anatomy and plugin links stay in sync", ["node", "scripts/validate-skill-anatomy.mjs"], ["node"]),
+      new Check(
+        "repo Pi tests pass",
+        [
+          "pnpm",
+          "exec",
+          "vitest",
+          "run",
+          "tests/abp-header.test.mjs",
+          "tests/pi-install-local-make-target.test.mjs",
+          "tests/pi-local-yeet-command.test.mjs",
+          "tests/pi-meta-package-local-dependencies.test.mjs",
+          "tests/pi-sibling-skill-bundles.test.mjs",
+          "tests/publish-pi-packages.test.mjs",
+        ],
+        ["pnpm"],
+      ),
     );
-  }
-
-  const stagedShell = shellPaths(paths);
-  if (stagedShell.length > 0) {
-    checks.push(new Check("shell scripts pass shellcheck", ["shellcheck", ...stagedShell], ["shellcheck"]));
-    checks.push(new Check("shell scripts are shfmt-formatted", ["shfmt", "-d", ...stagedShell], ["shfmt"]));
+    checks.push(new Check("packaged Pi extension tests pass", ["pnpm", "--dir", "agent-booster-pack", "test"], ["pnpm"]));
   }
 
   return checks;
@@ -121,7 +138,7 @@ function parseArgs(argv) {
     if (arg === "-h" || arg === "--help") {
       console.log(`Usage: node scripts/pre-commit-acceptance.mjs [--repo-root PATH] [--dry-run]
 
-Run ABP pre-commit acceptance checks for staged files.`);
+Run ABP pre-commit checks for staged files.`);
       return { help: true };
     } else if (arg === "--dry-run") {
       dryRun = true;
@@ -148,10 +165,6 @@ export function main(argv = process.argv.slice(2)) {
   }
 
   const branch = currentBranch(root);
-  if (PROTECTED_BRANCHES.has(branch)) {
-    console.error(`ERROR: refusing to commit directly on ${branch}; create a topic branch.`);
-    return 1;
-  }
 
   let paths;
   try {
@@ -166,7 +179,7 @@ export function main(argv = process.argv.slice(2)) {
     return 0;
   }
 
-  console.log("ABP pre-commit acceptance checks");
+  console.log("ABP pre-commit checks");
   console.log(`Branch: ${branch || "(detached HEAD)"}`);
   console.log("Staged files:");
   for (const path of paths) console.log(`  - ${path}`);

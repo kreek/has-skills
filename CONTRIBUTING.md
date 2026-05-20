@@ -86,8 +86,7 @@ One non-negotiable rule, if the skill has one.
 ## Branching and commits
 
 - Branch per change: `feature/`, `fix/`, `refactor/`, `chore/`, `docs/`.
-- Never commit directly to `main` or `master`. The `.githooks/pre-commit`
-  hook enforces this once enabled.
+- Never commit directly to `main` or `master`.
 - Imperative-mood commit subjects, ≤72 characters, explain *why* not
   *what*. No AI-attribution trailers (`Co-Authored-By`,
   `Generated-by`, etc.).
@@ -105,7 +104,9 @@ node scripts/validate-skill-anatomy.mjs
 The validator checks all 21 skills, the `plugin/skills/` symlinks, and
 the Codex plugin manifest in one pass.
 
-To enable the pre-commit hook locally:
+The optional repo pre-commit hook is intentionally narrow: it checks staged
+whitespace, runs the Markdown validator for staged Markdown files, and runs
+Pi-focused tests for Pi package or extension changes.
 
 ```sh
 git config core.hooksPath .githooks

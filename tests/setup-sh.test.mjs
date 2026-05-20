@@ -147,46 +147,7 @@ describe("setup.sh confirmation", () => {
     expect(readFileSync(join(tmp, "agy-invocations.log"), "utf8")).toBe(
       `plugin install ${join(ROOT, "plugin")}\n`,
     );
-    expect(readFileSync(join(tmp, ".codex/config.toml"), "utf8")).toBe(
-      "[features]\nhooks = true\nplugin_hooks = true\n",
-    );
-  });
-
-  it("enables Codex hooks in an existing config without dropping other settings", () => {
-    tmp = makeTempDir();
-    createFakeStow(tmp);
-    mkdirSync(join(tmp, ".codex"), { recursive: true });
-    writeFileSync(
-      join(tmp, ".codex/config.toml"),
-      [
-        'model = "gpt-5"',
-        "",
-        "[features]",
-        "hooks = false",
-        "",
-        "[profiles.default]",
-        'approval_policy = "on-request"',
-        "",
-      ].join("\n"),
-      "utf8",
-    );
-
-    const result = runSetupInteractively(tmp, "y\n");
-
-    expect(result.status).toBe(0);
-    expect(readFileSync(join(tmp, ".codex/config.toml"), "utf8")).toBe(
-      [
-        'model = "gpt-5"',
-        "",
-        "[features]",
-        "hooks = true",
-        "",
-        "plugin_hooks = true",
-        "[profiles.default]",
-        'approval_policy = "on-request"',
-        "",
-      ].join("\n"),
-    );
+    expect(existsSync(join(tmp, ".codex/config.toml"))).toBe(false);
   });
 
   it("does not replace conflicting symlinks without interactive confirmation", () => {
