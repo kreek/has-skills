@@ -1,15 +1,14 @@
-const YEET_PROMPT = `Commit and push the current repository changes.
+const YEET_PROMPT = `Commit the current repository changes to a topic branch and push that branch. Never commit to or push \`main\` or \`master\`.
 
 Steps:
-1. Add all unstaged changes with \`git add -A\`.
-2. Inspect the staged changes and write a concise commit message that accurately summarizes them.
-3. Commit the changes with that message.
-4. Push the commit to the current branch's remote.
-   - If the current branch does not have an upstream remote branch, create one by pushing with upstream tracking.
-   - If this repository has no git remotes configured, do not push.
-5. After pushing, output the remote URL for what was pushed if the repository has a remote.
-   - If the current branch is \`main\`, output the normal remote repository URL.
-   - If the current branch is not \`main\`, output a URL to create a pull request from the pushed branch into \`main\`.
+1. Check the current branch. If it is \`main\` or \`master\`, create and switch to a new topic branch named with a type prefix (\`fix/\`, \`feature/\`, \`refactor/\`, or \`chore/\`) chosen from the nature of the changes. If already on a topic branch, stay on it.
+2. Add all unstaged changes with \`git add -A\`.
+3. Inspect the staged changes and write a concise commit message that accurately summarizes them.
+4. Commit the changes with that message.
+5. If this repository has no git remotes configured, stop after committing and report that there is no remote to push to.
+6. Push the topic branch to \`origin\`, setting the upstream with \`git push -u origin <branch>\`.
+7. Open a pull request for the branch into the default branch if the \`gh\` CLI is available; otherwise output the URL to open one. Do not merge it.
+8. Output the normal remote repository URL.
    - Convert SSH git remotes like \`git@github.com:owner/repo.git\` to HTTPS URLs when printing.
 
 Keep the commit message concise.`;
@@ -23,7 +22,7 @@ export function buildYeetPrompt(args = "") {
 
 export default function yeetCommand(pi) {
   pi.registerCommand("yeet", {
-    description: "Add, commit, and push the current repo changes",
+    description: "Commit to a topic branch and push it for review (never commits to main)",
     handler: async (args, ctx) => {
       const prompt = buildYeetPrompt(args ?? "");
 

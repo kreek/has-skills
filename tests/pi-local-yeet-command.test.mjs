@@ -35,14 +35,13 @@ describe("repo-local Pi yeet slash command", () => {
     expect(buildYeetPrompt("").trim()).not.toEqual("");
   });
 
-  it("pushes the current branch without merging to main", () => {
+  it("instructs branching instead of committing to main", () => {
     const prompt = buildYeetPrompt("");
 
-    expect(prompt).toContain("Push the commit to the current branch's remote.");
-    expect(prompt).toContain("create one by pushing with upstream tracking");
-    expect(prompt).toContain("output a URL to create a pull request from the pushed branch into `main`");
-    expect(prompt).not.toContain("Push `main` to `origin main`.");
-    expect(prompt).not.toContain("merge the topic branch into `main`");
+    expect(prompt).toMatch(/topic branch/i);
+    expect(prompt).toMatch(/never commit to or push `main`/i);
+    expect(prompt).toMatch(/git push -u origin <branch>/i);
+    expect(prompt).not.toMatch(/merge the topic branch into `main`/i);
   });
 
   it("appends additional user instructions", () => {

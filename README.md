@@ -76,18 +76,18 @@ runtime extensions for `/proof` and `/abp:self-review`.
 
 ### Google Antigravity
 
-Antigravity discovers custom plugins from `~/.gemini/config/plugins/`.
-For a local checkout:
+Antigravity's CLI (`agy`) manages plugins with `agy plugin install`. ABP ships a
+ready-to-install plugin at `plugin/` (a `plugin.json` marker plus a `skills/`
+directory). Install it from a local checkout:
 
 ```sh
-mkdir -p ~/.gemini/config/plugins/abp
-ln -s /path/to/agent-booster-pack/plugin/plugin.json ~/.gemini/config/plugins/abp/plugin.json
-ln -s /path/to/agent-booster-pack/plugin/skills ~/.gemini/config/plugins/abp/skills
+agy plugin install /path/to/agent-booster-pack/plugin
 ```
 
-The plugin root includes `plugin.json` and the generated `skills/` mirror that
-Antigravity expects. The manual `./setup.sh` flow creates these links when
-Antigravity's Gemini home already exists.
+`agy` copies the plugin into `~/.gemini/antigravity-cli/plugins/abp` and
+registers its skills; verify with `agy plugin list`. Because it copies rather
+than links, re-run the command (or `./setup.sh`) after pulling new skills.
+`./setup.sh` runs this automatically when `agy` is on your PATH.
 
 ### Manual (multi-agent or unsupported plugins)
 
@@ -106,9 +106,9 @@ cd agent-booster-pack
 ```
 
 `setup.sh` prints the actions it will take and confirms before changing
-anything. It links `~/.agents/skills/`, the Antigravity plugin location, and
-tool-specific skill locations when those tools are present. End-user installs
-do not need Python or uv.
+anything. It links `~/.agents/skills/`, installs the Antigravity plugin via
+`agy plugin install`, and links tool-specific skill locations when those tools
+are present. End-user installs do not need Python or uv.
 
 ## Skills
 
@@ -218,5 +218,4 @@ If you installed the Claude Code plugin, run these from inside Claude Code:
 ```
 
 For Codex, remove ABP from the plugin UI or marketplace commands. For
-Antigravity, remove `~/.gemini/config/plugins/abp` if you used the local plugin
-link.
+Antigravity, run `agy plugin uninstall abp`.

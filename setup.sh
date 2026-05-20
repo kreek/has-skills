@@ -179,8 +179,9 @@ confirm_setup_start() {
 ABP setup will:
   - run GNU Stow from this checkout to link shared skills into ~/.agents/skills
   - link ~/.claude/skills to ~/.agents/skills when safe
-  - link the ABP plugin into ~/.gemini/config/plugins/abp when Google
-    Antigravity is installed
+  - install the ABP plugin with "agy plugin install" when the Google
+    Antigravity CLI (agy) is installed
+  - enable Codex hooks and plugin hooks in ~/.codex/config.toml when Codex is installed
   - link individual ABP skills into ~/.codex/skills when Codex is installed
     without the ABP Codex plugin, or prune those legacy links when the plugin
     is present
@@ -190,7 +191,8 @@ ABP setup will:
   - sync plugin/ skill links when node is available
 
 It will not overwrite real skill directories or third-party symlinks without
-showing the exact path and asking again.
+showing the exact path and asking again. It may update ABP-owned Codex feature
+flags in ~/.codex/config.toml while preserving other settings.
 EOF
 
 	if confirm "Continue with setup?"; then
@@ -264,93 +266,20 @@ link_skills_per_agent() {
 	done
 }
 
-link_plugin_for_agent() {
-	local label="$1"
-	local target="$2"
-	local source="$3"
-	if [ ! -d "$(dirname "$target")" ]; then
-		echo "$label not installed; skipping (no $(dirname "$target"))"
-		return
-	fi
-
-	if [ -L "$target" ]; then
-		local current_target
-		current_target=$(readlink "$target")
-		if [ "$current_target" = "$source" ]; then
-			echo "$label: plugin already symlinked, skipping"
-		else
-			replace_symlink_if_confirmed "$label" "$target" "$current_target" "$source"
-		fi
-	elif [ -d "$target" ]; then
-		replace_directory_if_confirmed "$label" "$target" "$source"
-	elif [ -e "$target" ]; then
-		replace_file_if_confirmed "$label" "$target" "$source"
-	else
-		link_skill "$label" "$target" "$source"
-	fi
-}
-
-antigravity_installed() {
-	command -v antigravity >/dev/null 2>&1 ||
-		[ -d "$HOME/.gemini/antigravity" ] ||
-		[ -d "$HOME/.gemini/antigravity-cli" ] ||
-		[ -d "$HOME/.gemini/config" ]
-}
-
-prepare_antigravity_plugin_dir() {
-	local plugin_dir="$1"
-	local current_target
-	local backup
-
-	if [ -L "$plugin_dir" ]; then
-		current_target=$(readlink "$plugin_dir")
-		echo "WARNING: $plugin_dir is a symlink to $current_target."
-		if confirm "Google Antigravity: replace it with an ABP plugin directory?"; then
-			rm "$plugin_dir"
-			mkdir -p "$plugin_dir"
-			echo "Google Antigravity: created ${plugin_dir/#$HOME/~}"
-			return 0
-		fi
-		echo "Google Antigravity: skipping abp plugin"
-		return 1
-	fi
-
-	if [ -d "$plugin_dir" ]; then
-		return 0
-	fi
-
-	if [ -e "$plugin_dir" ]; then
-		echo "WARNING: $plugin_dir exists as a real file."
-		if confirm "Google Antigravity: move it to a backup and create an ABP plugin directory?"; then
-			backup=$(backup_path_for "$plugin_dir")
-			mv "$plugin_dir" "$backup"
-			echo "Google Antigravity: moved ${plugin_dir/#$HOME/~} → ${backup/#$HOME/~}"
-			mkdir -p "$plugin_dir"
-			return 0
-		fi
-		echo "Google Antigravity: skipping abp plugin"
-		return 1
-	fi
-
-	mkdir -p "$plugin_dir"
-	return 0
-}
-
 configure_antigravity_plugin() {
-	local target_dir="$HOME/.gemini/config/plugins"
-	local plugin_dir="$target_dir/abp"
-
-	if ! antigravity_installed; then
-		echo "Google Antigravity not installed; skipping plugin link"
-		echo "(no ~/.gemini Antigravity config)"
+	if ! command -v agy >/dev/null 2>&1; then
+		echo "Google Antigravity (agy) not installed; skipping plugin install"
+		echo "(no agy command on PATH)"
 		return
 	fi
 
-	if ! prepare_antigravity_plugin_dir "$plugin_dir"; then
-		return 0
+	echo "Google Antigravity: installing ABP plugin via 'agy plugin install'"
+	if agy plugin install "$REPO_ROOT/plugin" </dev/null; then
+		echo "Google Antigravity: ABP plugin installed (verify with 'agy plugin list')"
+	else
+		echo "Google Antigravity: 'agy plugin install' failed; install manually with:"
+		echo "  agy plugin install $REPO_ROOT/plugin"
 	fi
-	link_plugin_for_agent "Google Antigravity" "$plugin_dir/plugin.json" "$REPO_ROOT/plugin/plugin.json"
-	link_plugin_for_agent "Google Antigravity" "$plugin_dir/skills" "$REPO_ROOT/plugin/skills"
 }
 
 remove_abp_skill_links() {
@@ -388,7 +317,81 @@ codex_abp_plugin_installed() {
 	return 1
 }
 
+codex_installed() {
+	command -v codex >/dev/null 2>&1 || [ -d "$HOME/.codex" ]
+}
+
+configure_codex_hooks() {
+	local codex_dir="$HOME/.codex"
+	local config="$codex_dir/config.toml"
+	local tmp
+
+	if ! codex_installed; then
+		echo "Codex not installed; skipping hook configuration (no ~/.codex or codex command)"
+		return
+	fi
+
+	mkdir -p "$codex_dir"
+	if [ ! -f "$config" ]; then
+		cat >"$config" <<EOF
+[features]
+hooks = true
+plugin_hooks = true
+EOF
+		echo "Codex: enabled hooks and plugin hooks in ${config/#$HOME/~}"
+		return
+	fi
+
+	tmp=$(mktemp)
+	awk '
+	function emit_missing() {
+		if (in_features) {
+			if (!have_hooks) print "hooks = true"
+			if (!have_plugin_hooks) print "plugin_hooks = true"
+			in_features = 0
+		}
+	}
+	/^[[:space:]]*\[features\][[:space:]]*(#.*)?$/ {
+		emit_missing()
+		print
+		in_features = 1
+		seen_features = 1
+		have_hooks = 0
+		have_plugin_hooks = 0
+		next
+	}
+	/^[[:space:]]*\[[^]]+\][[:space:]]*(#.*)?$/ {
+		emit_missing()
+		print
+		next
+	}
+	in_features && /^[[:space:]]*hooks[[:space:]]*=/ {
+		print "hooks = true"
+		have_hooks = 1
+		next
+	}
+	in_features && /^[[:space:]]*plugin_hooks[[:space:]]*=/ {
+		print "plugin_hooks = true"
+		have_plugin_hooks = 1
+		next
+	}
+	{ print }
+	END {
+		emit_missing()
+		if (!seen_features) {
+			print ""
+			print "[features]"
+			print "hooks = true"
+			print "plugin_hooks = true"
+		}
+	}
+	' "$config" >"$tmp"
+	mv "$tmp" "$config"
+	echo "Codex: enabled hooks and plugin hooks in ${config/#$HOME/~}"
+}
+
 # Codex CLI: ~/.codex/skills/
+configure_codex_hooks
 if codex_abp_plugin_installed; then
 	echo "Codex: ABP plugin installed; pruning manual ABP skill links"
 	remove_abp_skill_links "Codex" "$HOME/.codex/skills"
@@ -404,9 +407,9 @@ fi
 # Windsurf (Codeium Cascade): ~/.codeium/windsurf/skills/
 link_skills_per_agent "Windsurf" "$HOME/.codeium/windsurf/skills"
 
-# Google Antigravity scans ~/.gemini/config/plugins/ for global plugins. ABP
-# links the generated plugin root because Antigravity plugins load skills from
-# a root-level skills/ directory with a plugin.json marker.
+# Google Antigravity's CLI (agy) installs plugins from a local path into
+# ~/.gemini/antigravity-cli/plugins/. ABP ships plugin/ with a plugin.json
+# marker and a root-level skills/ directory, which agy imports as skills.
 configure_antigravity_plugin
 
 # Pi, Cursor, Gemini CLI, OpenCode, and GitHub Copilot CLI read
