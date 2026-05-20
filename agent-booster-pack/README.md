@@ -5,7 +5,8 @@ Agent Booster Pack (ABP) for [Pi](https://pi.dev), in one package.
 The Pi runtime surface is intentionally small:
 
 - **Proof** — proof-first mode with `/proof`, `proof_start`, and `proof_done`.
-- **Self-review** — a final-pass self-review gate with `/abp:self-review`, aligned with the Claude and Codex ABP self-review hooks.
+- **Self-review** — a final-pass self-review gate with `/abp:self-review`,
+  aligned with the ABP workflow completion loop.
 
 ABP skills are bundled in this package under `skills/`. There are no separate Pi packages for proof, contract-first, specify, or skills in this package layout.
 

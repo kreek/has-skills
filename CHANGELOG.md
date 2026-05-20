@@ -6,6 +6,12 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Removed Claude Code and Codex plugin Stop hooks so ABP plugin packages are
+  skills-only. Self-review remains part of the `workflow` completion loop, and
+  the Pi package keeps its `/abp:self-review` runtime command.
+
 ## [9.12.0] (2026-05-16)
 
 ### Changed

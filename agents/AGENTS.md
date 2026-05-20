@@ -297,11 +297,9 @@ floor. The rules below extend it with ABP doctrine; they do not restate it.
   use its native tools to satisfy them.
 - Do not overwrite, inject over, or compete with system prompts. Do not add
   command, persona, hook, or browser-tool layers that make ABP a second
-  harness. Narrow exception: a completion-gate hook that rides on the host's
-  native turn-end event (Claude Code `Stop`, Codex `Stop`) and only injects
-  a skill-aligned reminder pointing at an existing ABP skill is permitted —
-  orchestration, system-prompt competition, and per-tool-event hooks remain
-  out of scope.
+  harness. ABP is a skill library; host-level orchestration, system-prompt
+  competition, completion gates, and per-tool-event hooks remain out of
+  scope except for package-specific runtime surfaces such as Pi commands.
 - For framework- or library-sensitive work, use `official-source-check`.
   Verify the relevant version and current official source before relying on
   memory. If official guidance and local convention conflict, surface the

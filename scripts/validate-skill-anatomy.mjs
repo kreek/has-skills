@@ -282,7 +282,6 @@ export function validateCodexPluginPackage(skillsDir) {
   const problems = [];
   const marketplacePath = join(root, ".agents/plugins/marketplace.json");
   const manifestPath = join(root, "plugin/.codex-plugin/plugin.json");
-  const hooksPath = join(root, "plugin/hooks.json");
   const claudeMarketplacePath = join(root, ".claude-plugin/marketplace.json");
   const claudeManifestPath = join(root, "plugin/.claude-plugin/plugin.json");
 
@@ -326,7 +325,7 @@ export function validateCodexPluginPackage(skillsDir) {
   else if (manifest) {
     if (manifest.name !== "abp") problems.push(`${manifestPath} name must be 'abp'`);
     if (manifest.skills !== "./skills/") problems.push(`${manifestPath} skills must be './skills/'`);
-    if (manifest.hooks !== "./hooks.json") problems.push(`${manifestPath} hooks must be './hooks.json'`);
+    if ("hooks" in manifest) problems.push(`${manifestPath} must not declare hooks; ABP plugin packages are skills-only`);
 
     const iface = manifest.interface;
     if (!iface || typeof iface !== "object") {
@@ -341,25 +340,6 @@ export function validateCodexPluginPackage(skillsDir) {
       }
       if (!Array.isArray(iface.defaultPrompt) || iface.defaultPrompt.length > 3) {
         problems.push(`${manifestPath} interface.defaultPrompt must contain at most 3 prompts`);
-      }
-    }
-
-    const [hooks, hooksProblem] = readJsonObject(hooksPath);
-    if (hooksProblem) {
-      problems.push(hooksProblem);
-    } else {
-      const stopGroups = hooks.hooks?.Stop;
-      const stopCommands = Array.isArray(stopGroups)
-        ? stopGroups.flatMap((group) => (Array.isArray(group?.hooks) ? group.hooks : []))
-        : [];
-      const hasSelfReviewStopHook = stopCommands.some(
-        (hook) =>
-          hook?.type === "command" &&
-          hook.command === "node ${PLUGIN_ROOT}/scripts/self-review.mjs" &&
-          hook.timeout === 5,
-      );
-      if (!hasSelfReviewStopHook) {
-        problems.push(`${hooksPath} must register the ABP self-review Stop hook`);
       }
     }
 
@@ -390,6 +370,9 @@ export function validateCodexPluginPackage(skillsDir) {
       }
       if (manifest.version !== claudeManifest.version) {
         problems.push(`${manifestPath} version must match ${claudeManifestPath} version`);
+      }
+      if ("hooks" in claudeManifest) {
+        problems.push(`${claudeManifestPath} must not declare hooks; ABP plugin packages are skills-only`);
       }
     }
   }

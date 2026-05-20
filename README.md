@@ -62,14 +62,6 @@ codex plugin marketplace upgrade abp
 
 Then reinstall from `/plugins`.
 
-The self-review hook requires Codex plugin hooks in `~/.codex/config.toml`:
-
-```toml
-[features]
-hooks = true
-plugin_hooks = true
-```
-
 ### Pi
 
 ```sh

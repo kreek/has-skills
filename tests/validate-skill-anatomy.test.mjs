@@ -109,13 +109,12 @@ function makeCodexPluginPackage(
   {
     includeMarketplace = true,
     includeManifest = true,
-    includeHooks = true,
     marketplaceSourcePath = "./plugin",
     includePolicy = true,
     includeCategory = true,
     manifestSkillsPath = "./skills/",
-    manifestHooksPath = "./hooks.json",
-    hookCommand = "node ${PLUGIN_ROOT}/scripts/self-review.mjs",
+    includeCodexHooksField = false,
+    includeClaudeHooksField = false,
     codexVersion = "2.0.0",
     claudeMarketplaceVersion = "2.0.0",
     claudeEntryVersion = "2.0.0",
@@ -144,7 +143,6 @@ function makeCodexPluginPackage(
       name: "abp",
       version: codexVersion,
       skills: manifestSkillsPath,
-      hooks: manifestHooksPath,
       interface: {
         displayName: "Agent Booster Pack",
         category: "Coding",
@@ -152,20 +150,9 @@ function makeCodexPluginPackage(
         defaultPrompt: ["Use ABP workflow for this engineering task."],
       },
     };
+    if (includeCodexHooksField) manifest.hooks = "./hooks.json";
     mkdirSync(join(root, "plugin/.codex-plugin"), { recursive: true });
     writeFileSync(join(root, "plugin/.codex-plugin/plugin.json"), JSON.stringify(manifest), "utf8");
-    if (includeHooks) {
-      const hooks = {
-        hooks: {
-          Stop: [
-            {
-              hooks: [{ type: "command", command: hookCommand, timeout: 5 }],
-            },
-          ],
-        },
-      };
-      writeFileSync(join(root, "plugin/hooks.json"), JSON.stringify(hooks), "utf8");
-    }
 
     const claudeMarketplace = {
       name: "abp",
@@ -178,7 +165,9 @@ function makeCodexPluginPackage(
     const claudeManifest = {
       name: "abp",
       version: claudeManifestVersion,
-      hooks: {
+    };
+    if (includeClaudeHooksField) {
+      claudeManifest.hooks = {
         Stop: [
           {
             matcher: "*",
@@ -191,8 +180,8 @@ function makeCodexPluginPackage(
             ],
           },
         ],
-      },
-    };
+      };
+    }
     mkdirSync(join(root, "plugin/.claude-plugin"), { recursive: true });
     writeFileSync(join(root, "plugin/.claude-plugin/plugin.json"), JSON.stringify(claudeManifest), "utf8");
   }
@@ -312,7 +301,7 @@ describe("validate-skill-anatomy CLI", () => {
       includePolicy: false,
       includeCategory: false,
       manifestSkillsPath: "./wrong/",
-      manifestHooksPath: "./wrong-hooks.json",
+      includeCodexHooksField: true,
     });
     makeAntigravityPluginPackage(tmp);
 
@@ -323,23 +312,23 @@ describe("validate-skill-anatomy CLI", () => {
     expect(result.stdout).toContain("abp.policy must be an object");
     expect(result.stdout).toContain("abp.category must be 'Coding'");
     expect(result.stdout).toContain("skills must be './skills/'");
-    expect(result.stdout).toContain("hooks must be './hooks.json'");
+    expect(result.stdout).toContain("must not declare hooks");
   });
 
-  it("reports missing Codex self-review Stop hook", () => {
+  it("reports host hook declarations because plugin packages are skills-only", () => {
     tmp = makeTempDir();
     const skillsDir = join(tmp, "agents/.agents/skills");
     makeSkill(skillsDir, "good");
     mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
     cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
-    makeCodexPluginPackage(tmp, { hookCommand: "node ./scripts/other.mjs" });
+    makeCodexPluginPackage(tmp, { includeCodexHooksField: true, includeClaudeHooksField: true });
     makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
 
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain("plugin/hooks.json");
-    expect(result.stdout).toContain("must register the ABP self-review Stop hook");
+    expect(result.stdout).toContain("plugin/.codex-plugin/plugin.json must not declare hooks");
+    expect(result.stdout).toContain("plugin/.claude-plugin/plugin.json must not declare hooks");
   });
 
   it("reports plugin version drift across Claude and Codex manifests", () => {
