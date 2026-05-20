@@ -6,6 +6,15 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [10.1.0] (2026-05-20)
+
+### Changed
+
+- Clarified the `commit` skill so agents group commits by behavior, not by
+  branch, and added `Core Ideas` guidance for reader-facing history.
+
+## [10.0.0] (2026-05-20)
+
 ### Changed
 
 - Removed Claude Code and Codex plugin Stop hooks so ABP plugin packages are
