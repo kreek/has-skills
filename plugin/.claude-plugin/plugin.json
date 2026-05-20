@@ -1,6 +1,6 @@
 {
   "name": "abp",
-  "version": "9.15.0",
+  "version": "10.0.0",
   "description": "Agent Booster Pack (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
   "author": {
     "name": "Alastair Dawson"
@@ -15,19 +15,5 @@
     "code-review",
     "proof",
     "security"
-  ],
-  "hooks": {
-    "Stop": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ${CLAUDE_PLUGIN_ROOT}/scripts/self-review.mjs",
-            "timeout": 5
-          }
-        ]
-      }
-    ]
-  }
+  ]
 }
