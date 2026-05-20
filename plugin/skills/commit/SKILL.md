@@ -28,12 +28,22 @@ use are part of the task.
 - Preparing release versions, changelogs, tags, or publishing. Use `release`
   only when requested or approved.
 
+## Core Ideas
+
+1. A branch is not the commit boundary. Even on one branch, group changes by
+   behavior so reviewers can understand what changed and maintainers can
+   revert one behavior without dragging unrelated work with it.
+2. Logical commits are reader-facing history. A commit should explain one
+   completed behavior, cleanup, or documentation change; nearby work can wait
+   for a second commit when it would need a different rollback decision.
+
 ## Workflow
 
 1. Inspect one compact preflight: `git status --short`, current branch, staged
    diff stat, unstaged diff stat, and recent log. Stop on unexpected state.
-2. Separate unrelated work. Stage only named files or approved pathspecs for
-   the reviewed slice; never use `git add .` in a messy tree.
+2. Separate unrelated work by behavior, even when all changes belong to the
+   same branch. Stage only named files or approved pathspecs for the reviewed
+   slice; never use `git add .` in a messy tree.
 3. Verify staged membership with `git diff --cached --stat` and, when risk
    appears, inspect the staged diff before committing.
 4. Confirm relevant proof is current. If a broad suite is noisy for unrelated
