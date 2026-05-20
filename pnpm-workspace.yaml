@@ -1,0 +1,7 @@
+packages:
+  - agent-booster-pack
+  - eval
+
+# Delay fresh registry publishes to reduce supply-chain blast radius.
+# 1440 minutes = 24 hours.
+minimumReleaseAge: 1440

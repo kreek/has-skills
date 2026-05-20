@@ -6,12 +6,12 @@ SHELL := /bin/bash
 ABP_PI_LOCAL_PACKAGE := $(abspath agent-booster-pack)
 
 test:
-	npm test
+	pnpm test
 	node scripts/validate-skill-anatomy.mjs
-	uv run refcheck . --no-color
-	cd agent-booster-pack && npm test
-	cd eval && npm test
-	cd eval && npm run typecheck
+	pnpm run check:links
+	pnpm --dir agent-booster-pack test
+	pnpm --dir eval test
+	pnpm --dir eval typecheck
 
 pi-install-local:
 	scripts/pi-install-local.sh
