@@ -162,6 +162,10 @@ For every non-trivial engineering claim, record:
 
 ## Tripwires
 
+- A green command, suite, or smoke check that does not exercise the artifact
+  the user asked for (or only hits a helper or adjacent behavior) is partial,
+  not proof. Name and run the check that would fail if the requested change
+  itself were wrong.
 - About to run the full suite for an isolated edit: run the single relevant
   test, line filter, or test file first.
 - If a broad suite fails for unrelated drift, switch to the targeted proof and
