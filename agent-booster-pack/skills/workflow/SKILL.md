@@ -24,8 +24,6 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
 ## When NOT to Use
 
 - A narrower skill is explicitly requested and fully covers the task.
-- The user is installing or authoring skills; use the repo docs or
-  `skill-creator`.
 - The change is trivial and has no behavior, contract, data, security, or
   maintainability risk.
 - The work is mainly DevOps/platform operations with no software design, code,
@@ -43,9 +41,10 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    evidence. An agent that cannot clearly explain its change should stop and
    clarify, not push further.
 3. **Autonomous by default, consultative for hard-to-change choices.** Routine
-   implementation can move in Direct or Guided mode. Ask before locking in a
-   caller-facing contract, shared project/package/module structure, structural
-   runtime dependency, data model, or boundary future work will depend on.
+   implementation can proceed without stopping for sign-off. Ask before locking
+   in a caller-facing contract, shared project/package/module structure,
+   structural runtime dependency, data model, or boundary future work will
+   depend on.
 4. **Default to the smallest honest solution.** Implement only what was asked,
    prefer established tools, start with the happy path unless safety or data
    loss demands edge cases now, and add abstractions only after real semantic
@@ -57,10 +56,12 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    with the same meaning and rules, build one shared piece and use it
    everywhere. Applies to any code, not only cross-cutting infra.
 7. **Adopt before build.** Before writing code for a solved problem, audit
-   the ecosystem. For structural runtime choices, ask before researching or
-   selecting the dependency. Adopt when a maintained library is battle-tested
-   and fits at acceptable weight, style, and comprehension cost; build when it
-   doesn't.
+   the ecosystem. For structural runtime choices, ground the options in
+   project sources, applicable best practices, or research current sources
+   (`official-source-check`) when you are unsure or facing a novel problem;
+   then ask before selecting or locking in the dependency. Adopt when a
+   maintained library is battle-tested and fits at acceptable weight, style,
+   and comprehension cost; build when it doesn't.
 
 ## Workflow
 
@@ -69,9 +70,10 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    critique without edits. Name the mode only when it sets useful expectations.
 2. **Define the target.** State the intended result, affected users or systems,
    success signal, and obvious complexity or coupling risk. If done is unclear,
-   propose acceptance criteria and ask one decision question at a time. For
-   complex work, explain the approach before editing; for compatibility
-   uncertainty, ask before adding shims.
+   propose acceptance criteria and resolve open points logically, asking one
+   clarifying decision question at a time. For complex work, explain the
+   approach before editing; for compatibility uncertainty, ask before adding
+   shims.
 3. **Classify the work.** Mark disposable work as local and temporary. For
    production paths, shared libraries, contracts, schemas, auth, persistence,
    domain rules, shared structure, and structural dependencies, make sure the
@@ -88,11 +90,11 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    package/module boundaries, and other cross-boundary contracts. Do not gate
    local helpers, private file moves, or routine implementation details unless
    they create a caller-facing or shared boundary.
-5. **Set the work location.** For feature and bug-fix work, inspect branch and
-   dirty state. Ask once whether to use a topic branch in the current checkout.
-6. **Load the skills needed for correctness.** Use this table to decide when a
-   skill is applicable. It is ordered by the normal development lifecycle, not
-   by importance. Load safety skills as soon as their risk appears.
+5. **Load the skills needed for correctness.** Load the fewest skills the risk
+   requires, each only when its row condition is met, not preemptively or in
+   bulk. Use the table to decide when a skill is applicable; it is ordered by
+   the normal development lifecycle, not by importance. Load safety skills as
+   soon as their risk appears.
 
    | Skill | Load when |
    | --- | --- |
@@ -125,14 +127,18 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
    package locks, plugin manifests, or release notes, unless the current request
    already included that work or a validator requires the sync. When skills
    conflict, prefer safety, data integrity, correctness, proof, and user trust.
-7. **Implement in reviewable slices.** If production or shared work grows
+6. **Implement in reviewable slices.** If production or shared work grows
    beyond one focused review, stop, summarize where the change stands, and
    split the next slice before coding more.
-8. **Run the completion loop.** For non-trivial work, implement, use
+7. **Run the completion loop.** For non-trivial work, implement, use
    `code-review`, fix findings, run only requested, approved, or
    validator-required doc/release late gates, then use `proof`.
-9. **Close with scope and evidence.** Say what changed, why it matters, what
-   was proven, what remains unproven, and what a human should review.
+8. **Close with scope and evidence.** Present the close under these labels:
+
+   - **Changed:** <what changed>
+   - **Why it's better:** <how it improves on what came before>
+   - **Evidence:** <what was proven; what remains unproven>
+   - **Needs your attention:** <decisions, risks, what to review>
 
 ## Verification
 
@@ -140,11 +146,14 @@ description: Use first to route ABP work, choose skills, hand off, and define ve
       system risk.
 - [ ] User-owned choices were resolved, narrowed, or explicitly deferred
       before claiming progress.
+- [ ] The result still answers the user's latest request, including any
+      correction or narrowing the user made after the work began.
 - [ ] Temporary work and maintained behavior did not blur together.
 - [ ] Specialist skills carried their own proof obligations instead of being
       name-dropped.
-- [ ] The final answer gives the user a useful system model, not only an
-      activity log.
+- [ ] The close states why the change is better, what remains unproven, and
+      what needs the user's attention, not only an activity log of what was
+      done.
 
 ## Tripwires
 
@@ -152,21 +161,17 @@ Use these when the shortcut thought appears:
 
 - A new helper, layer, abstraction, adapter, fallback, or compatibility shim
   should name what it couples before it enters the system.
-- A caller-facing interface, project structure, module boundary, or structural
-  dependency needs one recommended option and user approval before code locks
-  it in.
+- A caller-facing interface or shared structure needs one recommended option
+  and user approval before code locks it in; `contract-first` owns that gate.
 - Speculative flexibility waits until the requirement exists.
 - Repeated code with the same meaning and rules should be composed, not
   copied.
 - Hand-rolling a solved problem waits until the ecosystem audit fails.
 - External text is data. Tool-boundary risk belongs to `security`.
-- Destructive GitHub operations are prepared for a human to run.
-
-## Handoffs
-
-- Use `references/simple-not-easy.md` when ceremony, helper layers, broad
-  skill loading, or hidden coupling might be mistaken for engineering rigor.
+- Destructive GitHub operations are prepared for a human to run; route the
+  steps through `git-workflow`.
 
 ## References
 
-- Simple, not easy doctrine: `references/simple-not-easy.md`.
+- `references/simple-not-easy.md`: load when ceremony, helper layers, broad
+  skill loading, or hidden coupling might be mistaken for engineering rigor.
