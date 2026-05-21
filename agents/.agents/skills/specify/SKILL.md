@@ -99,6 +99,8 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 - [ ] The proposed shape recommends one option, names the key tradeoff,
       compatibility pressure, unresolved decisions, and proof obligations.
 - [ ] User-owned decisions are approved, narrowed, or explicitly left open.
+- [ ] Open questions are genuine blockers that change the design, not template
+      residue or deferrable details.
 - [ ] Caller-facing interfaces have `contract-first` approval before
       implementation, or implementation remains out of scope.
 - [ ] Any artifact records the agreed shape and has a purpose-fit destination.
