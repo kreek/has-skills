@@ -44,7 +44,8 @@ Inside Claude Code:
 codex plugin marketplace add kreek/has-skills
 ```
 
-Then open `/plugins` in Codex, select **Highline Agent Skills**, and install.
+Then open `/plugins` in Codex, find **Highline Agent Skills** in the list,
+press Enter to open its details, and select `Install plugin`.
 
 To update:
 
@@ -52,7 +53,8 @@ To update:
 codex plugin marketplace upgrade has
 ```
 
-Then reinstall from `/plugins`.
+Then open `/plugins`, find **Highline Agent Skills** in the list, press Enter
+to open its details, and select `Install plugin` again.
 
 ### Cursor
 
