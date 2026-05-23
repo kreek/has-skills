@@ -1,13 +1,5 @@
 # Highline Agent Skills
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/ABP_logo_header_dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/ABP_logo_header_light.png">
-    <img src="assets/ABP_logo_header_light.png" alt="Comic-style Highline Agent Skills header: a robot launching from a booster-pack package beside the headline 'Up-level your coding agents' and a panel describing practical guidance for simpler, evidence-backed, accessible, production-grade software.">
-  </picture>
-</p>
-
 Drawn from 25 years of software engineering across startups and large
 organizations, Highline Agent Skills (HAS) is a portable skill library for
 raising the engineering maturity of coding agents.
