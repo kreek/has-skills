@@ -315,6 +315,16 @@ codex_abp_plugin_installed() {
 	return 1
 }
 
+cursor_abp_plugin_installed() {
+	local manifest
+	for manifest in "$HOME"/.cursor/plugins/cache/abp/*/*/.cursor-plugin/plugin.json \
+		"$HOME"/.cursor/plugins/cache/abp/*/.cursor-plugin/plugin.json \
+		"$HOME"/.cursor/plugins/local/abp/.cursor-plugin/plugin.json; do
+		[ -f "$manifest" ] && return 0
+	done
+	return 1
+}
+
 # Codex CLI: ~/.codex/skills/
 if codex_abp_plugin_installed; then
 	echo "Codex: ABP plugin installed; pruning manual ABP skill links"
@@ -335,6 +345,14 @@ link_skills_per_agent "Windsurf" "$HOME/.codeium/windsurf/skills"
 # ~/.gemini/antigravity-cli/plugins/. ABP ships plugin/ with a plugin.json
 # marker and a root-level skills/ directory, which agy imports as skills.
 configure_antigravity_plugin
+
+if cursor_abp_plugin_installed; then
+	cat <<EOF
+Cursor: ABP plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/abp.
+Cursor also auto-discovers ~/.agents/skills/ from this manual install.
+Keep either the Cursor plugin or the manual install for Cursor, not both, to avoid duplicate ABP skills in Agent Decides.
+EOF
+fi
 
 # Pi, Cursor, Gemini CLI, OpenCode, and GitHub Copilot CLI read
 # ~/.agents/skills/ directly per the agentskills.io de-facto convention; no

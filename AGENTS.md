@@ -30,6 +30,10 @@ repo maintenance helpers, plugin packaging, and extension packages.
   the `plugin/` root, and `plugin/.codex-plugin/plugin.json` exposes the same
   generated skill mirror to Codex as a plugin. Keep the Codex marketplace and
   manifest in sync with Claude plugin packaging.
+- **Cursor plugin package**: `.cursor-plugin/marketplace.json` points Cursor at
+  the `plugin/` root, and `plugin/.cursor-plugin/plugin.json` exposes the same
+  generated skill mirror as a skills-only Cursor plugin. Keep the Cursor
+  marketplace and manifest in sync with Claude plugin packaging.
 - **Google Antigravity plugin package**: `plugin/plugin.json` is the
   Antigravity marker for ABP. Local installs create an Antigravity plugin
   directory that links only `plugin/plugin.json` and the generated
@@ -197,7 +201,8 @@ changes. Do not duplicate skill prose between files.
 
 The pack publishes a single semantic version in
 `.claude-plugin/marketplace.json` (both `metadata.version` and the
-`plugins[0].version`), `plugin/.claude-plugin/plugin.json`, and
+`plugins[0].version`), `.cursor-plugin/marketplace.json` (same fields),
+`plugin/.claude-plugin/plugin.json`, `plugin/.cursor-plugin/plugin.json`, and
 `plugin/.codex-plugin/plugin.json`. Bump all of them together when canonical
 content changes so plugin managers see the same package version.
 
