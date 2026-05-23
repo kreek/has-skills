@@ -64,21 +64,27 @@ function syncEach(src, dest, root) {
   return 0;
 }
 
+// Every committed copy of the canonical skills. Each is regenerated from
+// agents/.agents/skills so no mirror can silently drift.
+const MIRROR_DESTS = ["plugin/skills", "agent-booster-pack/skills"];
+
 export function syncPluginSymlinks(repoRoot = repoRootFromScript()) {
   const root = resolve(repoRoot);
   const skillsSrc = resolve(root, "agents/.agents/skills");
-  const skillsDest = resolve(root, "plugin/skills");
 
   if (!existsSync(skillsSrc) || !lstatSync(skillsSrc).isDirectory()) {
     console.error(`not a repo root (no agents/.agents/skills): ${root}`);
     return 2;
   }
 
-  mkdirSync(skillsDest, { recursive: true });
-  pruneDest(skillsDest, skillsSrc, root);
+  for (const dest of MIRROR_DESTS) {
+    const skillsDest = resolve(root, dest);
+    mkdirSync(skillsDest, { recursive: true });
+    pruneDest(skillsDest, skillsSrc, root);
 
-  const result = syncEach(skillsSrc, skillsDest, root);
-  if (result !== 0) return result;
+    const result = syncEach(skillsSrc, skillsDest, root);
+    if (result !== 0) return result;
+  }
 
   console.log("plugin skill mirror in sync");
   return 0;
@@ -88,7 +94,8 @@ export function main(argv = process.argv.slice(2)) {
   if (argv.includes("-h") || argv.includes("--help")) {
     console.log(`Usage: node scripts/generate-plugin-symlinks.mjs [repo_root]
 
-Sync the plugin/skills mirror from agents/.agents/skills.`);
+Sync every skill mirror (plugin/skills, agent-booster-pack/skills) from
+agents/.agents/skills.`);
     return 0;
   }
   const repoRoot = argv[0] ?? repoRootFromScript();

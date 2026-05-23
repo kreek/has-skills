@@ -1,3 +1,12 @@
 {
-  "name": "abp"
+  "name": "abp",
+  "description": "Agent Booster Pack: collaborative engineering-discipline skills (data, proof, security, design, and more).",
+  "version": "10.1.0",
+  "author": { "name": "Alastair Dawson", "url": "https://github.com/kreek" },
+  "homepage": "https://github.com/kreek/agent-booster-pack",
+  "repository": "https://github.com/kreek/agent-booster-pack",
+  "license": "MIT",
+  "keywords": ["skills", "engineering", "review", "security", "proof"],
+  "category": "Coding",
+  "skills": "./skills"
 }

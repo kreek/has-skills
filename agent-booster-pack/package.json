@@ -23,6 +23,7 @@
     "LICENSE"
   ],
   "scripts": {
+    "prepack": "node ../scripts/generate-plugin-symlinks.mjs",
     "test": "vitest run test"
   },
   "devDependencies": {
