@@ -114,7 +114,7 @@ those rules.
     `m = 46 MiB, t = 1, p = 1`. Tune to ~250–500 ms per hash on
     production hardware.
   - scrypt: `N = 2^17, r = 8, p = 1` minimum.
-  - bcrypt: OWASP minimum cost is ≥ 10; ABP prefers ≥ 12 when the
+  - bcrypt: OWASP minimum cost is ≥ 10; HAS prefers ≥ 12 when the
     measured login latency budget allows it. Bcrypt truncates at 72
     bytes in most implementations, so prefer argon2id / scrypt for new
     systems. If forced to pre-hash for bcrypt compatibility, use a

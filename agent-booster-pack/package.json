@@ -1,7 +1,7 @@
 {
   "name": "agent-booster-pack",
   "version": "9.1.1",
-  "description": "Agent Booster Pack for Pi: ABP skills and runtime extensions in one package.",
+  "description": "Highline Agent Skills for Pi: HAS skills and runtime extensions in one package.",
   "packageManager": "pnpm@10.33.0",
   "type": "module",
   "engines": {
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kreek/agent-booster-pack.git",
+    "url": "git+https://github.com/kreek/highline-agent-skills.git",
     "directory": "agent-booster-pack"
   },
   "author": "Alastair Dawson",

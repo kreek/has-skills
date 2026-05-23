@@ -3,11 +3,11 @@ kind: Location
 metadata:
   name: abp-stack-templates
   description: |
-    ABP scaffolding stack templates. Each target is a Backstage
+    HAS scaffolding stack templates. Each target is a Backstage
     Software Template (apiVersion: scaffolder.backstage.io/v1beta3)
     describing a named stack archetype with parameters the agent
     confirms with the user before scaffolding. The `default_for`
-    map is an ABP extension that routes common request shapes to a
+    map is an HAS extension that routes common request shapes to a
     starting template.
 spec:
   type: url
@@ -48,7 +48,7 @@ spec:
     # Clojure
     - ./clojure/api-ring-reitit.yaml
     - ./clojure/service-clojure.yaml
-  # ABP extension — not part of the Backstage Location spec.
+  # HAS extension — not part of the Backstage Location spec.
   # Maps a fresh-project request shape to its starting (lightweight)
   # template. The agent looks up default_for[<trigger>] when the
   # user's request matches one of these archetypes.

@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in Agent Booster Pack. This file covers what you
+Thanks for your interest in Highline Agent Skills. This file covers what you
 need to know before opening a PR.
 
 ## Project conventions
@@ -172,26 +172,26 @@ marketplace install commands in the README.
 Claude Code:
 
 ```sh
-/plugin install /path/to/agent-booster-pack/plugin
+/plugin install /path/to/highline-agent-skills/plugin
 ```
 
 Codex:
 
 ```sh
-codex plugin marketplace add /path/to/agent-booster-pack
+codex plugin marketplace add /path/to/highline-agent-skills
 ```
 
 Google Antigravity (`agy`):
 
 ```sh
-agy plugin install /path/to/agent-booster-pack/plugin
+agy plugin install /path/to/highline-agent-skills/plugin
 ```
 
 Cursor (local plugin directory):
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
-cp -R /path/to/agent-booster-pack/plugin ~/.cursor/plugins/local/abp
+cp -R /path/to/highline-agent-skills/plugin ~/.cursor/plugins/local/abp
 ```
 
 Reload Cursor (**Developer: Reload Window**). Skills-only: do not add hooks or MCP

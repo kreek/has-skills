@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish the ABP Pi npm package.
+# Publish the HAS Pi npm package.
 #
 # Usage:
 #   scripts/publish-pi-packages.sh [--dry-run]

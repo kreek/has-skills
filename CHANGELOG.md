@@ -1,12 +1,20 @@
 # Changelog
 
-All notable changes to Agent Booster Pack are recorded here. The format
+All notable changes to Highline Agent Skills are recorded here. The format
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [10.2.0] (2026-05-22)
+## [10.4.0] (2026-05-23)
+
+### Changed
+
+- Renamed the pack to **Highline Agent Skills** (**HAS**) across README,
+  AGENTS.md, skill prose, plugin display metadata, eval docs, and install
+  URLs (`kreek/highline-agent-skills`). Plugin IDs (`abp`), slash commands
+  (`/abp:*`), and npm package names are unchanged.
+
 
 ### Added
 
@@ -27,7 +35,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Removed Claude Code and Codex plugin Stop hooks so ABP plugin packages are
+- Removed Claude Code and Codex plugin Stop hooks so HAS plugin packages are
   skills-only. Self-review remains part of the `workflow` completion loop, and
   the Pi package keeps its `/abp:self-review` runtime command.
 
@@ -35,7 +43,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Cap the ABP self-review Stop hook at 3 firings per `session_id` to
+- Cap the HAS self-review Stop hook at 3 firings per `session_id` to
   prevent doom loops when the model addresses the reminder by editing more
   files (changing the diff hash) without using an acknowledgement token.
   Configurable via `ABP_SELF_REVIEW_MAX_RUNS` (default `3`). State file
@@ -187,7 +195,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   tightens locality. Cross-cited by `architecture` and `code-review`.
 - `workflow` now ships a `vocabulary-map.md` reference: a crosswalk from
   SOLID, Clean Architecture, Hexagonal / Ports & Adapters, and DDD
-  vocabulary into the ABP simplicity-shaped implementation, so the agent
+  vocabulary into the HAS simplicity-shaped implementation, so the agent
   meets the user's dialect at design time rather than asserting a
   competing one at PR review. Cross-cited by `architecture`, `data-first`,
   `refactoring`, and `code-review`.
@@ -200,7 +208,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `workflow` skills.
 - New meta-package `agent-booster-pack` (Pi-installable) depends on
   `agent-booster-pack-skills`, `agent-booster-pack-contract-first`, and
-  `agent-booster-pack-proof`. One-command install for the full ABP-on-Pi
+  `agent-booster-pack-proof`. One-command install for the full HAS-on-Pi
   experience.
 - `agent-booster-pack-whiteboard` now includes a Pi final-response guard that
   asks agents to explain what changed, why it is better than what came before,
@@ -223,10 +231,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `versioning` -> `release`, `concurrency` + `realtime` +
   `background-jobs` -> `async-systems`, `caching` -> `performance`,
   and `testing` -> `proof`.
-- ABP routing doctrine is now described as quality-driven and risk-triggered:
+- HAS routing doctrine is now described as quality-driven and risk-triggered:
   `workflow` is the entry point, `proof` is both the completion gate and a
   proof-work skill, and other skills are peers selected by quality concern.
-- ABP now treats durable interfaces as contract/API sign-off gates: agents
+- HAS now treats durable interfaces as contract/API sign-off gates: agents
   must design the boundary, propose the contract, and get user approval
   before implementation continues. In practice this means more pause/approve
   loops than 4.12.0 — expect agents to stop on any new exported type, prop,
@@ -253,10 +261,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `workflow` now includes a documentation check in the completion loop, and
   `documentation` clarifies when explanatory comments should capture
   non-obvious why/how context without encouraging comment-count targets.
-- ABP doctrine now explicitly says skills ride on host harnesses rather than
+- HAS doctrine now explicitly says skills ride on host harnesses rather than
   replacing browser control, delegation, tool use, memory, planning, or
   system-prompt orchestration.
-- `workflow` now separates internal ABP skill routing from user-facing
+- `workflow` now separates internal HAS skill routing from user-facing
   readiness notes, so agents translate skills into domain lenses and exclude
   product scope instead of listing irrelevant tools.
 - `documentation` now supports refining vague product ideas into problem,
@@ -267,10 +275,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Eval commands now use the Pi Do Eval **Bench**, **Regression**, and
   **Trial** vocabulary; the duplicate experiment command/scripts and config
   surface were removed.
-- ABP eval suites now use Pi Do Eval's file-backed `eval/suites/*.yaml`
+- HAS eval suites now use Pi Do Eval's file-backed `eval/suites/*.yaml`
   workflow; `eval.config.ts` is limited to profile, Bench, judge, timeout,
   and budget policy.
-- ABP eval trial metadata now lives in `eval/trials/*/trial.yaml`; generic
+- HAS eval trial metadata now lives in `eval/trials/*/trial.yaml`; generic
   Trial, Regression, and Bench runner code is provided by Pi Do Eval instead
   of project-local TypeScript.
 
@@ -280,8 +288,8 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   through its Pi manifest, so `pi install npm:agent-booster-pack` activates the
   skills, Interface Design Gate, proof-first runtime, and whiteboarding guard in
   one install.
-- `./setup.sh` now prunes legacy ABP-owned `~/.codex/skills/` links when the
-  ABP Codex plugin is installed and warns that Codex can still duplicate ABP
+- `./setup.sh` now prunes legacy HAS-owned `~/.codex/skills/` links when the
+  HAS Codex plugin is installed and warns that Codex can still duplicate HAS
   via direct `~/.agents/skills/` discovery if both install paths stay enabled.
 
 ## [2.2.0] (2026-04-26)
@@ -290,7 +298,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `workflow` master entrypoint skill: load on every software
   engineering task, identify the risk profile, and select the narrower
-  ABP skills that apply.
+  HAS skills that apply.
 - Acceptance-clarity and branch-hygiene gates in the `workflow` skill
   flow, with matching tripwires.
 - Requirements and acceptance criteria coverage in the `documentation`
@@ -312,7 +320,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- README repositioned: ABP is presented as ambient; agents use
+- README repositioned: HAS is presented as ambient; agents use
   `workflow` automatically rather than via a `/`-style command.
 - Documentation skill description and triggers expanded to cover
   PRDs, specs, user stories, and acceptance criteria.

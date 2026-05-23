@@ -1,13 +1,13 @@
 {
   "name": "abp",
-  "version": "10.3.0",
-  "description": "Agent Booster Pack (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
+  "version": "10.4.0",
+  "description": "Highline Agent Skills (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
   "author": {
     "name": "Alastair Dawson",
     "url": "https://github.com/kreek"
   },
-  "homepage": "https://github.com/kreek/agent-booster-pack",
-  "repository": "https://github.com/kreek/agent-booster-pack",
+  "homepage": "https://github.com/kreek/highline-agent-skills",
+  "repository": "https://github.com/kreek/highline-agent-skills",
   "license": "MIT",
   "keywords": [
     "agent-skills",
@@ -19,20 +19,20 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Agent Booster Pack",
+    "displayName": "Highline Agent Skills",
     "shortDescription": "Collaborative engineering-discipline skills for coding agents.",
-    "longDescription": "Agent Booster Pack helps coding agents produce simpler, safer, more correct, accessible, maintainable, and production-ready software while keeping humans involved in architecture, design, judgment, and acceptance.",
+    "longDescription": "Highline Agent Skills helps coding agents produce simpler, safer, more correct, accessible, maintainable, and production-ready software while keeping humans involved in architecture, design, judgment, and acceptance.",
     "developerName": "Alastair Dawson",
     "category": "Coding",
     "capabilities": [
       "Read",
       "Write"
     ],
-    "websiteURL": "https://github.com/kreek/agent-booster-pack",
+    "websiteURL": "https://github.com/kreek/highline-agent-skills",
     "defaultPrompt": [
-      "Use ABP workflow for this engineering task.",
-      "Review this change with ABP code-review.",
-      "Use ABP proof before claiming this is done."
+      "Use HAS workflow for this engineering task.",
+      "Review this change with HAS code-review.",
+      "Use HAS proof before claiming this is done."
     ],
     "brandColor": "#E8592F"
   }

@@ -1,4 +1,4 @@
 interface:
-  display_name: "ABP: UI Design"
+  display_name: "HAS: UI Design"
   short_description: "Design usable frontend UI"
   default_prompt: "Use $ui-design to improve this interface's hierarchy, layout, and states."

@@ -80,7 +80,7 @@ inside that structure.
 
 - Use one primary interface family and one mono family. Add a serif only when
   the content is editorial or long-form.
-- Prefer IBM Plex for generic ABP product/tool UI. Inter, Geist, SF Pro, and
+- Prefer IBM Plex for generic HAS product/tool UI. Inter, Geist, SF Pro, and
   well-tuned system stacks are acceptable when they better match the product or
   platform.
 - Body text should usually sit around 45-75 characters per line. Dense tool

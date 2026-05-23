@@ -1,4 +1,4 @@
 interface:
-  display_name: "ABP: Commit"
+  display_name: "HAS: Commit"
   short_description: "Stage reviewed work and write commits"
-  default_prompt: "Use ABP commit to package reviewed changes into a clean commit with current proof."
+  default_prompt: "Use HAS commit to package reviewed changes into a clean commit with current proof."

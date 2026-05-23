@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# One-click local installer for ABP's shared skills and agent compatibility links.
+# One-click local installer for HAS's shared skills and agent compatibility links.
 set -euo pipefail
 
 usage() {
 	cat <<EOF
 Usage: ./setup.sh
 
-Install ABP skills into ~/.agents and wire local agent compatibility links.
+Install HAS skills into ~/.agents and wire local agent compatibility links.
 
 Options:
   -h, --help Show this help.
@@ -60,7 +60,7 @@ require_stow() {
 	fi
 
 	cat >&2 <<EOF
-ERROR: GNU Stow is required for local ABP installs.
+ERROR: GNU Stow is required for local HAS installs.
 
 Install it, then rerun ./setup.sh:
 
@@ -176,16 +176,16 @@ replace_file_if_confirmed() {
 
 confirm_setup_start() {
 	cat <<EOF
-ABP setup will:
+HAS setup will:
   - run GNU Stow from this checkout to link shared skills into ~/.agents/skills
   - link ~/.claude/skills to ~/.agents/skills when safe
-  - install the ABP plugin with "agy plugin install" when the Google
+  - install the HAS plugin with "agy plugin install" when the Google
     Antigravity CLI (agy) is installed
-  - link individual ABP skills into ~/.codex/skills when Codex is installed
-    without the ABP Codex plugin, or prune those legacy links when the plugin
+  - link individual HAS skills into ~/.codex/skills when Codex is installed
+    without the HAS Codex plugin, or prune those legacy links when the plugin
     is present
-  - link individual ABP skills into ~/.codeium/windsurf/skills when Windsurf is installed
-  - prune stale ABP-owned skill links and legacy command links
+  - link individual HAS skills into ~/.codeium/windsurf/skills when Windsurf is installed
+  - prune stale HAS-owned skill links and legacy command links
   - ask before replacing conflicting symlinks or moving real directories
   - sync plugin/ skill links when node is available
 
@@ -271,9 +271,9 @@ configure_antigravity_plugin() {
 		return
 	fi
 
-	echo "Google Antigravity: installing ABP plugin via 'agy plugin install'"
+	echo "Google Antigravity: installing HAS plugin via 'agy plugin install'"
 	if agy plugin install "$REPO_ROOT/plugin" </dev/null; then
-		echo "Google Antigravity: ABP plugin installed (verify with 'agy plugin list')"
+		echo "Google Antigravity: HAS plugin installed (verify with 'agy plugin list')"
 	else
 		echo "Google Antigravity: 'agy plugin install' failed; install manually with:"
 		echo "  agy plugin install $REPO_ROOT/plugin"
@@ -327,12 +327,12 @@ cursor_abp_plugin_installed() {
 
 # Codex CLI: ~/.codex/skills/
 if codex_abp_plugin_installed; then
-	echo "Codex: ABP plugin installed; pruning manual ABP skill links"
+	echo "Codex: HAS plugin installed; pruning manual HAS skill links"
 	remove_abp_skill_links "Codex" "$HOME/.codex/skills"
 	cat <<EOF
-Codex: ABP is also linked into ~/.agents/skills by this manual install.
+Codex: HAS is also linked into ~/.agents/skills by this manual install.
 Codex can discover ~/.agents/skills directly, so keep either the manual install
-or the Codex plugin enabled, not both, to avoid duplicate ABP skills.
+or the Codex plugin enabled, not both, to avoid duplicate HAS skills.
 EOF
 else
 	link_skills_per_agent "Codex" "$HOME/.codex/skills"
@@ -342,15 +342,15 @@ fi
 link_skills_per_agent "Windsurf" "$HOME/.codeium/windsurf/skills"
 
 # Google Antigravity's CLI (agy) installs plugins from a local path into
-# ~/.gemini/antigravity-cli/plugins/. ABP ships plugin/ with a plugin.json
+# ~/.gemini/antigravity-cli/plugins/. HAS ships plugin/ with a plugin.json
 # marker and a root-level skills/ directory, which agy imports as skills.
 configure_antigravity_plugin
 
 if cursor_abp_plugin_installed; then
 	cat <<EOF
-Cursor: ABP plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/abp.
+Cursor: HAS plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/abp.
 Cursor also auto-discovers ~/.agents/skills/ from this manual install.
-Keep either the Cursor plugin or the manual install for Cursor, not both, to avoid duplicate ABP skills in Agent Decides.
+Keep either the Cursor plugin or the manual install for Cursor, not both, to avoid duplicate HAS skills in Agent Decides.
 EOF
 fi
 
@@ -386,7 +386,7 @@ echo ""
 # and `~/.codex/prompts/` produced duplicate `/<name>` entries in the slash
 # command list: the same skill registered twice (once via SKILL.md, once via
 # the standalone command file). Codex's per-skill `~/.codex/skills/<name>/`
-# fan-out already namespaces cleanly as `ABP:<name>`; Claude Code's flat
+# fan-out already namespaces cleanly as `HAS:<name>`; Claude Code's flat
 # `~/.claude/skills` symlink registers the skill directly. Both made the
 # extra commands link redundant.
 #

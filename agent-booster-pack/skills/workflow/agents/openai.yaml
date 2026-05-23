@@ -1,4 +1,4 @@
 interface:
-  display_name: "ABP: Workflow"
-  short_description: "ABP entrypoint for any software engineering task"
-  default_prompt: "Use ABP workflow to route this engineering task, name the risk profile, and select the skills needed for a correct, idiomatic solution."
+  display_name: "HAS: Workflow"
+  short_description: "HAS entrypoint for any software engineering task"
+  default_prompt: "Use HAS workflow to route this engineering task, name the risk profile, and select the skills needed for a correct, idiomatic solution."

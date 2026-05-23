@@ -1,4 +1,4 @@
 interface:
-  display_name: "ABP: Specify"
+  display_name: "HAS: Specify"
   short_description: "Shape ambiguous work through design decisions"
-  default_prompt: "Use ABP specify to turn this fuzzy intent into an agreed design direction before coding."
+  default_prompt: "Use HAS specify to turn this fuzzy intent into an agreed design direction before coding."

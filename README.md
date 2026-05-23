@@ -1,23 +1,23 @@
-# Agent Booster Pack
+# Highline Agent Skills
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/ABP_logo_header_dark.png">
     <source media="(prefers-color-scheme: light)" srcset="assets/ABP_logo_header_light.png">
-    <img src="assets/ABP_logo_header_light.png" alt="Comic-style Agent Booster Pack header: a robot launching from a booster-pack package beside the headline 'Up-level your coding agents' and a panel describing practical guidance for simpler, evidence-backed, accessible, production-grade software.">
+    <img src="assets/ABP_logo_header_light.png" alt="Comic-style Highline Agent Skills header: a robot launching from a booster-pack package beside the headline 'Up-level your coding agents' and a panel describing practical guidance for simpler, evidence-backed, accessible, production-grade software.">
   </picture>
 </p>
 
 Drawn from 25 years of software engineering across startups and large
-organizations, Agent Booster Pack (ABP) is a portable skill library for
+organizations, Highline Agent Skills (HAS) is a portable skill library for
 raising the engineering maturity of coding agents.
 
 Humans are good at mapping real-world issues to technical solutions, and Anthropic
-and OpenAI have poured billions into models and agents. ABP's goal is to augment
+and OpenAI have poured billions into models and agents. HAS's goal is to augment
 your work with agents to produce simpler, trustworthy, and maintainable
 production-grade software.
 
-## What ABP guides agents to do
+## What HAS guides agents to do
 
 - Keep humans in the loop for hard-to-change choices: public interfaces, project
   structure, dependency picks, data boundaries, and long-lived behavior.
@@ -42,17 +42,17 @@ when your tool does not support plugins.
 Inside Claude Code:
 
 ```text
-/plugin marketplace add kreek/agent-booster-pack
+/plugin marketplace add kreek/highline-agent-skills
 /plugin install abp@abp
 ```
 
 ### Codex
 
 ```sh
-codex plugin marketplace add kreek/agent-booster-pack
+codex plugin marketplace add kreek/highline-agent-skills
 ```
 
-Then open `/plugins` in Codex, select **Agent Booster Pack**, and install.
+Then open `/plugins` in Codex, select **Highline Agent Skills**, and install.
 
 To update:
 
@@ -65,7 +65,7 @@ Then reinstall from `/plugins`.
 ### Cursor
 
 Install from the [Cursor Marketplace](https://cursor.com/marketplace) (search for
-**Agent Booster Pack** or submit this repo at
+**Highline Agent Skills** or submit this repo at
 [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) if it is
 not listed yet). Open the marketplace panel in Cursor, install **abp**, then
 confirm skills under **Settings → Rules → Agent Decides**. Invoke a skill with
@@ -75,7 +75,7 @@ To test from a local checkout before marketplace listing:
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
-cp -R /path/to/agent-booster-pack/plugin ~/.cursor/plugins/local/abp
+cp -R /path/to/highline-agent-skills/plugin ~/.cursor/plugins/local/abp
 ```
 
 Reload the window (**Developer: Reload Window**). Prefer `cp -R` over symlinks;
@@ -92,23 +92,23 @@ Developing inside this repository with a local plugin copy also duplicates skill
 ### Pi
 
 ```sh
-pi install github:kreek/agent-booster-pack
+pi install github:kreek/highline-agent-skills
 
 # Registry-pinned install:
 pi install npm:agent-booster-pack
 ```
 
-After installing, run `/reload` inside Pi. ABP includes bundled skills plus
+After installing, run `/reload` inside Pi. HAS includes bundled skills plus
 runtime extensions for `/proof` and `/abp:self-review`.
 
 ### Google Antigravity
 
-Antigravity's CLI (`agy`) manages plugins with `agy plugin install`. ABP ships a
+Antigravity's CLI (`agy`) manages plugins with `agy plugin install`. HAS ships a
 ready-to-install plugin at `plugin/` (a `plugin.json` marker plus a `skills/`
 directory). Install it from a local checkout:
 
 ```sh
-agy plugin install /path/to/agent-booster-pack/plugin
+agy plugin install /path/to/highline-agent-skills/plugin
 ```
 
 `agy` copies the plugin into `~/.gemini/antigravity-cli/plugins/abp` and
@@ -127,8 +127,8 @@ dnf install stow    # Fedora/RHEL
 ```
 
 ```sh
-git clone https://github.com/kreek/agent-booster-pack.git
-cd agent-booster-pack
+git clone https://github.com/kreek/highline-agent-skills.git
+cd highline-agent-skills
 ./setup.sh
 ```
 
@@ -139,7 +139,7 @@ are present. End-user installs do not need Python or uv.
 
 ## Skills
 
-ABP includes 24 skills. Open a skill for its triggers, workflow, and
+HAS includes 24 skills. Open a skill for its triggers, workflow, and
 verification.
 
 - Routing and proof: [`workflow`](agents/.agents/skills/workflow/SKILL.md),
@@ -174,14 +174,14 @@ Shared language defaults are in
 
 ## How routing works
 
-ABP routing is **collaboration-aware, quality-driven, and risk-triggered**.
+HAS routing is **collaboration-aware, quality-driven, and risk-triggered**.
 Risk determines which skills load; working mode determines whether the agent
 should continue, ask for approval, or stay read-only.
 
 The working modes are **Direct**, **Guided**, **Design-partner**, and
 **Review-only**. Most implementation work stays in Direct or Guided mode.
 
-ABP is autonomous by default and consultative for hard-to-change choices. The agent
+HAS is autonomous by default and consultative for hard-to-change choices. The agent
 should ask before it locks in a caller-facing interface, class or library API,
 project/package/module structure, structural runtime dependency, data model, or
 boundary that future work will depend on. Local helpers, private file moves,
@@ -195,12 +195,12 @@ See [`workflow`](agents/.agents/skills/workflow/SKILL.md) for the full
 routing model and [`contract-first`](agents/.agents/skills/contract-first/SKILL.md)
 for sign-off on interfaces and shared structure.
 
-## What makes ABP unique
+## What makes HAS unique
 
-ABP is skills, not orchestration. It does not replace your harness's browser,
+HAS is skills, not orchestration. It does not replace your harness's browser,
 memory, planning, sub-agent, or tool surfaces.
 
-ABP is not meant to interrupt every coding step. It slows agents down where
+HAS is not meant to interrupt every coding step. It slows agents down where
 judgment matters: architecture, structural dependency choices, project shape,
 caller-facing interfaces, safety gates, and proof. Mechanical work can stay
 fast.
@@ -211,7 +211,7 @@ change, and prove.
 
 ## Evaluation
 
-[`eval/README.md`](eval/README.md) benchmarks Codex with and without ABP
+[`eval/README.md`](eval/README.md) benchmarks Codex with and without HAS
 against shared engineering tasks. It combines deterministic hidden tests with
 LLM-judged engineering maturity, proof quality, simplicity, and risk handling.
 
@@ -244,7 +244,7 @@ If you installed the Claude Code plugin, run these from inside Claude Code:
 /plugin marketplace remove abp
 ```
 
-For Codex, remove ABP from the plugin UI or marketplace commands. For Cursor,
+For Codex, remove HAS from the plugin UI or marketplace commands. For Cursor,
 disable or uninstall **abp** from the marketplace panel (or remove
 `~/.cursor/plugins/local/abp` and any `~/.cursor/plugins/cache/abp` copy). For
 Antigravity, run `agy plugin uninstall abp`.

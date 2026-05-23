@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Run deterministic ABP pre-commit checks for Markdown and Pi package changes.
+// Run deterministic HAS pre-commit checks for Markdown and Pi package changes.
 
 import { spawnSync } from "node:child_process";
 import { existsSync, statSync } from "node:fs";
@@ -138,7 +138,7 @@ function parseArgs(argv) {
     if (arg === "-h" || arg === "--help") {
       console.log(`Usage: node scripts/pre-commit-acceptance.mjs [--repo-root PATH] [--dry-run]
 
-Run ABP pre-commit checks for staged files.`);
+Run HAS pre-commit checks for staged files.`);
       return { help: true };
     } else if (arg === "--dry-run") {
       dryRun = true;
@@ -179,7 +179,7 @@ export function main(argv = process.argv.slice(2)) {
     return 0;
   }
 
-  console.log("ABP pre-commit checks");
+  console.log("HAS pre-commit checks");
   console.log(`Branch: ${branch || "(detached HEAD)"}`);
   console.log("Staged files:");
   for (const path of paths) console.log(`  - ${path}`);

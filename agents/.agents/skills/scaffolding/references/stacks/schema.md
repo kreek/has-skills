@@ -27,7 +27,7 @@ schema and conventions:
   template's required vs optional split is large enough to warrant
   separate pages.
 
-## ABP extensions (non-Backstage fields)
+## HAS extensions (non-Backstage fields)
 
 The agent reads three extra fields under `spec`. Backstage's engine
 ignores unknown keys, so this is safe.
@@ -38,7 +38,7 @@ ignores unknown keys, so this is safe.
 - `switch_when` — short note pointing at the next template to
   consider if this one stops fitting.
 
-The `index.yaml` Location entity also carries an ABP-specific
+The `index.yaml` Location entity also carries an HAS-specific
 `spec.default_for` map that routes common request shapes
 (`fresh-typescript-web`, `fresh-python-web`, `fresh-small-frontend`)
 to a starting template name.

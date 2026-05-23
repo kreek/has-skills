@@ -5,20 +5,20 @@
     "url": "https://github.com/kreek"
   },
   "metadata": {
-    "description": "Agent Booster Pack: collaborative engineering-discipline skills for Cursor.",
-    "version": "10.3.0",
+    "description": "Highline Agent Skills: collaborative engineering-discipline skills for Cursor.",
+    "version": "10.4.0",
     "license": "MIT"
   },
   "plugins": [
     {
       "name": "abp",
       "description": "Portable, collaborative engineering-discipline skill pack: data, proof, security, design, and more.",
-      "version": "10.3.0",
+      "version": "10.4.0",
       "author": {
         "name": "Alastair Dawson"
       },
-      "homepage": "https://github.com/kreek/agent-booster-pack",
-      "repository": "https://github.com/kreek/agent-booster-pack",
+      "homepage": "https://github.com/kreek/highline-agent-skills",
+      "repository": "https://github.com/kreek/highline-agent-skills",
       "license": "MIT",
       "source": "./plugin"
     }

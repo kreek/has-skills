@@ -1,7 +1,7 @@
 {
   "name": "abp",
   "interface": {
-    "displayName": "Agent Booster Pack"
+    "displayName": "Highline Agent Skills"
   },
   "plugins": [
     {

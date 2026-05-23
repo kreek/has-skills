@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Validate Agent Booster Pack skill files and plugin mirror drift.
+// Validate Highline Agent Skills skill files and plugin mirror drift.
 
 import {
   cpSync,
@@ -291,8 +291,8 @@ export function validateCodexPluginPackage(skillsDir) {
     if (marketplace.name !== "abp") problems.push(`${marketplacePath} name must be 'abp'`);
     if (!marketplace.interface || typeof marketplace.interface !== "object") {
       problems.push(`${marketplacePath} interface must be an object`);
-    } else if (marketplace.interface.displayName !== "Agent Booster Pack") {
-      problems.push(`${marketplacePath} interface.displayName must be 'Agent Booster Pack'`);
+    } else if (marketplace.interface.displayName !== "Highline Agent Skills") {
+      problems.push(`${marketplacePath} interface.displayName must be 'Highline Agent Skills'`);
     }
 
     const entry = firstPluginEntry(marketplace);
@@ -325,14 +325,14 @@ export function validateCodexPluginPackage(skillsDir) {
   else if (manifest) {
     if (manifest.name !== "abp") problems.push(`${manifestPath} name must be 'abp'`);
     if (manifest.skills !== "./skills/") problems.push(`${manifestPath} skills must be './skills/'`);
-    if ("hooks" in manifest) problems.push(`${manifestPath} must not declare hooks; ABP plugin packages are skills-only`);
+    if ("hooks" in manifest) problems.push(`${manifestPath} must not declare hooks; HAS plugin packages are skills-only`);
 
     const iface = manifest.interface;
     if (!iface || typeof iface !== "object") {
       problems.push(`${manifestPath} interface must be an object`);
     } else {
-      if (iface.displayName !== "Agent Booster Pack") {
-        problems.push(`${manifestPath} interface.displayName must be 'Agent Booster Pack'`);
+      if (iface.displayName !== "Highline Agent Skills") {
+        problems.push(`${manifestPath} interface.displayName must be 'Highline Agent Skills'`);
       }
       if (iface.category !== "Coding") problems.push(`${manifestPath} interface.category must be 'Coding'`);
       if (!Array.isArray(iface.capabilities) || !["Read", "Write"].every((cap) => iface.capabilities.includes(cap))) {
@@ -374,7 +374,7 @@ export function validateCodexPluginPackage(skillsDir) {
         problems.push(`${manifestPath} version must match ${claudeManifestPath} version`);
       }
       if ("hooks" in claudeManifest) {
-        problems.push(`${claudeManifestPath} must not declare hooks; ABP plugin packages are skills-only`);
+        problems.push(`${claudeManifestPath} must not declare hooks; HAS plugin packages are skills-only`);
       }
       if (!cursorManifestProblem && cursorManifest && cursorManifest.version !== claudeVersion) {
         problems.push(`${cursorManifestPath} version must match ${claudeMarketplacePath} metadata.version`);
@@ -437,7 +437,7 @@ export function validateCursorPluginPackage(skillsDir) {
     if (manifest.name !== "abp") problems.push(`${manifestPath} name must be 'abp'`);
     if (manifest.skills !== "./skills/") problems.push(`${manifestPath} skills must be './skills/'`);
     if ("hooks" in manifest) {
-      problems.push(`${manifestPath} must not declare hooks; ABP plugin packages are skills-only`);
+      problems.push(`${manifestPath} must not declare hooks; HAS plugin packages are skills-only`);
     }
 
     const [claudeMarketplace, claudeProblem] = readJsonObject(claudeMarketplacePath);

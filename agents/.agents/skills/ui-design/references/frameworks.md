@@ -114,7 +114,7 @@ Refs: https://htmx.org/
 
 | System               | Character                                                                                                                                  |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| IBM Carbon           | Preferred generic ABP product/tool reference: grid-first, IBM Plex, restrained, compact, enterprise-ready. https://carbondesignsystem.com/ |
+| IBM Carbon           | Preferred generic HAS product/tool reference: grid-first, IBM Plex, restrained, compact, enterprise-ready. https://carbondesignsystem.com/ |
 | Shopify Polaris      | Merchant-focused. Prefer Polaris Web Components over the legacy Polaris React package. https://polaris.shopify.com/                        |
 | Atlassian            | Complex PM tools. https://atlassian.design/                                                                                                |
 | GitHub Primer        | Mona Sans, restrained, code-adjacent. https://primer.style/                                                                                |

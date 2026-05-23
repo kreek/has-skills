@@ -72,7 +72,7 @@ const config: ProjectEvalConfig = {
     },
     codexWithAbpSkills: {
       id: "codexWithAbpSkills",
-      label: "Codex + ABP skills",
+      label: "Codex + HAS skills",
       agent: abpCodexAgent,
       setup: {
         layers: [

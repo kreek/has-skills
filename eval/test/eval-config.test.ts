@@ -71,7 +71,7 @@ function expectNeutralFixtureContent(filePath: string): void {
   for (const skill of expectedReadmeSkills) {
     expect(content, filePath).not.toMatch(new RegExp(`\\b${escapeRegExp(skill)}\\b`, "i"));
   }
-  expect(content, filePath).not.toMatch(/\b(ABP|Agent Booster Pack|skills?)\b/i);
+  expect(content, filePath).not.toMatch(/\b(ABP|Agent Booster Pack|Highline Agent Skills|skills?)\b/i);
 }
 
 function messageLine(role: "user" | "assistant", text: string): string {
@@ -103,8 +103,8 @@ function routingVerify(): VerifyResult {
   return { passed: true, output: "routing", metrics: { routingTrial: 1, routingCase: 1 } };
 }
 
-describe("ABP eval config", () => {
-  it("defines a baseline Codex profile and a Codex profile with the ABP plugin", () => {
+describe("HAS eval config", () => {
+  it("defines a baseline Codex profile and a Codex profile with the HAS plugin", () => {
     const baseline = profiles["codexBaseline"];
     const withAbp = profiles["codexWithAbpSkills"];
     if (!baseline || !withAbp) throw new Error("Expected Codex profiles");
@@ -142,7 +142,7 @@ describe("ABP eval config", () => {
     ]);
     expect(fs.existsSync(path.resolve(evalDir, withAbp.setup?.layers?.[0]?.source ?? ""))).toBe(true);
     const marketplaceSource = withAbp.agent.codex?.pluginMarketplaces?.[0];
-    expect(marketplaceSource, "ABP profile must register the local repo as a codex plugin marketplace").toBeDefined();
+    expect(marketplaceSource, "HAS profile must register the local repo as a codex plugin marketplace").toBeDefined();
     expect(fs.existsSync(path.resolve(marketplaceSource ?? ""))).toBe(true);
     expect(fs.existsSync(path.join(marketplaceSource ?? "", "plugin", ".codex-plugin", "plugin.json"))).toBe(true);
     expect(withAbp.agent.codex?.extraArgs).toEqual(
@@ -177,7 +177,7 @@ describe("ABP eval config", () => {
     expect(getSuite("smoke").map((entry) => entry.trial)).toEqual(["routing-checkout-payment"]);
   });
 
-  it("adds a routing bench that compares ABP against the same baseline", () => {
+  it("adds a routing bench that compares HAS against the same baseline", () => {
     const bench = benches["routing"];
     if (!bench) throw new Error("Expected routing bench");
     expect(bench.baseline).toBe("codexBaseline");
@@ -357,7 +357,7 @@ describe("ABP eval config", () => {
     }
   });
 
-  it("keeps generic runner code out of the ABP eval project", () => {
+  it("keeps generic runner code out of the HAS eval project", () => {
     expect(fs.existsSync(path.join(evalDir, "eval.ts"))).toBe(false);
     expect(fs.existsSync(path.join(evalDir, "framework.ts"))).toBe(false);
     expect(fs.existsSync(path.join(evalDir, "types.ts"))).toBe(false);
@@ -484,7 +484,7 @@ describe("ABP eval config", () => {
     expect(result.findings).toContain("No behavior-relevant submitted proof was detected.");
   });
 
-  it("flags baseline sessions that read ABP skill files", () => {
+  it("flags baseline sessions that read HAS skill files", () => {
     const session = stubSession([], {
       toolCalls: [
         {
@@ -514,10 +514,10 @@ describe("ABP eval config", () => {
     });
 
     expect(result.scores["baseline_isolation"]).toBe(0);
-    expect(result.findings).toContain("Baseline session read ABP skill files: scaffolding.");
+    expect(result.findings).toContain("Baseline session read HAS skill files: scaffolding.");
   });
 
-  it("flags ABP sessions that never read an ABP skill file", () => {
+  it("flags HAS sessions that never read a HAS skill file", () => {
     const session = stubSession([], {
       toolCalls: [
         {
@@ -537,10 +537,10 @@ describe("ABP eval config", () => {
     });
 
     expect(result.scores["abp_activation"]).toBe(0);
-    expect(result.findings).toContain("ABP profile did not read any ABP skill files; plugin activation is not proven.");
+    expect(result.findings).toContain("HAS profile did not read any HAS skill files; plugin activation is not proven.");
   });
 
-  it("accepts ABP sessions that read a focused ABP skill file", () => {
+  it("accepts HAS sessions that read a focused HAS skill file", () => {
     const session = stubSession([], {
       toolCalls: [
         {
@@ -570,7 +570,7 @@ describe("ABP eval config", () => {
     });
 
     expect(result.scores["abp_activation"]).toBe(100);
-    expect(result.findings).not.toContain("ABP profile did not read any ABP skill files; plugin activation is not proven.");
+    expect(result.findings).not.toContain("HAS profile did not read any HAS skill files; plugin activation is not proven.");
   });
 
   it("does not count skill loads as a deterministic score dimension", () => {
@@ -594,7 +594,7 @@ describe("ABP eval config", () => {
     });
 
     expect(result.scores).not.toHaveProperty("skill_focus");
-    expect(result.findings.some((finding) => finding.startsWith("Loaded too many ABP skills"))).toBe(false);
+    expect(result.findings.some((finding) => finding.startsWith("Loaded too many HAS skills"))).toBe(false);
   });
 
   it("does not cap change_quality on file count; rewards source+tests together", () => {

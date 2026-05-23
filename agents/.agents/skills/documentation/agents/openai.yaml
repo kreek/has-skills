@@ -1,4 +1,4 @@
 interface:
-  display_name: "ABP: Documentation"
+  display_name: "HAS: Documentation"
   short_description: "Write durable technical docs"
   default_prompt: "Use $documentation to rewrite this doc around the reader question."

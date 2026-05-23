@@ -8,7 +8,7 @@ authoritative framework / runtime / tooling docs.
 
 Languages and ordering below mirror the stack catalog
 (`references/stacks/<language>/`); the catalog is the source of
-truth for which languages ABP scaffolds. Package-manager defaults
+truth for which languages HAS scaffolds. Package-manager defaults
 live in `AGENTS.md`.
 
 ## TypeScript / Node

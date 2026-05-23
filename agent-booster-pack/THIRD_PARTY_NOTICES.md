@@ -1,6 +1,6 @@
 # Third-party notices
 
-Agent Booster Pack for Pi includes a small extension piece adapted from
+Highline Agent Skills for Pi includes a small extension piece adapted from
 `davis7dotsh/my-pi-setup` at
 `https://github.com/davis7dotsh/my-pi-setup`:
 

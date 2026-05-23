@@ -131,7 +131,7 @@ function makeCodexPluginPackage(
     if (includeCategory) entry.category = "Coding";
     const marketplace = {
       name: "abp",
-      interface: { displayName: "Agent Booster Pack" },
+      interface: { displayName: "Highline Agent Skills" },
       plugins: [entry],
     };
     const marketplacePath = join(root, ".agents/plugins/marketplace.json");
@@ -145,10 +145,10 @@ function makeCodexPluginPackage(
       version: codexVersion,
       skills: manifestSkillsPath,
       interface: {
-        displayName: "Agent Booster Pack",
+        displayName: "Highline Agent Skills",
         category: "Coding",
         capabilities: ["Read", "Write"],
-        defaultPrompt: ["Use ABP workflow for this engineering task."],
+        defaultPrompt: ["Use HAS workflow for this engineering task."],
       },
     };
     if (includeCodexHooksField) manifest.hooks = "./hooks.json";

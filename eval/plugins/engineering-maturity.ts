@@ -225,10 +225,10 @@ function scoreRoutingSession(session: EvalSession, _verify: VerifyResult): Plugi
   const findings: string[] = [];
   if (session.fileWrites.length > 0) findings.push("Routing trial wrote files despite being read-only.");
   if (baselineSkillReads.length > 0) {
-    findings.push(`Baseline session read ABP skill files: ${baselineSkillReads.join(", ")}.`);
+    findings.push(`Baseline session read HAS skill files: ${baselineSkillReads.join(", ")}.`);
   }
   if (isAbpSession(session) && abpSkillReads.length === 0) {
-    findings.push("ABP profile did not read any ABP skill files; plugin activation is not proven.");
+    findings.push("HAS profile did not read any HAS skill files; plugin activation is not proven.");
   }
 
   return {
@@ -1154,10 +1154,10 @@ const plugin: EvalPlugin = {
     if (wroteSource && !postWriteProof) findings.push("No post-change proof command was detected.");
     if (!verify.passed) findings.push("Visible tests or hidden checks failed.");
     if (baselineSkillReads.length > 0) {
-      findings.push(`Baseline session read ABP skill files: ${baselineSkillReads.join(", ")}.`);
+      findings.push(`Baseline session read HAS skill files: ${baselineSkillReads.join(", ")}.`);
     }
     if (isAbpSession(session) && abpSkillReads.length === 0) {
-      findings.push("ABP profile did not read any ABP skill files; plugin activation is not proven.");
+      findings.push("HAS profile did not read any HAS skill files; plugin activation is not proven.");
     }
 
     return {

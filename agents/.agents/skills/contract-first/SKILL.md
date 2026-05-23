@@ -71,7 +71,7 @@ description: Use when caller-facing interfaces or shared structure need approval
 
 ## Optional Runtime Backstop
 
-Some ABP installations include the manual Interface Design Gate runtime. Use
+Some HAS installations include the manual Interface Design Gate runtime. Use
 `/abp:contract [intent]` to start it when available.
 
 ## Handoffs
