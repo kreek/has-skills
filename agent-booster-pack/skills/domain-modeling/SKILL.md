@@ -10,7 +10,8 @@ description: Use for domain modeling, data shapes, invariants, state transitions
 `ILLEGAL STATES MUST BE UNREPRESENTABLE IN THE DOMAIN CORE.`
 
 If the type or data shape permits a state the domain forbids, a future caller
-will construct it.
+will construct it. Make the state impossible to express rather than guarding
+against it.
 
 ## When to Use
 
@@ -48,6 +49,10 @@ will construct it.
 8. Discover model abstractions from repeated domain meaning. Do not invent
    generic wrappers, base classes, or helper layers before the data proves
    they pay for themselves.
+9. Names carry the model. A method states its role in the domain process, not a
+   bare operation: prefer `settleInvoice` or `expireHold` over `process`,
+   `handle`, or `execute`. A generic type suffix like `Service` or `Manager` is
+   fine only when a domain word says what kind.
 
 ## Workflow
 
@@ -74,6 +79,9 @@ Load the matching reference whenever time or money appears in the diff.
 ## Verification
 
 - [ ] Public domain functions are classifiable as data, calculation, or action.
+- [ ] Method names state their role in the domain process, not a bare operation
+      like `process`, `handle`, or `execute`; any generic type suffix carries a
+      domain qualifier.
 - [ ] External input is parsed once at the boundary; internal code does not
       handle raw untrusted strings/maps.
 - [ ] Invalid state combinations cannot be represented directly.
@@ -102,6 +110,8 @@ Use these when the shortcut thought appears:
   the shell.
 - Add generic wrappers only after repeated domain meaning proves the
   abstraction.
+- About to name a method `process`, `handle`, `execute`, `manage`, or `run`:
+  name its role in the domain process instead.
 
 ## Handoffs
 
