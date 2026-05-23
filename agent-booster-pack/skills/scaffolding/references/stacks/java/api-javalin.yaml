@@ -22,7 +22,7 @@ metadata:
     - url: https://junit.org/junit5/docs/current/user-guide/
       title: JUnit 5
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

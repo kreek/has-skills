@@ -22,7 +22,7 @@ metadata:
     - url: https://github.com/haf/expecto
       title: Expecto
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

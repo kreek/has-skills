@@ -20,7 +20,7 @@ metadata:
     - url: https://playwright.dev/
       title: Playwright
 spec:
-  owner: abp
+  owner: has
   type: website
   parameters:
     - title: Stack Configuration

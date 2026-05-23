@@ -22,7 +22,7 @@ schema and conventions:
 - `spec.type` uses Backstage's standard component types: `service`,
   `website`, `library`. APIs and backends → `service`; sites and
   fullstack apps → `website`.
-- `spec.owner: abp`.
+- `spec.owner: has`.
 - Parameters live in a single page (`spec.parameters[0]`) unless a
   template's required vs optional split is large enough to warrant
   separate pages.

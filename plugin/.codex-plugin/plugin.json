@@ -1,13 +1,13 @@
 {
-  "name": "abp",
+  "name": "has",
   "version": "10.4.0",
   "description": "Highline Agent Skills (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
   "author": {
     "name": "Alastair Dawson",
     "url": "https://github.com/kreek"
   },
-  "homepage": "https://github.com/kreek/highline-agent-skills",
-  "repository": "https://github.com/kreek/highline-agent-skills",
+  "homepage": "https://github.com/kreek/has-skills",
+  "repository": "https://github.com/kreek/has-skills",
   "license": "MIT",
   "keywords": [
     "agent-skills",
@@ -28,7 +28,7 @@
       "Read",
       "Write"
     ],
-    "websiteURL": "https://github.com/kreek/highline-agent-skills",
+    "websiteURL": "https://github.com/kreek/has-skills",
     "defaultPrompt": [
       "Use HAS workflow for this engineering task.",
       "Review this change with HAS code-review.",

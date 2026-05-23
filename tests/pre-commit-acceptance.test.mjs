@@ -28,14 +28,14 @@ describe("pre-commit acceptance command selection", () => {
   it("keeps non-Pi Vitest suites out of pre-commit", () => {
     const scriptCommands = commandStrings(["scripts/pre-commit-acceptance.mjs"]);
 
-    expect(scriptCommands).not.toContain("pnpm exec vitest run tests/abp-header.test.mjs tests/pi-install-local-make-target.test.mjs tests/pi-local-yeet-command.test.mjs tests/pi-meta-package-local-dependencies.test.mjs tests/pi-sibling-skill-bundles.test.mjs tests/publish-pi-packages.test.mjs");
+    expect(scriptCommands).not.toContain("pnpm exec vitest run tests/has-header.test.mjs tests/pi-install-local-make-target.test.mjs tests/pi-local-yeet-command.test.mjs tests/pi-meta-package-local-dependencies.test.mjs tests/pi-sibling-skill-bundles.test.mjs tests/publish-pi-packages.test.mjs");
     expect(scriptCommands).not.toContain("pnpm --dir agent-booster-pack test");
   });
 
   it("checks Pi package and extension changes", () => {
     const commands = commandStrings(["agent-booster-pack/extensions/self-review-guard.ts"]);
 
-    expect(commands).toContain("pnpm exec vitest run tests/abp-header.test.mjs tests/pi-install-local-make-target.test.mjs tests/pi-local-yeet-command.test.mjs tests/pi-meta-package-local-dependencies.test.mjs tests/pi-sibling-skill-bundles.test.mjs tests/publish-pi-packages.test.mjs");
+    expect(commands).toContain("pnpm exec vitest run tests/has-header.test.mjs tests/pi-install-local-make-target.test.mjs tests/pi-local-yeet-command.test.mjs tests/pi-meta-package-local-dependencies.test.mjs tests/pi-sibling-skill-bundles.test.mjs tests/publish-pi-packages.test.mjs");
     expect(commands).toContain("pnpm --dir agent-booster-pack test");
   });
 });

@@ -30,7 +30,7 @@ describe("self-review guard", () => {
 
     selfReviewGuard(fakePi);
 
-    expect(commands.get("abp:self-review")).toBeTruthy();
+    expect(commands.get("has:self-review")).toBeTruthy();
     expect(handlers.get("message_end")).toBeTruthy();
   });
 
@@ -55,7 +55,7 @@ describe("self-review guard", () => {
 
     expect(result).toBeUndefined();
     expect(sent).toHaveLength(1);
-    expect(sent[0].message).toMatchObject({ customType: "abp-self-review", display: false });
+    expect(sent[0].message).toMatchObject({ customType: "has-self-review", display: false });
     expect(sent[0].options).toEqual({ triggerTurn: true, deliverAs: "followUp" });
     expect(sent[0].message.content).toContain(SELF_REVIEW_MARKER);
     expect(sent[0].message.content).toMatch(/run a final-pass self-review/i);
@@ -72,7 +72,7 @@ describe("self-review guard", () => {
     };
 
     selfReviewGuard(fakePi);
-    await commands.get("abp:self-review").handler("focus on auth", {
+    await commands.get("has:self-review").handler("focus on auth", {
       sessionManager: { getBranch: () => [] },
     });
 
@@ -101,7 +101,7 @@ describe("self-review guard", () => {
       assistantText("Updated cache handling."),
     ];
 
-    expect(selfReviewPromptFor(turnMessages)).toMatch(/ABP self-review/);
+    expect(selfReviewPromptFor(turnMessages)).toMatch(/HAS self-review/);
   });
 
   it("detects changes from session entries scoped to the latest user turn", () => {

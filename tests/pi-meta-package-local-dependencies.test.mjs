@@ -10,7 +10,7 @@ function readPackage(packageDir) {
 }
 
 describe("Pi single-package layout", () => {
-  it("makes the repo root installable from GitHub with only the bundled ABP package surface", () => {
+  it("makes the repo root installable from GitHub with only the bundled HAS package surface", () => {
     const pkg = readPackage(ROOT);
 
     expect(pkg.private).toBe(true);

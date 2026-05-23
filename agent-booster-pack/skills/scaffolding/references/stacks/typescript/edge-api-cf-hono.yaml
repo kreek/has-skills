@@ -21,7 +21,7 @@ metadata:
     - url: https://vitest.dev/
       title: Vitest
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

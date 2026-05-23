@@ -22,7 +22,7 @@ metadata:
     - url: https://hotwired.dev/
       title: Hotwire / Turbo
 spec:
-  owner: abp
+  owner: has
   type: website
   parameters:
     - title: Stack Configuration

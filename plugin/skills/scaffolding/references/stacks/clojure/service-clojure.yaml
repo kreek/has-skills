@@ -26,7 +26,7 @@ metadata:
     - url: https://opentelemetry.io/docs/languages/other/
       title: OpenTelemetry (clj-otel)
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

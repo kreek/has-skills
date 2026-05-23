@@ -1,5 +1,5 @@
 {
-  "name": "abp",
+  "name": "has",
   "owner": {
     "name": "Alastair Dawson",
     "url": "https://github.com/kreek"
@@ -11,13 +11,13 @@
   },
   "plugins": [
     {
-      "name": "abp",
+      "name": "has",
       "description": "Portable, collaborative engineering-discipline skill pack: data, proof, security, design, and more.",
       "version": "10.4.0",
       "author": {
         "name": "Alastair Dawson"
       },
-      "homepage": "https://github.com/kreek/highline-agent-skills",
+      "homepage": "https://github.com/kreek/has-skills",
       "license": "MIT",
       "source": "./plugin"
     }

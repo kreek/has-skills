@@ -23,7 +23,7 @@ metadata:
     - url: https://www.graalvm.org/latest/reference-manual/native-image/
       title: GraalVM Native Image
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

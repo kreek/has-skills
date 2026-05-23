@@ -2,8 +2,8 @@ import { isProductionFile } from "../src/classify.mjs";
 import { REMINDER, alreadyAcknowledged } from "../src/self-review-core.mjs";
 
 const CHANGE_TOOL_NAMES = new Set(["edit", "write"]);
-export const SELF_REVIEW_MARKER = "ABP self-review";
-const SELF_REVIEW_MESSAGE = "abp-self-review";
+export const SELF_REVIEW_MARKER = "HAS self-review";
+const SELF_REVIEW_MESSAGE = "has-self-review";
 const MUTATING_BASH_PATTERN = /(\btee\b|\bpython\b[\s\S]*\bopen\([^)]*['"]w|\bnode\b[\s\S]*writeFile|\bperl\s+-pi\b|\bsed\s+-i\b|\bmv\b|\bcp\b|\btouch\b|\bchmod\b|\bgit\s+apply\b|\bpatch\b)/i;
 
 function messageText(value) {
@@ -107,8 +107,8 @@ function genericSelfReviewPrompt(args) {
 }
 
 export default function selfReviewGuard(pi) {
-  pi.registerCommand("abp:self-review", {
-    description: "Run the ABP self-review gate",
+  pi.registerCommand("has:self-review", {
+    description: "Run the HAS self-review gate",
     handler: async (args, ctx) => {
       const branchEntries = ctx.sessionManager?.getBranch?.() ?? [];
       const prompt = selfReviewPromptForSessionEntries(branchEntries) ?? genericSelfReviewPrompt(args);

@@ -92,7 +92,7 @@ function readIfExists(filePath: string): string {
 }
 
 function routingMarkerPath(workDir: string): string {
-  return path.join(workDir, ".abp-eval-kind.json");
+  return path.join(workDir, ".has-eval-kind.json");
 }
 
 function readRoutingMarker(workDir: string): { kind?: unknown; case?: unknown } | undefined {
@@ -186,13 +186,13 @@ function isBaselineSession(session: EvalSession): boolean {
   return /-codexBaseline[-/]|"profile"\s*:\s*"codexBaseline"|\bcodexBaseline\b/i.test(commandAndResultText(session));
 }
 
-function isAbpSession(session: EvalSession): boolean {
-  return /-codexWithAbpSkills[-/]|"profile"\s*:\s*"codexWithAbpSkills"|\bcodexWithAbpSkills\b/i.test(
+function isHasSession(session: EvalSession): boolean {
+  return /-codexWithHasSkills[-/]|"profile"\s*:\s*"codexWithHasSkills"|\bcodexWithHasSkills\b/i.test(
     commandAndResultText(session),
   );
 }
 
-function readAbpSkillNames(session: EvalSession): string[] {
+function readHasSkillNames(session: EvalSession): string[] {
   const text = commandAndResultText(session);
   const skills = new Set<string>();
   for (const match of text.matchAll(/agents\/\.agents\/skills\/([^/\s"']+)\/SKILL\.md/g)) {
@@ -208,26 +208,26 @@ function readAbpSkillNames(session: EvalSession): string[] {
 }
 
 function scoreRoutingSession(session: EvalSession, _verify: VerifyResult): PluginScoreResult {
-  const skillReads = readAbpSkillNames(session);
+  const skillReads = readHasSkillNames(session);
   const baselineSkillReads = isBaselineSession(session) ? skillReads : [];
-  const abpSkillReads = isAbpSession(session) ? skillReads : [];
+  const hasSkillReads = isHasSession(session) ? skillReads : [];
   const writesScore = session.fileWrites.length === 0 ? 100 : 0;
   const scores = {
     no_file_writes: writesScore,
     baseline_isolation: baselineSkillReads.length > 0 ? 0 : 100,
-    abp_activation: isAbpSession(session) && abpSkillReads.length === 0 ? 0 : 100,
+    has_activation: isHasSession(session) && hasSkillReads.length === 0 ? 0 : 100,
   };
   const weights = {
     no_file_writes: 0.7,
     baseline_isolation: 0.15,
-    abp_activation: 0.15,
+    has_activation: 0.15,
   };
   const findings: string[] = [];
   if (session.fileWrites.length > 0) findings.push("Routing trial wrote files despite being read-only.");
   if (baselineSkillReads.length > 0) {
     findings.push(`Baseline session read HAS skill files: ${baselineSkillReads.join(", ")}.`);
   }
-  if (isAbpSession(session) && abpSkillReads.length === 0) {
+  if (isHasSession(session) && hasSkillReads.length === 0) {
     findings.push("HAS profile did not read any HAS skill files; plugin activation is not proven.");
   }
 
@@ -331,8 +331,8 @@ function validateCustomerEmailSql(workDir: string): VerifyResult {
 }
 
 function runOptionalPostgresMigrationCheck(workDir: string): VerifyResult {
-  const databaseUrl = process.env["ABP_EVAL_POSTGRES_URL"];
-  if (!databaseUrl) return { passed: true, output: "Postgres execution skipped; ABP_EVAL_POSTGRES_URL is not set.", metrics: {} };
+  const databaseUrl = process.env["HAS_EVAL_POSTGRES_URL"];
+  if (!databaseUrl) return { passed: true, output: "Postgres execution skipped; HAS_EVAL_POSTGRES_URL is not set.", metrics: {} };
 
   const migrationFiles = fs
     .readdirSync(path.join(workDir, "migrations"))
@@ -341,8 +341,8 @@ function runOptionalPostgresMigrationCheck(workDir: string): VerifyResult {
   const allMigrationSql = migrationFiles
     .map((name) => readIfExists(path.join(workDir, "migrations", name)))
     .join("\n\n");
-  const schema = `abp_eval_${process.pid}_${Date.now()}`;
-  const artifactDir = path.join(workDir, ".abp-eval");
+  const schema = `has_eval_${process.pid}_${Date.now()}`;
+  const artifactDir = path.join(workDir, ".has-eval");
   fs.mkdirSync(artifactDir, { recursive: true });
   const scriptPath = path.join(artifactDir, "postgres-migration-check.sql");
   fs.writeFileSync(
@@ -1126,9 +1126,9 @@ const plugin: EvalPlugin = {
     const wroteTests = session.fileWrites.some((file) => file.labels.includes("test"));
     const wroteSource = session.fileWrites.some((file) => file.labels.includes("source"));
     const submittedProofPassed = verify.metrics["submittedProofPassed"] === 1;
-    const skillReads = readAbpSkillNames(session);
+    const skillReads = readHasSkillNames(session);
     const baselineSkillReads = isBaselineSession(session) ? skillReads : [];
-    const abpSkillReads = isAbpSession(session) ? skillReads : [];
+    const hasSkillReads = isHasSession(session) ? skillReads : [];
     const postWriteProof = hasPostWriteCommand(
       session,
       /\b(npm\s+test|npm\s+run\s+(test|typecheck|lint|check)|vitest|pytest|go\s+test|cargo\s+test|mvn\s+test|uv\s+run\s+(pytest|ruff|pyright|python)|refcheck|validate[-_]skill[-_]anatomy)\b/i,
@@ -1139,14 +1139,14 @@ const plugin: EvalPlugin = {
       proof: submittedProofPassed && postWriteProof ? 100 : submittedProofPassed ? 85 : postWriteProof ? 60 : verify.passed ? 35 : 15,
       change_quality: wroteSource && wroteTests ? 100 : wroteSource ? 70 : 25,
       baseline_isolation: baselineSkillReads.length > 0 ? 0 : 100,
-      abp_activation: isAbpSession(session) && abpSkillReads.length === 0 ? 0 : 100,
+      has_activation: isHasSession(session) && hasSkillReads.length === 0 ? 0 : 100,
     };
     const weights = {
       verification: 0.45,
       proof: 0.30,
       change_quality: 0.14,
       baseline_isolation: 0.05,
-      abp_activation: 0.06,
+      has_activation: 0.06,
     };
     const findings: string[] = [];
     if (!submittedProofPassed) findings.push("No behavior-relevant submitted proof was detected.");
@@ -1156,7 +1156,7 @@ const plugin: EvalPlugin = {
     if (baselineSkillReads.length > 0) {
       findings.push(`Baseline session read HAS skill files: ${baselineSkillReads.join(", ")}.`);
     }
-    if (isAbpSession(session) && abpSkillReads.length === 0) {
+    if (isHasSession(session) && hasSkillReads.length === 0) {
       findings.push("HAS profile did not read any HAS skill files; plugin activation is not proven.");
     }
 
@@ -1188,7 +1188,7 @@ const plugin: EvalPlugin = {
   afterRun({ workDir, session }) {
     const finalText = extractFinalAssistantText(session.rawLines);
     if (!finalText) return;
-    const artifactDir = path.join(workDir, ".abp-eval");
+    const artifactDir = path.join(workDir, ".has-eval");
     fs.mkdirSync(artifactDir, { recursive: true });
     fs.writeFileSync(path.join(artifactDir, "assistant-final.md"), finalText);
   },
@@ -1225,7 +1225,7 @@ const plugin: EvalPlugin = {
       taskDescription,
       "",
       "## Final Assistant Answer",
-      readIfExists(path.join(workDir, ".abp-eval", "assistant-final.md")) || "(not captured)",
+      readIfExists(path.join(workDir, ".has-eval", "assistant-final.md")) || "(not captured)",
       "",
       "## Final Workdir Snapshot",
       readProjectSnapshot(workDir),

@@ -21,7 +21,7 @@ metadata:
     - url: https://docs.astral.sh/ruff/
       title: ruff
 spec:
-  owner: abp
+  owner: has
   type: website
   parameters:
     - title: Stack Configuration

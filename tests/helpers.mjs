@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 export const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
 
-export function makeTempDir(prefix = "abp-test-") {
+export function makeTempDir(prefix = "has-test-") {
   return mkdtempSync(join(tmpdir(), prefix));
 }
 

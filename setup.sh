@@ -114,7 +114,7 @@ backup_path_for() {
 	local target="$1"
 	local stamp
 	stamp=$(date +%Y%m%d%H%M%S)
-	printf "%s.abp-backup.%s.%s" "$target" "$stamp" "$$"
+	printf "%s.has-backup.%s.%s" "$target" "$stamp" "$$"
 }
 
 link_skill() {
@@ -280,7 +280,7 @@ configure_antigravity_plugin() {
 	fi
 }
 
-remove_abp_skill_links() {
+remove_has_skill_links() {
 	local label="$1"
 	local target_dir="$2"
 	if [ ! -d "$target_dir" ]; then
@@ -306,29 +306,29 @@ remove_abp_skill_links() {
 	done
 }
 
-codex_abp_plugin_installed() {
+codex_has_plugin_installed() {
 	local manifest
-	for manifest in "$HOME"/.codex/plugins/cache/abp/*/*/.codex-plugin/plugin.json \
-		"$HOME"/.codex/plugins/cache/abp/*/.codex-plugin/plugin.json; do
+	for manifest in "$HOME"/.codex/plugins/cache/has/*/*/.codex-plugin/plugin.json \
+		"$HOME"/.codex/plugins/cache/has/*/.codex-plugin/plugin.json; do
 		[ -f "$manifest" ] && return 0
 	done
 	return 1
 }
 
-cursor_abp_plugin_installed() {
+cursor_has_plugin_installed() {
 	local manifest
-	for manifest in "$HOME"/.cursor/plugins/cache/abp/*/*/.cursor-plugin/plugin.json \
-		"$HOME"/.cursor/plugins/cache/abp/*/.cursor-plugin/plugin.json \
-		"$HOME"/.cursor/plugins/local/abp/.cursor-plugin/plugin.json; do
+	for manifest in "$HOME"/.cursor/plugins/cache/has/*/*/.cursor-plugin/plugin.json \
+		"$HOME"/.cursor/plugins/cache/has/*/.cursor-plugin/plugin.json \
+		"$HOME"/.cursor/plugins/local/has/.cursor-plugin/plugin.json; do
 		[ -f "$manifest" ] && return 0
 	done
 	return 1
 }
 
 # Codex CLI: ~/.codex/skills/
-if codex_abp_plugin_installed; then
+if codex_has_plugin_installed; then
 	echo "Codex: HAS plugin installed; pruning manual HAS skill links"
-	remove_abp_skill_links "Codex" "$HOME/.codex/skills"
+	remove_has_skill_links "Codex" "$HOME/.codex/skills"
 	cat <<EOF
 Codex: HAS is also linked into ~/.agents/skills by this manual install.
 Codex can discover ~/.agents/skills directly, so keep either the manual install
@@ -346,9 +346,9 @@ link_skills_per_agent "Windsurf" "$HOME/.codeium/windsurf/skills"
 # marker and a root-level skills/ directory, which agy imports as skills.
 configure_antigravity_plugin
 
-if cursor_abp_plugin_installed; then
+if cursor_has_plugin_installed; then
 	cat <<EOF
-Cursor: HAS plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/abp.
+Cursor: HAS plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/has.
 Cursor also auto-discovers ~/.agents/skills/ from this manual install.
 Keep either the Cursor plugin or the manual install for Cursor, not both, to avoid duplicate HAS skills in Agent Decides.
 EOF

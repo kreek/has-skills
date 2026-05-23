@@ -25,7 +25,7 @@ repo maintenance helpers, plugin packaging, and extension packages.
   copies of canonical skills from `agents/.agents/skills/<name>`.
   `.claude-plugin/marketplace.json` points Claude Code at the `plugin/` root,
   where `plugin/.claude-plugin/plugin.json` exposes namespaced
-  `/abp:<skill>` slash commands.
+  `/has:<skill>` slash commands.
 - **Codex plugin package**: `.agents/plugins/marketplace.json` points Codex at
   the `plugin/` root, and `plugin/.codex-plugin/plugin.json` exposes the same
   generated skill mirror to Codex as a plugin. Keep the Codex marketplace and
@@ -37,7 +37,7 @@ repo maintenance helpers, plugin packaging, and extension packages.
 - **Google Antigravity plugin package**: `plugin/plugin.json` is the
   Antigravity marker for HAS. Local installs create an Antigravity plugin
   directory that links only `plugin/plugin.json` and the generated
-  `plugin/skills/` mirror under `~/.gemini/config/plugins/abp`.
+  `plugin/skills/` mirror under `~/.gemini/config/plugins/has`.
 - **Install layout**: `agents/` is a GNU Stow package. `./setup.sh` is the
   one-click local installer: it explains the actions, asks for approval, runs
   Stow to link the shared skills under `~/.agents/`, fans those out to

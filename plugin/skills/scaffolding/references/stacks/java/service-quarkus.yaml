@@ -27,7 +27,7 @@ metadata:
     - url: https://quarkus.io/guides/building-native-image
       title: Building a native executable
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

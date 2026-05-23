@@ -22,7 +22,7 @@ metadata:
     - url: https://github.com/JetBrains/Exposed
       title: Exposed
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

@@ -274,7 +274,7 @@ function readJsonObject(path) {
 
 function firstPluginEntry(marketplace) {
   if (!Array.isArray(marketplace.plugins)) return null;
-  return marketplace.plugins.find((entry) => entry && typeof entry === "object" && entry.name === "abp") ?? null;
+  return marketplace.plugins.find((entry) => entry && typeof entry === "object" && entry.name === "has") ?? null;
 }
 
 export function validateCodexPluginPackage(skillsDir) {
@@ -288,7 +288,7 @@ export function validateCodexPluginPackage(skillsDir) {
   const [marketplace, marketplaceProblem] = readJsonObject(marketplacePath);
   if (marketplaceProblem) problems.push(marketplaceProblem);
   else if (marketplace) {
-    if (marketplace.name !== "abp") problems.push(`${marketplacePath} name must be 'abp'`);
+    if (marketplace.name !== "has") problems.push(`${marketplacePath} name must be 'has'`);
     if (!marketplace.interface || typeof marketplace.interface !== "object") {
       problems.push(`${marketplacePath} interface must be an object`);
     } else if (marketplace.interface.displayName !== "Highline Agent Skills") {
@@ -296,34 +296,34 @@ export function validateCodexPluginPackage(skillsDir) {
     }
 
     const entry = firstPluginEntry(marketplace);
-    if (!entry) problems.push(`${marketplacePath} must include an 'abp' plugin entry`);
+    if (!entry) problems.push(`${marketplacePath} must include an 'has' plugin entry`);
     else {
       if (!entry.source || typeof entry.source !== "object") {
-        problems.push(`${marketplacePath} abp.source must be an object`);
+        problems.push(`${marketplacePath} has.source must be an object`);
       } else {
-        if (entry.source.source !== "local") problems.push(`${marketplacePath} abp.source.source must be 'local'`);
-        if (entry.source.path !== "./plugin") problems.push(`${marketplacePath} abp.source.path must be './plugin'`);
+        if (entry.source.source !== "local") problems.push(`${marketplacePath} has.source.source must be 'local'`);
+        if (entry.source.path !== "./plugin") problems.push(`${marketplacePath} has.source.path must be './plugin'`);
       }
 
       if (!entry.policy || typeof entry.policy !== "object") {
-        problems.push(`${marketplacePath} abp.policy must be an object`);
+        problems.push(`${marketplacePath} has.policy must be an object`);
       } else {
         if (entry.policy.installation !== "AVAILABLE") {
-          problems.push(`${marketplacePath} abp.policy.installation must be 'AVAILABLE'`);
+          problems.push(`${marketplacePath} has.policy.installation must be 'AVAILABLE'`);
         }
         if (entry.policy.authentication !== "ON_INSTALL") {
-          problems.push(`${marketplacePath} abp.policy.authentication must be 'ON_INSTALL'`);
+          problems.push(`${marketplacePath} has.policy.authentication must be 'ON_INSTALL'`);
         }
       }
 
-      if (entry.category !== "Coding") problems.push(`${marketplacePath} abp.category must be 'Coding'`);
+      if (entry.category !== "Coding") problems.push(`${marketplacePath} has.category must be 'Coding'`);
     }
   }
 
   const [manifest, manifestProblem] = readJsonObject(manifestPath);
   if (manifestProblem) problems.push(manifestProblem);
   else if (manifest) {
-    if (manifest.name !== "abp") problems.push(`${manifestPath} name must be 'abp'`);
+    if (manifest.name !== "has") problems.push(`${manifestPath} name must be 'has'`);
     if (manifest.skills !== "./skills/") problems.push(`${manifestPath} skills must be './skills/'`);
     if ("hooks" in manifest) problems.push(`${manifestPath} must not declare hooks; HAS plugin packages are skills-only`);
 
@@ -351,13 +351,13 @@ export function validateCodexPluginPackage(skillsDir) {
       }
       const claudeEntry = firstPluginEntry(claudeMarketplace);
       if (!claudeEntry) {
-        problems.push(`${claudeMarketplacePath} must include an 'abp' plugin entry`);
+        problems.push(`${claudeMarketplacePath} must include an 'has' plugin entry`);
       } else {
         if (claudeEntry.source !== "./plugin") {
-          problems.push(`${claudeMarketplacePath} abp.source must be './plugin'`);
+          problems.push(`${claudeMarketplacePath} has.source must be './plugin'`);
         }
         if (claudeEntry.version !== claudeVersion) {
-          problems.push(`${claudeMarketplacePath} abp.version must match metadata.version`);
+          problems.push(`${claudeMarketplacePath} has.version must match metadata.version`);
         }
       }
     }
@@ -402,7 +402,7 @@ export function validateCursorPluginPackage(skillsDir) {
   const [marketplace, marketplaceProblem] = readJsonObject(marketplacePath);
   if (marketplaceProblem) problems.push(marketplaceProblem);
   else if (marketplace) {
-    if (marketplace.name !== "abp") problems.push(`${marketplacePath} name must be 'abp'`);
+    if (marketplace.name !== "has") problems.push(`${marketplacePath} name must be 'has'`);
     if (!marketplace.owner || typeof marketplace.owner !== "object") {
       problems.push(`${marketplacePath} owner must be an object`);
     } else if (marketplace.owner.name !== "Alastair Dawson") {
@@ -420,13 +420,13 @@ export function validateCursorPluginPackage(skillsDir) {
     }
 
     const entry = firstPluginEntry(marketplace);
-    if (!entry) problems.push(`${marketplacePath} must include an 'abp' plugin entry`);
+    if (!entry) problems.push(`${marketplacePath} must include an 'has' plugin entry`);
     else {
       if (entry.source !== "./plugin") {
-        problems.push(`${marketplacePath} abp.source must be './plugin'`);
+        problems.push(`${marketplacePath} has.source must be './plugin'`);
       }
       if (claudeVersion && entry.version !== claudeVersion) {
-        problems.push(`${marketplacePath} abp.version must match metadata.version`);
+        problems.push(`${marketplacePath} has.version must match metadata.version`);
       }
     }
   }
@@ -434,7 +434,7 @@ export function validateCursorPluginPackage(skillsDir) {
   const [manifest, manifestProblem] = readJsonObject(manifestPath);
   if (manifestProblem) problems.push(manifestProblem);
   else if (manifest) {
-    if (manifest.name !== "abp") problems.push(`${manifestPath} name must be 'abp'`);
+    if (manifest.name !== "has") problems.push(`${manifestPath} name must be 'has'`);
     if (manifest.skills !== "./skills/") problems.push(`${manifestPath} skills must be './skills/'`);
     if ("hooks" in manifest) {
       problems.push(`${manifestPath} must not declare hooks; HAS plugin packages are skills-only`);
@@ -467,8 +467,8 @@ export function validateAntigravityPluginPackage(skillsDir) {
 
   const [manifest, manifestProblem] = readJsonObject(manifestPath);
   if (manifestProblem) problems.push(manifestProblem);
-  else if (manifest && manifest.name !== "abp") {
-    problems.push(`${manifestPath} name must be 'abp'`);
+  else if (manifest && manifest.name !== "has") {
+    problems.push(`${manifestPath} name must be 'has'`);
   }
 
   if (!existsSync(pluginSkillsPath) || !statSync(pluginSkillsPath).isDirectory()) {
@@ -491,7 +491,7 @@ function writeFixture(path, text) {
 }
 
 export function runSelfTest() {
-  const tmp = mkdtempSync(join(tmpdir(), "abp-skill-validator-"));
+  const tmp = mkdtempSync(join(tmpdir(), "has-skill-validator-"));
   try {
     cpSync(resolve(scriptDir(), "../agents/.agents/skills/workflow"), join(tmp, "good"), { recursive: true });
     writeFixture(

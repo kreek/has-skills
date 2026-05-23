@@ -71,7 +71,9 @@ function expectNeutralFixtureContent(filePath: string): void {
   for (const skill of expectedReadmeSkills) {
     expect(content, filePath).not.toMatch(new RegExp(`\\b${escapeRegExp(skill)}\\b`, "i"));
   }
-  expect(content, filePath).not.toMatch(/\b(ABP|Agent Booster Pack|Highline Agent Skills|skills?)\b/i);
+  expect(content, filePath).not.toMatch(/\b(Highline Agent Skills|Agent Booster Pack|skills?)\b/i);
+  // Match the brand acronym case-sensitively so the common English word "has" does not trip the guard.
+  expect(content, filePath).not.toMatch(/\bHAS\b/);
 }
 
 function messageLine(role: "user" | "assistant", text: string): string {
@@ -106,8 +108,8 @@ function routingVerify(): VerifyResult {
 describe("HAS eval config", () => {
   it("defines a baseline Codex profile and a Codex profile with the HAS plugin", () => {
     const baseline = profiles["codexBaseline"];
-    const withAbp = profiles["codexWithAbpSkills"];
-    if (!baseline || !withAbp) throw new Error("Expected Codex profiles");
+    const withHas = profiles["codexWithHasSkills"];
+    if (!baseline || !withHas) throw new Error("Expected Codex profiles");
 
     expect(baseline.agent.harness).toBe("codex");
     expect(baseline.factors.layers).toEqual([]);
@@ -122,36 +124,36 @@ describe("HAS eval config", () => {
     ]);
     expect(baseline.factors["reasoningEffort"]).toBe("medium");
 
-    expect(withAbp.agent.harness).toBe("codex");
-    expect(withAbp.agent.codex?.isolateHome).toBe(true);
-    expect(withAbp.agent.codex?.ignoreUserConfig).not.toBe(true);
-    expect(withAbp.factors.layers).toEqual([
+    expect(withHas.agent.harness).toBe("codex");
+    expect(withHas.agent.codex?.isolateHome).toBe(true);
+    expect(withHas.agent.codex?.ignoreUserConfig).not.toBe(true);
+    expect(withHas.factors.layers).toEqual([
       expect.objectContaining({
-        id: "abp",
+        id: "has",
         kind: "plugin",
         runtime: "codex",
       }),
     ]);
-    expect(withAbp.setup?.layers).toEqual([
+    expect(withHas.setup?.layers).toEqual([
       expect.objectContaining({
-        id: "abp-skills",
+        id: "has-skills",
         kind: "skill-library",
         runtime: "codex",
         source: "../agents/.agents/skills",
       }),
     ]);
-    expect(fs.existsSync(path.resolve(evalDir, withAbp.setup?.layers?.[0]?.source ?? ""))).toBe(true);
-    const marketplaceSource = withAbp.agent.codex?.pluginMarketplaces?.[0];
+    expect(fs.existsSync(path.resolve(evalDir, withHas.setup?.layers?.[0]?.source ?? ""))).toBe(true);
+    const marketplaceSource = withHas.agent.codex?.pluginMarketplaces?.[0];
     expect(marketplaceSource, "HAS profile must register the local repo as a codex plugin marketplace").toBeDefined();
     expect(fs.existsSync(path.resolve(marketplaceSource ?? ""))).toBe(true);
     expect(fs.existsSync(path.join(marketplaceSource ?? "", "plugin", ".codex-plugin", "plugin.json"))).toBe(true);
-    expect(withAbp.agent.codex?.extraArgs).toEqual(
-      expect.arrayContaining(["-c", expect.stringContaining('plugins."abp@abp".enabled=true')]),
+    expect(withHas.agent.codex?.extraArgs).toEqual(
+      expect.arrayContaining(["-c", expect.stringContaining('plugins."has@has".enabled=true')]),
     );
-    expect(withAbp.agent.codex?.extraArgs).toEqual(
+    expect(withHas.agent.codex?.extraArgs).toEqual(
       expect.arrayContaining(["-c", 'model_reasoning_effort="medium"']),
     );
-    expect(withAbp.factors["reasoningEffort"]).toBe("medium");
+    expect(withHas.factors["reasoningEffort"]).toBe("medium");
     expect(config.judge?.thinking).toBe("medium");
   });
 
@@ -159,7 +161,7 @@ describe("HAS eval config", () => {
     const bench = benches["allSkills"];
     if (!bench) throw new Error("Expected allSkills bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithAbpSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
     expect(getSuite("allSkills").length).toBeGreaterThan(0);
     expect(bench.epochs).toBe(1);
   });
@@ -168,11 +170,11 @@ describe("HAS eval config", () => {
     const bench = benches["smoke"];
     if (!bench) throw new Error("Expected smoke bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithAbpSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
     expect(bench.requireJudge).toBe(true);
     expect(bench.requiredDeterministicScores).toEqual({
       baseline_isolation: 100,
-      abp_activation: 100,
+      has_activation: 100,
     });
     expect(getSuite("smoke").map((entry) => entry.trial)).toEqual(["routing-checkout-payment"]);
   });
@@ -181,7 +183,7 @@ describe("HAS eval config", () => {
     const bench = benches["routing"];
     if (!bench) throw new Error("Expected routing bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithAbpSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
     expect(getSuite("routing").map((entry) => entry.trial)).toEqual([
       "routing-checkout-payment",
       "routing-worker-retry",
@@ -194,7 +196,7 @@ describe("HAS eval config", () => {
     const bench = benches["largeProject"];
     if (!bench) throw new Error("Expected largeProject bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithAbpSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
     expect(bench.epochs).toBe(1);
     expect(getSuite("largeProject").map((entry) => entry.trial)).toEqual([
       "large-checkout-workflow",
@@ -305,7 +307,7 @@ describe("HAS eval config", () => {
         expectNeutralFixtureContent(fixturePath);
       }
 
-      const marker = JSON.parse(fs.readFileSync(path.join(trialDir, "scaffold", ".abp-eval-kind.json"), "utf-8")) as {
+      const marker = JSON.parse(fs.readFileSync(path.join(trialDir, "scaffold", ".has-eval-kind.json"), "utf-8")) as {
         kind?: unknown;
       };
       expect(marker).toEqual({ kind: "routing", case: expect.any(Number) });
@@ -344,7 +346,7 @@ describe("HAS eval config", () => {
       expect(fs.existsSync(path.join(scaffold, "package.json"))).toBe(true);
       expect(fs.existsSync(path.join(scaffold, "test")) || fs.existsSync(path.join(scaffold, "public"))).toBe(true);
 
-      const workDir = fs.mkdtempSync(path.join(os.tmpdir(), `abp-eval-${trial}-`));
+      const workDir = fs.mkdtempSync(path.join(os.tmpdir(), `has-eval-${trial}-`));
       try {
         fs.cpSync(scaffold, workDir, { recursive: true });
         const verify = maturityPlugin.verify?.(workDir);
@@ -400,7 +402,7 @@ describe("HAS eval config", () => {
 
     expect(result.scores["no_file_writes"]).toBe(100);
     expect(result.scores["baseline_isolation"]).toBe(100);
-    expect(result.scores["abp_activation"]).toBe(100);
+    expect(result.scores["has_activation"]).toBe(100);
     expect(result.scores).not.toHaveProperty("routing");
     expect(result.scores).not.toHaveProperty("exclusions");
     expect(result.scores).not.toHaveProperty("proof_plan");
@@ -524,7 +526,7 @@ describe("HAS eval config", () => {
           timestamp: 1,
           name: "command_execution",
           arguments: { command: "/bin/zsh -lc pwd" },
-          resultText: "/tmp/run-proof-first-bugfix-default-codexWithAbpSkills-123/workdir\n",
+          resultText: "/tmp/run-proof-first-bugfix-default-codexWithHasSkills-123/workdir\n",
           wasBlocked: false,
         },
       ],
@@ -536,7 +538,7 @@ describe("HAS eval config", () => {
       metrics: { submittedProofPassed: 1 },
     });
 
-    expect(result.scores["abp_activation"]).toBe(0);
+    expect(result.scores["has_activation"]).toBe(0);
     expect(result.findings).toContain("HAS profile did not read any HAS skill files; plugin activation is not proven.");
   });
 
@@ -547,7 +549,7 @@ describe("HAS eval config", () => {
           timestamp: 1,
           name: "command_execution",
           arguments: { command: "/bin/zsh -lc pwd" },
-          resultText: "/tmp/run-proof-first-bugfix-default-codexWithAbpSkills-123/workdir\n",
+          resultText: "/tmp/run-proof-first-bugfix-default-codexWithHasSkills-123/workdir\n",
           wasBlocked: false,
         },
         {
@@ -569,7 +571,7 @@ describe("HAS eval config", () => {
       metrics: { submittedProofPassed: 1 },
     });
 
-    expect(result.scores["abp_activation"]).toBe(100);
+    expect(result.scores["has_activation"]).toBe(100);
     expect(result.findings).not.toContain("HAS profile did not read any HAS skill files; plugin activation is not proven.");
   });
 

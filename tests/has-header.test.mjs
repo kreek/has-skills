@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import abpHeader, { renderAbpHeader } from "../agent-booster-pack/extensions/abp-header.ts";
+import hasHeader, { renderHasHeader } from "../agent-booster-pack/extensions/has-header.ts";
 
 function makePi() {
   const handlers = new Map();
@@ -36,9 +36,9 @@ function makeContext() {
   };
 }
 
-describe("ABP Pi startup header", () => {
-  it("renders the selected large ABP ASCII header with session context and no border", () => {
-    const lines = renderAbpHeader(80, "test-model · repo");
+describe("HAS Pi startup header", () => {
+  it("renders the selected large HAS ASCII header with session context and no border", () => {
+    const lines = renderHasHeader(80, "test-model · repo");
     const plainText = lines.join("\n");
 
     expect(plainText).toContain("    ___    ____  ____ ");
@@ -52,7 +52,7 @@ describe("ABP Pi startup header", () => {
   });
 
   it("colors the startup logo with pi's context green", () => {
-    const lines = renderAbpHeader(80, "test-model · repo");
+    const lines = renderHasHeader(80, "test-model · repo");
 
     expect(lines.join("\n")).toContain("\x1b[38;2;181;189;104m    ___    ____  ____ ");
   });
@@ -60,7 +60,7 @@ describe("ABP Pi startup header", () => {
   it("installs the startup header when a UI session starts", async () => {
     const pi = makePi();
     const ctx = makeContext();
-    abpHeader(pi);
+    hasHeader(pi);
 
     await pi.handlers.get("session_start")({}, ctx);
 
@@ -72,12 +72,12 @@ describe("ABP Pi startup header", () => {
   it("registers commands to toggle the startup header for the current session", async () => {
     const pi = makePi();
     const ctx = makeContext();
-    abpHeader(pi);
+    hasHeader(pi);
 
-    await pi.commands.get("abp:header-off").handler("", ctx);
-    await pi.commands.get("abp:header-on").handler("", ctx);
+    await pi.commands.get("has:header-off").handler("", ctx);
+    await pi.commands.get("has:header-on").handler("", ctx);
 
     expect(ctx.ui.calls[0]).toBeUndefined();
-    expect(ctx.ui.calls.at(-1)).toEqual({ message: "ABP startup header enabled", level: "info" });
+    expect(ctx.ui.calls.at(-1)).toEqual({ message: "HAS startup header enabled", level: "info" });
   });
 });

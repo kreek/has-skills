@@ -1,6 +1,6 @@
-export const REMINDER = `ABP self-review — before declaring this turn done, run a final-pass self-review of your diff against ABP engineering maturity.
+export const REMINDER = `HAS self-review — before declaring this turn done, run a final-pass self-review of your diff against HAS engineering maturity.
 
-Apply the abp:code-review skill (already installed) to your own changes.
+Apply the has:code-review skill (already installed) to your own changes.
 Report findings first, in severity order, anchored to file:line. Cover the
 lenses that apply to this diff:
 
@@ -10,7 +10,7 @@ lenses that apply to this diff:
   - Evidence: for every behaviour-changing claim, name the proof (test +
     command + observed result) or mark it unproven with a blocker. A passing
     check that does not exercise the new behaviour is not proof. Hand off to
-    abp:proof if claims need new coverage.
+    has:proof if claims need new coverage.
   - Dead surface & AI-risk: speculative abstraction, defensive code with no
     real caller, unused exports, fabricated APIs, scope creep, comprehension
     debt.

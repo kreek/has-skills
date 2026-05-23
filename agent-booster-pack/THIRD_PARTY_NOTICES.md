@@ -4,7 +4,7 @@ Highline Agent Skills for Pi includes a small extension piece adapted from
 `davis7dotsh/my-pi-setup` at
 `https://github.com/davis7dotsh/my-pi-setup`:
 
-- `extensions/abp-header.ts`, adapted from
+- `extensions/has-header.ts`, adapted from
   `https://github.com/davis7dotsh/my-pi-setup/blob/e5a5beb9029f207a82fe4d50b024ad7696fb7ae0/extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.

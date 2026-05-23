@@ -32,7 +32,7 @@ function projectName() {
   return path.basename(process.cwd()) || "session";
 }
 
-export function renderAbpHeader(width, contextText) {
+export function renderHasHeader(width, contextText) {
   const title = color("AGENT BOOSTER PACK", BOLD + ACCENT);
   const context = color(contextText, DIM);
   return [
@@ -48,7 +48,7 @@ function installHeader(ctx) {
   ctx.ui.setHeader((tui) => ({
     render(width) {
       const model = ctx.model?.id ?? "no model selected";
-      return renderAbpHeader(width, `${model} · ${projectName()}`);
+      return renderHasHeader(width, `${model} · ${projectName()}`);
     },
     invalidate() {
       tui.requestRender?.();
@@ -56,22 +56,22 @@ function installHeader(ctx) {
   }));
 }
 
-export default function abpHeader(pi) {
+export default function hasHeader(pi) {
   pi.on("session_start", (_event, ctx) => {
     if (!ctx.hasUI) return;
     installHeader(ctx);
   });
 
-  pi.registerCommand("abp:header-on", {
-    description: "Enable the ABP startup header",
+  pi.registerCommand("has:header-on", {
+    description: "Enable the HAS startup header",
     handler: async (_args, ctx) => {
       if (!ctx.hasUI) return;
       installHeader(ctx);
-      ctx.ui.notify("ABP startup header enabled", "info");
+      ctx.ui.notify("HAS startup header enabled", "info");
     },
   });
 
-  pi.registerCommand("abp:header-off", {
+  pi.registerCommand("has:header-off", {
     description: "Restore pi's built-in startup header",
     handler: async (_args, ctx) => {
       if (!ctx.hasUI) return;

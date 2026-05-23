@@ -22,7 +22,7 @@ metadata:
     - url: https://dotnet.microsoft.com/platform/support/policy/dotnet-core
       title: .NET support policy
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration

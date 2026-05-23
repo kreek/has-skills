@@ -5,7 +5,7 @@ comparison run is wanted, benchmarks whether Codex behaves better when
 Highline Agent Skills is installed as a Codex plugin.
 
 **Default workflow: regression.** HAS-vs-baseline behaviour is established;
-routine change-validation runs `regression` against `codexWithAbpSkills`
+routine change-validation runs `regression` against `codexWithHasSkills`
 only and compares scores against history. Bench (cross-profile comparison)
 is reserved for periodic re-baselining or when claiming a directional win
 against unaided Codex.
@@ -14,8 +14,8 @@ Profiles:
 
 - `codexBaseline`: Codex with an isolated, freshly-authed home and no
   plugins. Used by bench only.
-- `codexWithAbpSkills`: the same Codex model with the local repo registered
-  as a codex plugin marketplace and the `abp@abp` plugin enabled — the same
+- `codexWithHasSkills`: the same Codex model with the local repo registered
+  as a codex plugin marketplace and the `has@has` plugin enabled — the same
   flow a real user gets after `codex plugin marketplace add`. The default
   profile for regression.
 
@@ -63,9 +63,9 @@ registry versions published in the last 24 hours.
 Set a model if the default is not what you want:
 
 ```sh
-export ABP_EVAL_MODEL=gpt-5.3-codex
-export ABP_EVAL_JUDGE_MODEL=gpt-5.3-codex
-export ABP_EVAL_REASONING_EFFORT=low
+export HAS_EVAL_MODEL=gpt-5.3-codex
+export HAS_EVAL_JUDGE_MODEL=gpt-5.3-codex
+export HAS_EVAL_REASONING_EFFORT=low
 ```
 
 By default, both eval workers and the judge use `gpt-5.5` with medium
@@ -82,13 +82,13 @@ from `~/.codex/auth.json`. Each run gets a temporary isolated Codex home.
 pnpm run list             # show profiles, suites, and bench configs
 pnpm run view             # start the do-eval web UI on http://localhost:4242
 
-# Regression — the default workflow. Runs codexWithAbpSkills only.
+# Regression — the default workflow. Runs codexWithHasSkills only.
 pnpm run regression:check # the two trials known to have regressed
 pnpm run regression:core  # always-on and core design/correctness skills
 pnpm run regression:smoke # cheap routing wiring check
 pnpm run regression:all   # full HAS-only sweep
 
-pnpm run trial -- proof-first-bugfix --profile codexWithAbpSkills
+pnpm run trial -- proof-first-bugfix --profile codexWithHasSkills
 
 # Bench — cross-profile comparison. Reserved for re-baselining.
 pnpm run bench:smoke      # compare Codex baseline vs Codex + HAS
@@ -108,6 +108,6 @@ a directional win against unaided Codex). Use **Trial** to debug one
 task under one profile.
 
 Results are written under `~/.cache/agent-booster-pack/eval/runs/` by default
-(override with `ABP_EVAL_RUNS_DIR`). Trial workdirs live outside the repo to
+(override with `HAS_EVAL_RUNS_DIR`). Trial workdirs live outside the repo to
 keep codex's ancestor walk from auto-discovering HAS skills into the baseline
 profile.

@@ -6,7 +6,7 @@ Highline Agent Skills includes small Pi extension pieces adapted from
 
 - `.pi/extensions/yeet.ts`, adapted from
   `https://github.com/davis7dotsh/my-pi-setup/blob/e5a5beb9029f207a82fe4d50b024ad7696fb7ae0/extensions/yeet.ts`.
-- `agent-booster-pack/extensions/abp-header.ts`, adapted from
+- `agent-booster-pack/extensions/has-header.ts`, adapted from
   `https://github.com/davis7dotsh/my-pi-setup/blob/e5a5beb9029f207a82fe4d50b024ad7696fb7ae0/extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.

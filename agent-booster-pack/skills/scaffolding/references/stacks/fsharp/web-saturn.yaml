@@ -23,7 +23,7 @@ metadata:
     - url: https://fsprojects.github.io/fantomas/
       title: Fantomas
 spec:
-  owner: abp
+  owner: has
   type: website
   parameters:
     - title: Stack Configuration

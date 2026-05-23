@@ -6,6 +6,12 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Renamed the GitHub repository to `kreek/has-skills`. Updated install URLs,
+  clone paths, and plugin/package metadata accordingly. Plugin IDs, slash
+  commands, and npm package names are unchanged.
+
 ## [10.4.0] (2026-05-23)
 
 ### Changed

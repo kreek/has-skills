@@ -1,11 +1,11 @@
 {
-  "name": "abp",
+  "name": "has",
   "interface": {
     "displayName": "Highline Agent Skills"
   },
   "plugins": [
     {
-      "name": "abp",
+      "name": "has",
       "source": {
         "source": "local",
         "path": "./plugin"

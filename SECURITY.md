@@ -6,7 +6,7 @@ Please report security issues privately rather than in public issues
 or pull requests.
 
 **Preferred channel:** open a private vulnerability report on GitHub at
-<https://github.com/kreek/highline-agent-skills/security/advisories/new>.
+<https://github.com/kreek/has-skills/security/advisories/new>.
 
 Include:
 

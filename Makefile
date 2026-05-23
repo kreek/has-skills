@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 .PHONY: test pi-install-local pi-uninstall-local publish-pi publish-pi-dry-run
 
-ABP_PI_LOCAL_PACKAGE := $(abspath agent-booster-pack)
+HAS_PI_LOCAL_PACKAGE := $(abspath agent-booster-pack)
 
 test:
 	pnpm test
@@ -17,7 +17,7 @@ pi-install-local:
 	scripts/pi-install-local.sh
 
 pi-uninstall-local:
-	pi remove "$(ABP_PI_LOCAL_PACKAGE)"
+	pi remove "$(HAS_PI_LOCAL_PACKAGE)"
 
 publish-pi:
 	scripts/publish-pi-packages.sh

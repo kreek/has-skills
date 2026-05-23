@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kreek/highline-agent-skills.git",
+    "url": "git+https://github.com/kreek/has-skills.git",
     "directory": "agent-booster-pack"
   },
   "author": "Alastair Dawson",
@@ -40,7 +40,7 @@
     "pi-package",
     "pi-extension",
     "pi",
-    "abp",
+    "has",
     "agent-booster-pack",
     "agent-skills",
     "skills",

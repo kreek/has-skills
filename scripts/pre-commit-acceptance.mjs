@@ -65,7 +65,7 @@ export function selectChecks(paths) {
       pathMatches(path, "tests/pi-local-yeet-command.test.mjs") ||
       pathMatches(path, "tests/pi-meta-package-local-dependencies.test.mjs") ||
       pathMatches(path, "tests/pi-sibling-skill-bundles.test.mjs") ||
-      pathMatches(path, "tests/abp-header.test.mjs") ||
+      pathMatches(path, "tests/has-header.test.mjs") ||
       pathMatches(path, "tests/publish-pi-packages.test.mjs") ||
       pathMatches(path, "scripts/pi-install-local.sh") ||
       pathMatches(path, "scripts/publish-pi-packages.sh") ||
@@ -80,7 +80,7 @@ export function selectChecks(paths) {
           "exec",
           "vitest",
           "run",
-          "tests/abp-header.test.mjs",
+          "tests/has-header.test.mjs",
           "tests/pi-install-local-make-target.test.mjs",
           "tests/pi-local-yeet-command.test.mjs",
           "tests/pi-meta-package-local-dependencies.test.mjs",

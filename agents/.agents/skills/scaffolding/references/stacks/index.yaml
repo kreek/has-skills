@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
-  name: abp-stack-templates
+  name: has-stack-templates
   description: |
     HAS scaffolding stack templates. Each target is a Backstage
     Software Template (apiVersion: scaffolder.backstage.io/v1beta3)

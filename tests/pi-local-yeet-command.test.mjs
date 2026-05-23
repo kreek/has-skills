@@ -56,8 +56,8 @@ describe("repo-local Pi yeet slash command", () => {
     yeetCommand(pi);
 
     expect(pi.commands.has("yeet")).toBe(true);
-    expect(pi.commands.has("abp:commit-bump-merge-push")).toBe(false);
-    expect(pi.commands.has("abp:release")).toBe(false);
+    expect(pi.commands.has("has:commit-bump-merge-push")).toBe(false);
+    expect(pi.commands.has("has:release")).toBe(false);
 
     await pi.commands.get("yeet").handler("", ctx);
 

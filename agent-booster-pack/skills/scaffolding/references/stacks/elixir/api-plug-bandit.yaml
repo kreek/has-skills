@@ -23,7 +23,7 @@ metadata:
     - url: https://hexdocs.pm/ecto/
       title: Ecto
 spec:
-  owner: abp
+  owner: has
   type: service
   parameters:
     - title: Stack Configuration
