@@ -85,6 +85,10 @@ If you also run `./setup.sh`, Cursor can load the same skills twice (plugin plus
 `~/.agents/skills/`). Use either the Cursor plugin or manual install for Cursor,
 not both.
 
+Developing inside this repository with a local plugin copy also duplicates skills
+(project `agents/.agents/skills/` plus the plugin). See
+[`CONTRIBUTING.md`](CONTRIBUTING.md#local-plugin-development).
+
 ### Pi
 
 ```sh

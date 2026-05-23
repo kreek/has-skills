@@ -197,6 +197,15 @@ cp -R /path/to/agent-booster-pack/plugin ~/.cursor/plugins/local/abp
 Reload Cursor (**Developer: Reload Window**). Skills-only: do not add hooks or MCP
 to the Cursor manifest until that is an explicit pack decision.
 
+**Duplicate skills in Settings when this repo is open:** Cursor discovers
+`agents/.agents/skills/` from the workspace and also loads
+`~/.cursor/plugins/local/abp`. The same skill names then appear twice under
+**Settings → Rules**. That is expected here; marketplace users on other
+projects do not see it. While editing canonical skills in this checkout, remove
+the local plugin copy (`rm -rf ~/.cursor/plugins/local/abp`) and reload. To
+smoke-test the plugin bundle only, keep the local copy and open a different
+folder, or stay here and accept the duplicate listing.
+
 ### Cursor Marketplace submission
 
 After packaging validates, submit the repository at
