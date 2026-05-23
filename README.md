@@ -34,14 +34,14 @@ when your tool does not support plugins.
 Inside Claude Code:
 
 ```text
-/plugin marketplace add kreek/highline-agent-skills
-/plugin install abp@abp
+/plugin marketplace add kreek/has-skills
+/plugin install has@has
 ```
 
 ### Codex
 
 ```sh
-codex plugin marketplace add kreek/highline-agent-skills
+codex plugin marketplace add kreek/has-skills
 ```
 
 Then open `/plugins` in Codex, select **Highline Agent Skills**, and install.
@@ -49,7 +49,7 @@ Then open `/plugins` in Codex, select **Highline Agent Skills**, and install.
 To update:
 
 ```sh
-codex plugin marketplace upgrade abp
+codex plugin marketplace upgrade has
 ```
 
 Then reinstall from `/plugins`.
@@ -59,7 +59,7 @@ Then reinstall from `/plugins`.
 Install from the [Cursor Marketplace](https://cursor.com/marketplace) (search for
 **Highline Agent Skills** or submit this repo at
 [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) if it is
-not listed yet). Open the marketplace panel in Cursor, install **abp**, then
+not listed yet). Open the marketplace panel in Cursor, install **has**, then
 confirm skills under **Settings → Rules → Agent Decides**. Invoke a skill with
 `/skill-name` in Agent chat (for example `/workflow`, `/proof`).
 
@@ -67,7 +67,7 @@ To test from a local checkout before marketplace listing:
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
-cp -R /path/to/highline-agent-skills/plugin ~/.cursor/plugins/local/abp
+cp -R /path/to/has-skills/plugin ~/.cursor/plugins/local/has
 ```
 
 Reload the window (**Developer: Reload Window**). Prefer `cp -R` over symlinks;
@@ -84,14 +84,11 @@ Developing inside this repository with a local plugin copy also duplicates skill
 ### Pi
 
 ```sh
-pi install github:kreek/highline-agent-skills
-
-# Registry-pinned install:
-pi install npm:agent-booster-pack
+pi install github:kreek/has-skills
 ```
 
 After installing, run `/reload` inside Pi. HAS includes bundled skills plus
-runtime extensions for `/proof` and `/abp:self-review`.
+runtime extensions for `/proof` and `/has:self-review`.
 
 ### Google Antigravity
 
@@ -100,10 +97,10 @@ ready-to-install plugin at `plugin/` (a `plugin.json` marker plus a `skills/`
 directory). Install it from a local checkout:
 
 ```sh
-agy plugin install /path/to/highline-agent-skills/plugin
+agy plugin install /path/to/has-skills/plugin
 ```
 
-`agy` copies the plugin into `~/.gemini/antigravity-cli/plugins/abp` and
+`agy` copies the plugin into `~/.gemini/antigravity-cli/plugins/has` and
 registers its skills; verify with `agy plugin list`. Because it copies rather
 than links, re-run the command (or `./setup.sh`) after pulling new skills.
 `./setup.sh` runs this automatically when `agy` is on your PATH.
@@ -119,8 +116,8 @@ dnf install stow    # Fedora/RHEL
 ```
 
 ```sh
-git clone https://github.com/kreek/highline-agent-skills.git
-cd highline-agent-skills
+git clone https://github.com/kreek/has-skills.git
+cd has-skills
 ./setup.sh
 ```
 
@@ -134,30 +131,37 @@ are present. End-user installs do not need Python or uv.
 HAS includes 24 skills. Open a skill for its triggers, workflow, and
 verification.
 
-- Routing and proof: [`workflow`](agents/.agents/skills/workflow/SKILL.md),
-  [`proof`](agents/.agents/skills/proof/SKILL.md),
-  [`contract-first`](agents/.agents/skills/contract-first/SKILL.md).
-- Design: [`specify`](agents/.agents/skills/specify/SKILL.md),
-  [`domain-modeling`](agents/.agents/skills/domain-modeling/SKILL.md),
-  [`architecture`](agents/.agents/skills/architecture/SKILL.md).
-- Correctness and change: [`code-review`](agents/.agents/skills/code-review/SKILL.md),
-  [`debugging`](agents/.agents/skills/debugging/SKILL.md),
-  [`error-handling`](agents/.agents/skills/error-handling/SKILL.md),
-  [`refactoring`](agents/.agents/skills/refactoring/SKILL.md),
-  [`official-source-check`](agents/.agents/skills/official-source-check/SKILL.md).
-- Safety: [`security`](agents/.agents/skills/security/SKILL.md),
-  [`database`](agents/.agents/skills/database/SKILL.md),
-  [`release`](agents/.agents/skills/release/SKILL.md).
-- Public surfaces: [`api`](agents/.agents/skills/api/SKILL.md),
-  [`documentation`](agents/.agents/skills/documentation/SKILL.md),
-  [`ui-design`](agents/.agents/skills/ui-design/SKILL.md),
-  [`accessibility`](agents/.agents/skills/accessibility/SKILL.md).
-- Production quality: [`async-systems`](agents/.agents/skills/async-systems/SKILL.md),
-  [`observability`](agents/.agents/skills/observability/SKILL.md),
-  [`performance`](agents/.agents/skills/performance/SKILL.md).
-- Repo workflow: [`commit`](agents/.agents/skills/commit/SKILL.md),
-  [`scaffolding`](agents/.agents/skills/scaffolding/SKILL.md),
-  [`git-workflow`](agents/.agents/skills/git-workflow/SKILL.md).
+- Routing and proof:
+  - [`workflow`](agents/.agents/skills/workflow/SKILL.md): Route HAS work, choose skills, hand off, and define verification.
+  - [`proof`](agents/.agents/skills/proof/SKILL.md): Tests, claims, invariants, behavior specs, edge cases, and evidence.
+  - [`contract-first`](agents/.agents/skills/contract-first/SKILL.md): Approve caller-facing interfaces or shared structure before implementation.
+- Design:
+  - [`specify`](agents/.agents/skills/specify/SKILL.md): Design-partner mode for discovery, tradeoffs, decisions, and design artifacts.
+  - [`domain-modeling`](agents/.agents/skills/domain-modeling/SKILL.md): Data shapes, invariants, state transitions, parsing, and effects.
+  - [`architecture`](agents/.agents/skills/architecture/SKILL.md): Architecture decisions, module boundaries, coupling, layering, and system shape.
+- Correctness and change:
+  - [`code-review`](agents/.agents/skills/code-review/SKILL.md): Review diffs and PRs for bugs, regressions, edge cases, and merge readiness.
+  - [`debugging`](agents/.agents/skills/debugging/SKILL.md): Reproduce symptoms, isolate causes, inspect evidence, and fix bugs.
+  - [`error-handling`](agents/.agents/skills/error-handling/SKILL.md): Error types, propagation, retries, user messages, and recovery.
+  - [`refactoring`](agents/.agents/skills/refactoring/SKILL.md): Behavior-preserving change, tests, and safe rewrites.
+  - [`official-source-check`](agents/.agents/skills/official-source-check/SKILL.md): Check external behavior against official sources.
+- Safety:
+  - [`security`](agents/.agents/skills/security/SKILL.md): Auth, secrets, crypto, input validation, dependency risk, and trust boundaries.
+  - [`database`](agents/.agents/skills/database/SKILL.md): Schemas, migrations, indexes, transactions, query plans, and locking.
+  - [`release`](agents/.agents/skills/release/SKILL.md): Release prep and release-artifact sync, on request or approval.
+- Public surfaces:
+  - [`api`](agents/.agents/skills/api/SKILL.md): REST API contracts: endpoints, fields, evolution, status codes, errors, pagination, idempotency.
+  - [`documentation`](agents/.agents/skills/documentation/SKILL.md): READMEs, ADRs, runbooks, API docs, and comments.
+  - [`ui-design`](agents/.agents/skills/ui-design/SKILL.md): Frontend UI, layouts, components, responsive behavior, and usability.
+  - [`accessibility`](agents/.agents/skills/accessibility/SKILL.md): WCAG, ARIA, keyboard, focus, contrast, and inclusive states.
+- Production quality:
+  - [`async-systems`](agents/.agents/skills/async-systems/SKILL.md): Concurrency, queues, streams, pub/sub, ordering, and backpressure.
+  - [`observability`](agents/.agents/skills/observability/SKILL.md): Logs, metrics, traces, health checks, dashboards, alerts, and SLOs.
+  - [`performance`](agents/.agents/skills/performance/SKILL.md): Profiling, latency, throughput, allocation, caching, and hot paths.
+- Repo workflow:
+  - [`commit`](agents/.agents/skills/commit/SKILL.md): Staging reviewed work, commit splits, and messages.
+  - [`scaffolding`](agents/.agents/skills/scaffolding/SKILL.md): New projects, package setup, quality tooling, CI, and repo structure.
+  - [`git-workflow`](agents/.agents/skills/git-workflow/SKILL.md): Branches, history edits, conflicts, rebases, recovery, and force-push.
 
 Greenfield stack templates live under
 [`scaffolding/references/stacks/`](agents/.agents/skills/scaffolding/references/stacks/).
@@ -186,20 +190,6 @@ asks for approval before implementation continues.
 See [`workflow`](agents/.agents/skills/workflow/SKILL.md) for the full
 routing model and [`contract-first`](agents/.agents/skills/contract-first/SKILL.md)
 for sign-off on interfaces and shared structure.
-
-## What makes HAS unique
-
-HAS is skills, not orchestration. It does not replace your harness's browser,
-memory, planning, sub-agent, or tool surfaces.
-
-HAS is not meant to interrupt every coding step. It slows agents down where
-judgment matters: architecture, structural dependency choices, project shape,
-caller-facing interfaces, safety gates, and proof. Mechanical work can stay
-fast.
-
-The high-level lens is Rich Hickey's "Simple Made Easy": separate concerns,
-make state and effects explicit, and keep designs simple enough to understand,
-change, and prove.
 
 ## Evaluation
 
@@ -232,11 +222,11 @@ Manual cleanup may still be needed for tool-specific symlinks.
 If you installed the Claude Code plugin, run these from inside Claude Code:
 
 ```text
-/plugin uninstall abp@abp
-/plugin marketplace remove abp
+/plugin uninstall has@has
+/plugin marketplace remove has
 ```
 
 For Codex, remove HAS from the plugin UI or marketplace commands. For Cursor,
-disable or uninstall **abp** from the marketplace panel (or remove
-`~/.cursor/plugins/local/abp` and any `~/.cursor/plugins/cache/abp` copy). For
-Antigravity, run `agy plugin uninstall abp`.
+disable or uninstall **has** from the marketplace panel (or remove
+`~/.cursor/plugins/local/has` and any `~/.cursor/plugins/cache/has` copy). For
+Antigravity, run `agy plugin uninstall has`.
