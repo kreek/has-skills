@@ -142,7 +142,8 @@ Run:
 ```
 
 This refreshes the per-agent symlink fan-out for manual installs and regenerates
-the `plugin/skills/` mirror used by the Claude Code and Codex plugin builds. Pi
+the `plugin/skills/` mirror used by the Claude Code, Codex, and Cursor plugin
+builds. Pi
 npm packages rebuild their `skills/` directories at `npm pack` time via each
 package's `scripts/build-skills.mjs`; those bundles are gitignored.
 
@@ -157,6 +158,9 @@ Then update, as relevant:
 - [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) and
   [`plugin/.codex-plugin/plugin.json`](plugin/.codex-plugin/plugin.json) —
   when Codex plugin metadata or packaged skill content changes.
+- [`.cursor-plugin/marketplace.json`](.cursor-plugin/marketplace.json) and
+  [`plugin/.cursor-plugin/plugin.json`](plugin/.cursor-plugin/plugin.json) —
+  when Cursor plugin metadata or packaged skill content changes.
 - `agent-booster-pack*/package.json` — when Pi package metadata, composition,
   or versions change.
 
@@ -183,9 +187,36 @@ Google Antigravity (`agy`):
 agy plugin install /path/to/agent-booster-pack/plugin
 ```
 
+Cursor (local plugin directory):
+
+```sh
+mkdir -p ~/.cursor/plugins/local
+cp -R /path/to/agent-booster-pack/plugin ~/.cursor/plugins/local/abp
+```
+
+Reload Cursor (**Developer: Reload Window**). Skills-only: do not add hooks or MCP
+to the Cursor manifest until that is an explicit pack decision.
+
+**Duplicate skills in Settings when this repo is open:** Cursor discovers
+`agents/.agents/skills/` from the workspace and also loads
+`~/.cursor/plugins/local/abp`. The same skill names then appear twice under
+**Settings → Rules**. That is expected here; marketplace users on other
+projects do not see it. While editing canonical skills in this checkout, remove
+the local plugin copy (`rm -rf ~/.cursor/plugins/local/abp`) and reload. To
+smoke-test the plugin bundle only, keep the local copy and open a different
+folder, or stay here and accept the duplicate listing.
+
+### Cursor Marketplace submission
+
+After packaging validates, submit the repository at
+[cursor.com/marketplace/publish](https://cursor.com/marketplace/publish).
+Listing is manual review and requires an open-source license (MIT). When approved,
+update the README marketplace install section with the live listing link.
+
 The Claude Code plugin reads `plugin/.claude-plugin/plugin.json`; the Codex
-plugin reads `plugin/.codex-plugin/plugin.json`; Google Antigravity treats
-`plugin/plugin.json` as the plugin marker and `agy plugin install` copies the
-plugin into `~/.gemini/antigravity-cli/plugins/` (re-run to pick up edits). All
-load the generated skill mirror under `plugin/skills/`. Edit canonical skills
-under `agents/.agents/skills/`, then run `./setup.sh` to refresh the mirror.
+plugin reads `plugin/.codex-plugin/plugin.json`; the Cursor plugin reads
+`plugin/.cursor-plugin/plugin.json`; Google Antigravity treats `plugin/plugin.json`
+as the plugin marker and `agy plugin install` copies the plugin into
+`~/.gemini/antigravity-cli/plugins/` (re-run to pick up edits). All load the
+generated skill mirror under `plugin/skills/`. Edit canonical skills under
+`agents/.agents/skills/`, then run `./setup.sh` to refresh the mirror.

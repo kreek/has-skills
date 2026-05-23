@@ -363,6 +363,8 @@ export function validateCodexPluginPackage(skillsDir) {
     }
 
     const [claudeManifest, claudeManifestProblem] = readJsonObject(claudeManifestPath);
+    const cursorManifestPath = join(root, "plugin/.cursor-plugin/plugin.json");
+    const [cursorManifest, cursorManifestProblem] = readJsonObject(cursorManifestPath);
     if (!claudeManifestProblem && claudeManifest && claudeMarketplace) {
       const claudeVersion = claudeMarketplace.metadata?.version;
       if (claudeManifest.version !== claudeVersion) {
@@ -374,6 +376,9 @@ export function validateCodexPluginPackage(skillsDir) {
       if ("hooks" in claudeManifest) {
         problems.push(`${claudeManifestPath} must not declare hooks; ABP plugin packages are skills-only`);
       }
+      if (!cursorManifestProblem && cursorManifest && cursorManifest.version !== claudeVersion) {
+        problems.push(`${cursorManifestPath} version must match ${claudeMarketplacePath} metadata.version`);
+      }
     }
   }
 
@@ -383,6 +388,73 @@ export function validateCodexPluginPackage(skillsDir) {
     console.log(`${problems.length} codex plugin package problem(s)`);
   } else {
     console.log("codex plugin package valid");
+  }
+  return problems.length;
+}
+
+export function validateCursorPluginPackage(skillsDir) {
+  const root = repoRootForSkillsDir(skillsDir);
+  const problems = [];
+  const marketplacePath = join(root, ".cursor-plugin/marketplace.json");
+  const manifestPath = join(root, "plugin/.cursor-plugin/plugin.json");
+  const claudeMarketplacePath = join(root, ".claude-plugin/marketplace.json");
+
+  const [marketplace, marketplaceProblem] = readJsonObject(marketplacePath);
+  if (marketplaceProblem) problems.push(marketplaceProblem);
+  else if (marketplace) {
+    if (marketplace.name !== "abp") problems.push(`${marketplacePath} name must be 'abp'`);
+    if (!marketplace.owner || typeof marketplace.owner !== "object") {
+      problems.push(`${marketplacePath} owner must be an object`);
+    } else if (marketplace.owner.name !== "Alastair Dawson") {
+      problems.push(`${marketplacePath} owner.name must be 'Alastair Dawson'`);
+    }
+
+    const claudeVersion = (() => {
+      const [claudeMarketplace] = readJsonObject(claudeMarketplacePath);
+      return claudeMarketplace?.metadata?.version;
+    })();
+
+    const marketplaceVersion = marketplace.metadata?.version;
+    if (claudeVersion && marketplaceVersion !== claudeVersion) {
+      problems.push(`${marketplacePath} metadata.version must match ${claudeMarketplacePath} metadata.version`);
+    }
+
+    const entry = firstPluginEntry(marketplace);
+    if (!entry) problems.push(`${marketplacePath} must include an 'abp' plugin entry`);
+    else {
+      if (entry.source !== "./plugin") {
+        problems.push(`${marketplacePath} abp.source must be './plugin'`);
+      }
+      if (claudeVersion && entry.version !== claudeVersion) {
+        problems.push(`${marketplacePath} abp.version must match metadata.version`);
+      }
+    }
+  }
+
+  const [manifest, manifestProblem] = readJsonObject(manifestPath);
+  if (manifestProblem) problems.push(manifestProblem);
+  else if (manifest) {
+    if (manifest.name !== "abp") problems.push(`${manifestPath} name must be 'abp'`);
+    if (manifest.skills !== "./skills/") problems.push(`${manifestPath} skills must be './skills/'`);
+    if ("hooks" in manifest) {
+      problems.push(`${manifestPath} must not declare hooks; ABP plugin packages are skills-only`);
+    }
+
+    const [claudeMarketplace, claudeProblem] = readJsonObject(claudeMarketplacePath);
+    if (!claudeProblem && claudeMarketplace) {
+      const claudeVersion = claudeMarketplace.metadata?.version;
+      if (manifest.version !== claudeVersion) {
+        problems.push(`${manifestPath} version must match ${claudeMarketplacePath} metadata.version`);
+      }
+    }
+  }
+
+  if (problems.length > 0) {
+    for (const problem of problems) console.log(`cursor plugin: ${problem}`);
+    console.log("");
+    console.log(`${problems.length} cursor plugin package problem(s)`);
+  } else {
+    console.log("cursor plugin package valid");
   }
   return problems.length;
 }
@@ -529,8 +601,11 @@ Validate SKILL.md frontmatter, required sections, and plugin drift.`);
   printSkillFindings(skillsDir, findings);
   const drift = validatePluginDrift(skillsDir);
   const codexPluginProblems = validateCodexPluginPackage(skillsDir);
+  const cursorPluginProblems = validateCursorPluginPackage(skillsDir);
   const antigravityPluginProblems = validateAntigravityPluginPackage(skillsDir);
-  return findings.length || drift || codexPluginProblems || antigravityPluginProblems ? 1 : 0;
+  return findings.length || drift || codexPluginProblems || cursorPluginProblems || antigravityPluginProblems
+    ? 1
+    : 0;
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

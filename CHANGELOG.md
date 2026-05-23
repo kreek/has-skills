@@ -6,6 +6,16 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [10.2.0] (2026-05-22)
+
+### Added
+
+- Cursor plugin packaging: `.cursor-plugin/marketplace.json` and
+  `plugin/.cursor-plugin/plugin.json` (skills-only), plus README install,
+  CONTRIBUTING local dev and marketplace submission notes, and a `setup.sh`
+  warning when a Cursor plugin and manual `~/.agents/skills/` install would
+  duplicate skills.
+
 ## [10.1.0] (2026-05-20)
 
 ### Changed

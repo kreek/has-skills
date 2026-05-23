@@ -10,10 +10,11 @@
   "license": "MIT",
   "keywords": [
     "agent-skills",
-    "claude-code",
+    "cursor",
     "software-engineering",
     "code-review",
     "proof",
     "security"
-  ]
+  ],
+  "skills": "./skills/"
 }

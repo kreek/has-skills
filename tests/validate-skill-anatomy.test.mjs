@@ -115,6 +115,7 @@ function makeCodexPluginPackage(
     manifestSkillsPath = "./skills/",
     includeCodexHooksField = false,
     includeClaudeHooksField = false,
+    includeCursorHooksField = false,
     codexVersion = "2.0.0",
     claudeMarketplaceVersion = "2.0.0",
     claudeEntryVersion = "2.0.0",
@@ -184,6 +185,24 @@ function makeCodexPluginPackage(
     }
     mkdirSync(join(root, "plugin/.claude-plugin"), { recursive: true });
     writeFileSync(join(root, "plugin/.claude-plugin/plugin.json"), JSON.stringify(claudeManifest), "utf8");
+
+    const cursorMarketplace = {
+      name: "abp",
+      owner: { name: "Alastair Dawson", url: "https://github.com/kreek" },
+      metadata: { version: claudeMarketplaceVersion },
+      plugins: [{ name: "abp", version: claudeEntryVersion, source: "./plugin" }],
+    };
+    mkdirSync(join(root, ".cursor-plugin"), { recursive: true });
+    writeFileSync(join(root, ".cursor-plugin/marketplace.json"), JSON.stringify(cursorMarketplace), "utf8");
+
+    const cursorManifest = {
+      name: "abp",
+      version: claudeManifestVersion,
+      skills: manifestSkillsPath,
+    };
+    if (includeCursorHooksField) cursorManifest.hooks = "./hooks.json";
+    mkdirSync(join(root, "plugin/.cursor-plugin"), { recursive: true });
+    writeFileSync(join(root, "plugin/.cursor-plugin/plugin.json"), JSON.stringify(cursorManifest), "utf8");
   }
 }
 
@@ -220,6 +239,7 @@ describe("validate-skill-anatomy CLI", () => {
     expect(result.stdout).toContain("all skills conform to the anatomy");
     expect(result.stdout).toContain("plugin/ skill mirror in sync with source");
     expect(result.stdout).toContain("codex plugin package valid");
+    expect(result.stdout).toContain("cursor plugin package valid");
     expect(result.stdout).toContain("antigravity plugin package valid");
     expect(readFileSync(join(tmp, "plugin/skills/good/SKILL.md"), "utf8")).toBe(
       readFileSync(join(skillsDir, "good/SKILL.md"), "utf8"),
@@ -321,7 +341,11 @@ describe("validate-skill-anatomy CLI", () => {
     makeSkill(skillsDir, "good");
     mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
     cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
-    makeCodexPluginPackage(tmp, { includeCodexHooksField: true, includeClaudeHooksField: true });
+    makeCodexPluginPackage(tmp, {
+      includeCodexHooksField: true,
+      includeClaudeHooksField: true,
+      includeCursorHooksField: true,
+    });
     makeAntigravityPluginPackage(tmp);
 
     const result = runScript(skillsDir);
@@ -329,6 +353,7 @@ describe("validate-skill-anatomy CLI", () => {
     expect(result.status).toBe(1);
     expect(result.stdout).toContain("plugin/.codex-plugin/plugin.json must not declare hooks");
     expect(result.stdout).toContain("plugin/.claude-plugin/plugin.json must not declare hooks");
+    expect(result.stdout).toContain("plugin/.cursor-plugin/plugin.json must not declare hooks");
   });
 
   it("reports plugin version drift across Claude and Codex manifests", () => {
@@ -352,6 +377,38 @@ describe("validate-skill-anatomy CLI", () => {
     expect(result.stdout).toContain("abp.version must match metadata.version");
     expect(result.stdout).toContain("plugin/.codex-plugin/plugin.json");
     expect(result.stdout).toContain("plugin/.claude-plugin/plugin.json");
+    expect(result.stdout).toContain("plugin/.cursor-plugin/plugin.json");
+  });
+
+  it("reports invalid Cursor marketplace and manifest fields", () => {
+    tmp = makeTempDir();
+    const skillsDir = join(tmp, "agents/.agents/skills");
+    makeSkill(skillsDir, "good");
+    mkdirSync(join(tmp, "plugin/skills"), { recursive: true });
+    cpSync(join(skillsDir, "good"), join(tmp, "plugin/skills/good"), { recursive: true });
+    makeCodexPluginPackage(tmp, { manifestSkillsPath: "./wrong/" });
+    writeFileSync(
+      join(tmp, ".cursor-plugin/marketplace.json"),
+      JSON.stringify({
+        name: "abp",
+        owner: { name: "Alastair Dawson" },
+        metadata: { version: "2.0.0" },
+        plugins: [{ name: "abp", version: "2.0.0", source: "./wrong" }],
+      }),
+      "utf8",
+    );
+    writeFileSync(
+      join(tmp, "plugin/.cursor-plugin/plugin.json"),
+      JSON.stringify({ name: "abp", version: "2.0.0", skills: "./wrong/" }),
+      "utf8",
+    );
+    makeAntigravityPluginPackage(tmp);
+
+    const result = runScript(skillsDir);
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toContain(".cursor-plugin/marketplace.json abp.source must be './plugin'");
+    expect(result.stdout).toContain("plugin/.cursor-plugin/plugin.json skills must be './skills/'");
   });
 
   it("reports invalid Google Antigravity plugin fields", () => {

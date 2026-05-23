@@ -31,7 +31,8 @@ manifests. Security-relevant surfaces include:
   destructive operations.
 
 Out of scope: behavior of third-party agent runtimes (Claude Code,
-Codex, Cursor, Gemini CLI, Google Antigravity, OpenCode, Copilot CLI), and
+Codex, Cursor (marketplace plugin or `~/.agents/skills/` discovery), Gemini CLI,
+Google Antigravity, OpenCode, Copilot CLI), and
 downstream projects that consume ABP.
 
 ## Supported versions

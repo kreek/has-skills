@@ -62,6 +62,33 @@ codex plugin marketplace upgrade abp
 
 Then reinstall from `/plugins`.
 
+### Cursor
+
+Install from the [Cursor Marketplace](https://cursor.com/marketplace) (search for
+**Agent Booster Pack** or submit this repo at
+[cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) if it is
+not listed yet). Open the marketplace panel in Cursor, install **abp**, then
+confirm skills under **Settings → Rules → Agent Decides**. Invoke a skill with
+`/skill-name` in Agent chat (for example `/workflow`, `/proof`).
+
+To test from a local checkout before marketplace listing:
+
+```sh
+mkdir -p ~/.cursor/plugins/local
+cp -R /path/to/agent-booster-pack/plugin ~/.cursor/plugins/local/abp
+```
+
+Reload the window (**Developer: Reload Window**). Prefer `cp -R` over symlinks;
+some Cursor builds do not load symlinked local plugins reliably.
+
+If you also run `./setup.sh`, Cursor can load the same skills twice (plugin plus
+`~/.agents/skills/`). Use either the Cursor plugin or manual install for Cursor,
+not both.
+
+Developing inside this repository with a local plugin copy also duplicates skills
+(project `agents/.agents/skills/` plus the plugin). See
+[`CONTRIBUTING.md`](CONTRIBUTING.md#local-plugin-development).
+
 ### Pi
 
 ```sh
@@ -217,5 +244,7 @@ If you installed the Claude Code plugin, run these from inside Claude Code:
 /plugin marketplace remove abp
 ```
 
-For Codex, remove ABP from the plugin UI or marketplace commands. For
+For Codex, remove ABP from the plugin UI or marketplace commands. For Cursor,
+disable or uninstall **abp** from the marketplace panel (or remove
+`~/.cursor/plugins/local/abp` and any `~/.cursor/plugins/cache/abp` copy). For
 Antigravity, run `agy plugin uninstall abp`.
