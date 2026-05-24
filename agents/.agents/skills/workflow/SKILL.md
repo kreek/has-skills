@@ -40,11 +40,15 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
    leave the user with a clearer model of the system, the change, and the
    evidence. An agent that cannot clearly explain its change should stop and
    clarify, not push further.
-3. **Autonomous by default, consultative for hard-to-change choices.** Routine
-   implementation can proceed without stopping for sign-off. Ask before locking
-   in a caller-facing contract, shared project/package/module structure,
-   structural runtime dependency, data model, or boundary future work will
-   depend on.
+3. **Autonomous by default, consultative for significant or hard-to-change
+   work.** Routine, local, and disposable implementation can proceed without
+   stopping for sign-off. Get a plan or shape/API sign-off before significant
+   work — a substantial new module or component, new or rewritten non-trivial
+   logic or an algorithm, or a deliberate change to observable behavior — and
+   before locking in a caller-facing contract, shared project/package/module
+   structure, structural runtime dependency, data model, or boundary future
+   work will depend on. A small local helper, a private file move, or a narrow
+   bug fix that restores already-intended behavior is not a gate.
 4. **Default to the smallest honest solution.** Implement only what was asked,
    prefer established tools, start with the happy path unless safety or data
    loss demands edge cases now, and add abstractions only after real semantic
@@ -71,9 +75,9 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 2. **Define the target.** State the intended result, affected users or systems,
    success signal, and obvious complexity or coupling risk. If done is unclear,
    propose acceptance criteria and resolve open points logically, asking one
-   clarifying decision question at a time. For complex work, explain the
-   approach before editing; for compatibility uncertainty, ask before adding
-   shims.
+   clarifying decision question at a time. For significant work, present a short
+   plan and the shape it will take, and get sign-off before editing; for
+   compatibility uncertainty, ask before adding shims.
 3. **Classify the work.** Mark disposable work as local and temporary. For
    production paths, shared libraries, contracts, schemas, auth, persistence,
    domain rules, shared structure, and structural dependencies, make sure the
@@ -84,12 +88,15 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
    duplicating their rules here.
 4. **Set required consultation before implementation.** Use `specify` before
    unsettled architecture, domain, data, interface, project structure, module
-   boundary, or structural dependency decisions. Use `contract-first` before
-   implementing caller-facing APIs, exported types, event schemas,
-   CLI/env/config formats, database migrations, service adapters, shared
-   package/module boundaries, and other cross-boundary contracts. Do not gate
-   local helpers, private file moves, or routine implementation details unless
-   they create a caller-facing or shared boundary.
+   boundary, or structural dependency decisions, and to agree the plan or shape
+   for significant new code — a substantial new module or component, non-trivial
+   logic, or a deliberate observable behavior change — even when it crosses no
+   caller-facing boundary. Use `contract-first` before implementing
+   caller-facing APIs, exported types, event schemas, CLI/env/config formats,
+   database migrations, service adapters, shared package/module boundaries, the
+   public surface of a significant new module, and other cross-boundary
+   contracts. Do not gate local helpers, private file moves, narrow bug fixes
+   that restore intended behavior, or routine implementation details.
 5. **Load the skills needed for correctness.** Load the fewest skills the risk
    requires, each only when its row condition is met, not preemptively or in
    bulk. Use the table to decide when a skill is applicable; it is ordered by
@@ -98,8 +105,8 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 
    | Skill | Load when |
    | --- | --- |
-   | `specify` | A hard-to-change design choice is not yet settled. |
-   | `contract-first` | A caller-facing interface or shared structure needs approval before code locks it in. |
+   | `specify` | A significant or hard-to-change choice is unsettled: a substantial new module/component, non-trivial logic, observable behavior change, architecture, data, interface, or dependency. |
+   | `contract-first` | A caller-facing interface, shared structure, or the public surface of a significant new module needs approval before code locks it in. |
    | `debugging` | A bug, failure, incident, flake, or regression needs root-cause evidence before a fix. |
    | `domain-modeling` | Data shape, states, invariants, transitions, or effects matter. |
    | `architecture` | Module boundaries, ownership, layering, or cross-component structure matter. |
@@ -144,8 +151,8 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 
 - [ ] The chosen route used the smallest process that still protected the
       system risk.
-- [ ] User-owned choices were resolved, narrowed, or explicitly deferred
-      before claiming progress.
+- [ ] Significant work and user-owned choices got a plan or shape sign-off,
+      were narrowed, or were explicitly deferred before implementation.
 - [ ] The result still answers the user's latest request, including any
       correction or narrowing the user made after the work began.
 - [ ] Temporary work and maintained behavior did not blur together.
@@ -163,6 +170,9 @@ Use these when the shortcut thought appears:
   should name what it couples before it enters the system.
 - A caller-facing interface or shared structure needs one recommended option
   and user approval before code locks it in; `contract-first` owns that gate.
+- Significant new code — a substantial new module or component, non-trivial
+  logic, or a deliberate behavior change — gets a plan or shape sign-off before
+  implementation, even when it crosses no public boundary.
 - Speculative flexibility waits until the requirement exists.
 - Repeated code with the same meaning and rules should be composed, not
   copied.
