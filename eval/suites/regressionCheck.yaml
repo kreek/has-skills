@@ -1,5 +1,5 @@
 name: regressionCheck
-description: Trials known to have regressed under HAS; rerun to confirm fixes landed.
+description: Trials known to have regressed under Consult; rerun to confirm fixes landed.
 trials:
   - security-boundary-fix
   - accessible-ui-state

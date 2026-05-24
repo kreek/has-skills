@@ -124,14 +124,14 @@ function makeCodexPluginPackage(
 ) {
   if (includeMarketplace) {
     const entry = {
-      name: "has",
+      name: "consult",
       source: { source: "local", path: marketplaceSourcePath },
     };
     if (includePolicy) entry.policy = { installation: "AVAILABLE", authentication: "ON_INSTALL" };
     if (includeCategory) entry.category = "Coding";
     const marketplace = {
-      name: "has",
-      interface: { displayName: "Highline Agent Skills" },
+      name: "consult",
+      interface: { displayName: "Consult" },
       plugins: [entry],
     };
     const marketplacePath = join(root, ".agents/plugins/marketplace.json");
@@ -141,14 +141,14 @@ function makeCodexPluginPackage(
 
   if (includeManifest) {
     const manifest = {
-      name: "has",
+      name: "consult",
       version: codexVersion,
       skills: manifestSkillsPath,
       interface: {
-        displayName: "Highline Agent Skills",
+        displayName: "Consult",
         category: "Coding",
         capabilities: ["Read", "Write"],
-        defaultPrompt: ["Use HAS workflow for this engineering task."],
+        defaultPrompt: ["Use Consult workflow for this engineering task."],
       },
     };
     if (includeCodexHooksField) manifest.hooks = "./hooks.json";
@@ -156,15 +156,15 @@ function makeCodexPluginPackage(
     writeFileSync(join(root, "plugin/.codex-plugin/plugin.json"), JSON.stringify(manifest), "utf8");
 
     const claudeMarketplace = {
-      name: "has",
+      name: "consult",
       metadata: { version: claudeMarketplaceVersion },
-      plugins: [{ name: "has", version: claudeEntryVersion, source: "./plugin" }],
+      plugins: [{ name: "consult", version: claudeEntryVersion, source: "./plugin" }],
     };
     mkdirSync(join(root, ".claude-plugin"), { recursive: true });
     writeFileSync(join(root, ".claude-plugin/marketplace.json"), JSON.stringify(claudeMarketplace), "utf8");
 
     const claudeManifest = {
-      name: "has",
+      name: "consult",
       version: claudeManifestVersion,
     };
     if (includeClaudeHooksField) {
@@ -187,16 +187,16 @@ function makeCodexPluginPackage(
     writeFileSync(join(root, "plugin/.claude-plugin/plugin.json"), JSON.stringify(claudeManifest), "utf8");
 
     const cursorMarketplace = {
-      name: "has",
+      name: "consult",
       owner: { name: "Alastair Dawson", url: "https://github.com/kreek" },
       metadata: { version: claudeMarketplaceVersion },
-      plugins: [{ name: "has", version: claudeEntryVersion, source: "./plugin" }],
+      plugins: [{ name: "consult", version: claudeEntryVersion, source: "./plugin" }],
     };
     mkdirSync(join(root, ".cursor-plugin"), { recursive: true });
     writeFileSync(join(root, ".cursor-plugin/marketplace.json"), JSON.stringify(cursorMarketplace), "utf8");
 
     const cursorManifest = {
-      name: "has",
+      name: "consult",
       version: claudeManifestVersion,
       skills: manifestSkillsPath,
     };
@@ -206,7 +206,7 @@ function makeCodexPluginPackage(
   }
 }
 
-function makeAntigravityPluginPackage(root, { name = "has", includeManifest = true } = {}) {
+function makeAntigravityPluginPackage(root, { name = "consult", includeManifest = true } = {}) {
   if (!includeManifest) return;
   writeFileSync(join(root, "plugin/plugin.json"), JSON.stringify({ name }), "utf8");
 }
@@ -328,9 +328,9 @@ describe("validate-skill-anatomy CLI", () => {
     const result = runScript(skillsDir);
 
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain("has.source.path must be './plugin'");
-    expect(result.stdout).toContain("has.policy must be an object");
-    expect(result.stdout).toContain("has.category must be 'Coding'");
+    expect(result.stdout).toContain("consult.source.path must be './plugin'");
+    expect(result.stdout).toContain("consult.policy must be an object");
+    expect(result.stdout).toContain("consult.category must be 'Coding'");
     expect(result.stdout).toContain("skills must be './skills/'");
     expect(result.stdout).toContain("must not declare hooks");
   });
@@ -374,7 +374,7 @@ describe("validate-skill-anatomy CLI", () => {
 
     expect(result.status).toBe(1);
     expect(result.stdout).toContain("version must match");
-    expect(result.stdout).toContain("has.version must match metadata.version");
+    expect(result.stdout).toContain("consult.version must match metadata.version");
     expect(result.stdout).toContain("plugin/.codex-plugin/plugin.json");
     expect(result.stdout).toContain("plugin/.claude-plugin/plugin.json");
     expect(result.stdout).toContain("plugin/.cursor-plugin/plugin.json");
@@ -390,16 +390,16 @@ describe("validate-skill-anatomy CLI", () => {
     writeFileSync(
       join(tmp, ".cursor-plugin/marketplace.json"),
       JSON.stringify({
-        name: "has",
+        name: "consult",
         owner: { name: "Alastair Dawson" },
         metadata: { version: "2.0.0" },
-        plugins: [{ name: "has", version: "2.0.0", source: "./wrong" }],
+        plugins: [{ name: "consult", version: "2.0.0", source: "./wrong" }],
       }),
       "utf8",
     );
     writeFileSync(
       join(tmp, "plugin/.cursor-plugin/plugin.json"),
-      JSON.stringify({ name: "has", version: "2.0.0", skills: "./wrong/" }),
+      JSON.stringify({ name: "consult", version: "2.0.0", skills: "./wrong/" }),
       "utf8",
     );
     makeAntigravityPluginPackage(tmp);
@@ -407,7 +407,7 @@ describe("validate-skill-anatomy CLI", () => {
     const result = runScript(skillsDir);
 
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain(".cursor-plugin/marketplace.json has.source must be './plugin'");
+    expect(result.stdout).toContain(".cursor-plugin/marketplace.json consult.source must be './plugin'");
     expect(result.stdout).toContain("plugin/.cursor-plugin/plugin.json skills must be './skills/'");
   });
 
@@ -424,6 +424,6 @@ describe("validate-skill-anatomy CLI", () => {
 
     expect(result.status).toBe(1);
     expect(result.stdout).toContain("antigravity plugin:");
-    expect(result.stdout).toContain("plugin/plugin.json name must be 'has'");
+    expect(result.stdout).toContain("plugin/plugin.json name must be 'consult'");
   });
 });

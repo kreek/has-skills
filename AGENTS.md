@@ -5,7 +5,7 @@ others that read `AGENTS.md`) when working with code in this repository.
 
 ## What this repo is
 
-Highline Agent Skills is a portable skill pack for coding agents (Claude Code,
+Consult is a portable skill pack for coding agents (Claude Code,
 Codex, Cursor, Copilot, Gemini CLI, Google Antigravity, OpenCode, Pi,
 Windsurf). It ships
 prose (`SKILL.md` files plus a few maintenance helpers), not application code.
@@ -18,14 +18,14 @@ repo maintenance helpers, plugin packaging, and extension packages.
 - **Canonical skills**: `agents/.agents/skills/<name>/SKILL.md`. Every skill
   lives here; siblings may add `agents/`, `references/`, and `scripts/`.
 - **Repo instructions**: this `AGENTS.md` is the only agent instruction file in
-  the repo. Normal HAS use relies on skill frontmatter, plugin metadata, and the
+  the repo. Normal Consult use relies on skill frontmatter, plugin metadata, and the
   `workflow` skill; users do not need to install or merge system instruction
   files.
 - **Claude Code plugin mirror**: `plugin/skills/<name>` contains generated
   copies of canonical skills from `agents/.agents/skills/<name>`.
   `.claude-plugin/marketplace.json` points Claude Code at the `plugin/` root,
   where `plugin/.claude-plugin/plugin.json` exposes namespaced
-  `/has:<skill>` slash commands.
+  `/consult:<skill>` slash commands.
 - **Codex plugin package**: `.agents/plugins/marketplace.json` points Codex at
   the `plugin/` root, and `plugin/.codex-plugin/plugin.json` exposes the same
   generated skill mirror to Codex as a plugin. Keep the Codex marketplace and
@@ -35,15 +35,15 @@ repo maintenance helpers, plugin packaging, and extension packages.
   generated skill mirror as a skills-only Cursor plugin. Keep the Cursor
   marketplace and manifest in sync with Claude plugin packaging.
 - **Google Antigravity plugin package**: `plugin/plugin.json` is the
-  Antigravity marker for HAS. Local installs create an Antigravity plugin
+  Antigravity marker for Consult. Local installs create an Antigravity plugin
   directory that links only `plugin/plugin.json` and the generated
-  `plugin/skills/` mirror under `~/.gemini/config/plugins/has`.
+  `plugin/skills/` mirror under `~/.gemini/config/plugins/consult`.
 - **Install layout**: `agents/` is a GNU Stow package. `./setup.sh` is the
   one-click local installer: it explains the actions, asks for approval, runs
   Stow to link the shared skills under `~/.agents/`, fans those out to
-  per-tool locations, prunes manual Codex links when the HAS Codex plugin is
+  per-tool locations, prunes manual Codex links when the Consult Codex plugin is
   installed, and re-runs the plugin-sync. System `AGENTS.md` / `CLAUDE.md`
-  files are not part of HAS installation.
+  files are not part of Consult installation.
 
 When you add, rename, or delete a skill, the canonical file under
 `agents/.agents/skills/` is the only place to write. Everything else is
@@ -87,8 +87,8 @@ Run the narrowest check that proves the touched surface first. Broaden only
 when the changed files require it or the narrow check exposes cross-package
 risk.
 
-- Pi runtime extension changes under `agent-booster-pack/extensions/` or
-  `agent-booster-pack/test/`: run `pnpm --dir agent-booster-pack test`.
+- Pi runtime extension changes under `consult/extensions/` or
+  `consult/test/`: run `pnpm --dir consult test`.
 - Canonical skill prose changes: run `node scripts/validate-skill-anatomy.mjs`
   and targeted `cmp` checks for the changed skill mirrors. Use root `pnpm test`
   only when sibling package mirrors, packaging scripts, or repo tests changed.
@@ -189,7 +189,7 @@ Adding or renaming a skill needs four updates, in order:
 2. `README.md`: update the human-facing skill list and its
    `[skill-<name>]:` reference link at the bottom.
 3. `workflow`: update the meta-skill only when the new or renamed skill changes
-   the broad HAS routing workflow.
+   the broad Consult routing workflow.
 4. `./setup.sh` to regenerate `plugin/skills/<name>` and refresh or prune
    per-agent manual-install links. The validator's drift check fails CI/local
    runs if step 4 is skipped.
@@ -227,7 +227,7 @@ the pack is past that and should not regress to it.
   formatter.
 - Pi extension source must be TypeScript, not JavaScript. Use `.ts` for
   repo-local `.pi/extensions/` commands and packaged
-  `agent-booster-pack/extensions/` runtime extensions; keep generated,
+  `consult/extensions/` runtime extensions; keep generated,
   third-party, or ordinary maintenance scripts in their existing language
   unless the task is explicitly to migrate them.
 - Do not add author-attribution trailers (`Co-Authored-By`,

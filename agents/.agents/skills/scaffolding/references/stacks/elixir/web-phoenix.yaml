@@ -23,7 +23,7 @@ metadata:
     - url: https://hexdocs.pm/oban/
       title: Oban
 spec:
-  owner: has
+  owner: consult
   type: website
   parameters:
     - title: Stack Configuration

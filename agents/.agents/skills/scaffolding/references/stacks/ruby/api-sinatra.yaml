@@ -19,7 +19,7 @@ metadata:
     - url: https://rspec.info/
       title: RSpec
 spec:
-  owner: has
+  owner: consult
   type: service
   parameters:
     - title: Stack Configuration

@@ -1,12 +1,12 @@
 # Third-party notices
 
-Highline Agent Skills includes small Pi extension pieces adapted from
+Consult includes small Pi extension pieces adapted from
 `davis7dotsh/my-pi-setup` at
 `https://github.com/davis7dotsh/my-pi-setup`:
 
 - `.pi/extensions/yeet.ts`, adapted from
   `https://github.com/davis7dotsh/my-pi-setup/blob/e5a5beb9029f207a82fe4d50b024ad7696fb7ae0/extensions/yeet.ts`.
-- `agent-booster-pack/extensions/has-header.ts`, adapted from
+- `consult/extensions/consult-header.ts`, adapted from
   `https://github.com/davis7dotsh/my-pi-setup/blob/e5a5beb9029f207a82fe4d50b024ad7696fb7ae0/extensions/flow-title.ts`.
 
 The source package declares the ISC license in its `package.json`.

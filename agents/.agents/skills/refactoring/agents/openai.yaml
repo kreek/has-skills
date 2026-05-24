@@ -1,4 +1,4 @@
 interface:
-  display_name: "HAS: Refactoring"
+  display_name: "Consult: Refactoring"
   short_description: "Refactor with behavior preserved"
   default_prompt: "Use $refactoring to plan this refactor with preservation checks."

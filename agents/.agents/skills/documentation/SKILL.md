@@ -14,7 +14,7 @@ description: Use for requested/approved docs, READMEs, ADRs, runbooks, API docs,
 - The user asks for or approves writing/reviewing READMEs, ADRs, runbooks,
   tutorials, how-to guides, reference docs, module docs, requirements,
   acceptance criteria, user stories, or code comments.
-- Authoring or revising HAS SKILL.md files; skills are documentation for
+- Authoring or revising Consult SKILL.md files; skills are documentation for
   agents and follow the same clarity rules.
 - Deciding whether prose is needed or whether a type, schema,
   generated reference, test, or command output should be the source of

@@ -1,5 +1,5 @@
 packages:
-  - agent-booster-pack
+  - consult
   - eval
 
 # Delay fresh registry publishes to reduce supply-chain blast radius.

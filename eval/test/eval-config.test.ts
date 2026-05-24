@@ -71,8 +71,8 @@ function expectNeutralFixtureContent(filePath: string): void {
   for (const skill of expectedReadmeSkills) {
     expect(content, filePath).not.toMatch(new RegExp(`\\b${escapeRegExp(skill)}\\b`, "i"));
   }
-  expect(content, filePath).not.toMatch(/\b(Highline Agent Skills|Agent Booster Pack|skills?)\b/i);
-  // Match the brand acronym case-sensitively so the common English word "has" does not trip the guard.
+  expect(content, filePath).not.toMatch(/\b(Consult|Consult|skills?)\b/i);
+  // Match the brand acronym case-sensitively so the common English word "consult" does not trip the guard.
   expect(content, filePath).not.toMatch(/\bHAS\b/);
 }
 
@@ -105,11 +105,11 @@ function routingVerify(): VerifyResult {
   return { passed: true, output: "routing", metrics: { routingTrial: 1, routingCase: 1 } };
 }
 
-describe("HAS eval config", () => {
-  it("defines a baseline Codex profile and a Codex profile with the HAS plugin", () => {
+describe("Consult eval config", () => {
+  it("defines a baseline Codex profile and a Codex profile with the Consult plugin", () => {
     const baseline = profiles["codexBaseline"];
-    const withHas = profiles["codexWithHasSkills"];
-    if (!baseline || !withHas) throw new Error("Expected Codex profiles");
+    const withConsult = profiles["codexWithConsultSkills"];
+    if (!baseline || !withConsult) throw new Error("Expected Codex profiles");
 
     expect(baseline.agent.harness).toBe("codex");
     expect(baseline.factors.layers).toEqual([]);
@@ -124,36 +124,36 @@ describe("HAS eval config", () => {
     ]);
     expect(baseline.factors["reasoningEffort"]).toBe("medium");
 
-    expect(withHas.agent.harness).toBe("codex");
-    expect(withHas.agent.codex?.isolateHome).toBe(true);
-    expect(withHas.agent.codex?.ignoreUserConfig).not.toBe(true);
-    expect(withHas.factors.layers).toEqual([
+    expect(withConsult.agent.harness).toBe("codex");
+    expect(withConsult.agent.codex?.isolateHome).toBe(true);
+    expect(withConsult.agent.codex?.ignoreUserConfig).not.toBe(true);
+    expect(withConsult.factors.layers).toEqual([
       expect.objectContaining({
-        id: "has",
+        id: "consult",
         kind: "plugin",
         runtime: "codex",
       }),
     ]);
-    expect(withHas.setup?.layers).toEqual([
+    expect(withConsult.setup?.layers).toEqual([
       expect.objectContaining({
-        id: "has-skills",
+        id: "consult",
         kind: "skill-library",
         runtime: "codex",
         source: "../agents/.agents/skills",
       }),
     ]);
-    expect(fs.existsSync(path.resolve(evalDir, withHas.setup?.layers?.[0]?.source ?? ""))).toBe(true);
-    const marketplaceSource = withHas.agent.codex?.pluginMarketplaces?.[0];
-    expect(marketplaceSource, "HAS profile must register the local repo as a codex plugin marketplace").toBeDefined();
+    expect(fs.existsSync(path.resolve(evalDir, withConsult.setup?.layers?.[0]?.source ?? ""))).toBe(true);
+    const marketplaceSource = withConsult.agent.codex?.pluginMarketplaces?.[0];
+    expect(marketplaceSource, "Consult profile must register the local repo as a codex plugin marketplace").toBeDefined();
     expect(fs.existsSync(path.resolve(marketplaceSource ?? ""))).toBe(true);
     expect(fs.existsSync(path.join(marketplaceSource ?? "", "plugin", ".codex-plugin", "plugin.json"))).toBe(true);
-    expect(withHas.agent.codex?.extraArgs).toEqual(
-      expect.arrayContaining(["-c", expect.stringContaining('plugins."has@has".enabled=true')]),
+    expect(withConsult.agent.codex?.extraArgs).toEqual(
+      expect.arrayContaining(["-c", expect.stringContaining('plugins."consult@consult".enabled=true')]),
     );
-    expect(withHas.agent.codex?.extraArgs).toEqual(
+    expect(withConsult.agent.codex?.extraArgs).toEqual(
       expect.arrayContaining(["-c", 'model_reasoning_effort="medium"']),
     );
-    expect(withHas.factors["reasoningEffort"]).toBe("medium");
+    expect(withConsult.factors["reasoningEffort"]).toBe("medium");
     expect(config.judge?.thinking).toBe("medium");
   });
 
@@ -161,7 +161,7 @@ describe("HAS eval config", () => {
     const bench = benches["allSkills"];
     if (!bench) throw new Error("Expected allSkills bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithConsultSkills"]);
     expect(getSuite("allSkills").length).toBeGreaterThan(0);
     expect(bench.epochs).toBe(1);
   });
@@ -170,20 +170,20 @@ describe("HAS eval config", () => {
     const bench = benches["smoke"];
     if (!bench) throw new Error("Expected smoke bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithConsultSkills"]);
     expect(bench.requireJudge).toBe(true);
     expect(bench.requiredDeterministicScores).toEqual({
       baseline_isolation: 100,
-      has_activation: 100,
+      consult_activation: 100,
     });
     expect(getSuite("smoke").map((entry) => entry.trial)).toEqual(["routing-checkout-payment"]);
   });
 
-  it("adds a routing bench that compares HAS against the same baseline", () => {
+  it("adds a routing bench that compares Consult against the same baseline", () => {
     const bench = benches["routing"];
     if (!bench) throw new Error("Expected routing bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithConsultSkills"]);
     expect(getSuite("routing").map((entry) => entry.trial)).toEqual([
       "routing-checkout-payment",
       "routing-worker-retry",
@@ -196,7 +196,7 @@ describe("HAS eval config", () => {
     const bench = benches["largeProject"];
     if (!bench) throw new Error("Expected largeProject bench");
     expect(bench.baseline).toBe("codexBaseline");
-    expect(bench.profiles).toEqual(["codexBaseline", "codexWithHasSkills"]);
+    expect(bench.profiles).toEqual(["codexBaseline", "codexWithConsultSkills"]);
     expect(bench.epochs).toBe(1);
     expect(getSuite("largeProject").map((entry) => entry.trial)).toEqual([
       "large-checkout-workflow",
@@ -359,7 +359,7 @@ describe("HAS eval config", () => {
     }
   });
 
-  it("keeps generic runner code out of the HAS eval project", () => {
+  it("keeps generic runner code out of the Consult eval project", () => {
     expect(fs.existsSync(path.join(evalDir, "eval.ts"))).toBe(false);
     expect(fs.existsSync(path.join(evalDir, "framework.ts"))).toBe(false);
     expect(fs.existsSync(path.join(evalDir, "types.ts"))).toBe(false);
@@ -402,7 +402,7 @@ describe("HAS eval config", () => {
 
     expect(result.scores["no_file_writes"]).toBe(100);
     expect(result.scores["baseline_isolation"]).toBe(100);
-    expect(result.scores["has_activation"]).toBe(100);
+    expect(result.scores["consult_activation"]).toBe(100);
     expect(result.scores).not.toHaveProperty("routing");
     expect(result.scores).not.toHaveProperty("exclusions");
     expect(result.scores).not.toHaveProperty("proof_plan");
@@ -486,7 +486,7 @@ describe("HAS eval config", () => {
     expect(result.findings).toContain("No behavior-relevant submitted proof was detected.");
   });
 
-  it("flags baseline sessions that read HAS skill files", () => {
+  it("flags baseline sessions that read Consult skill files", () => {
     const session = stubSession([], {
       toolCalls: [
         {
@@ -516,17 +516,17 @@ describe("HAS eval config", () => {
     });
 
     expect(result.scores["baseline_isolation"]).toBe(0);
-    expect(result.findings).toContain("Baseline session read HAS skill files: scaffolding.");
+    expect(result.findings).toContain("Baseline session read Consult skill files: scaffolding.");
   });
 
-  it("flags HAS sessions that never read a HAS skill file", () => {
+  it("flags Consult sessions that never read a Consult skill file", () => {
     const session = stubSession([], {
       toolCalls: [
         {
           timestamp: 1,
           name: "command_execution",
           arguments: { command: "/bin/zsh -lc pwd" },
-          resultText: "/tmp/run-proof-first-bugfix-default-codexWithHasSkills-123/workdir\n",
+          resultText: "/tmp/run-proof-first-bugfix-default-codexWithConsultSkills-123/workdir\n",
           wasBlocked: false,
         },
       ],
@@ -538,18 +538,18 @@ describe("HAS eval config", () => {
       metrics: { submittedProofPassed: 1 },
     });
 
-    expect(result.scores["has_activation"]).toBe(0);
-    expect(result.findings).toContain("HAS profile did not read any HAS skill files; plugin activation is not proven.");
+    expect(result.scores["consult_activation"]).toBe(0);
+    expect(result.findings).toContain("Consult profile did not read any Consult skill files; plugin activation is not proven.");
   });
 
-  it("accepts HAS sessions that read a focused HAS skill file", () => {
+  it("accepts Consult sessions that read a focused Consult skill file", () => {
     const session = stubSession([], {
       toolCalls: [
         {
           timestamp: 1,
           name: "command_execution",
           arguments: { command: "/bin/zsh -lc pwd" },
-          resultText: "/tmp/run-proof-first-bugfix-default-codexWithHasSkills-123/workdir\n",
+          resultText: "/tmp/run-proof-first-bugfix-default-codexWithConsultSkills-123/workdir\n",
           wasBlocked: false,
         },
         {
@@ -571,8 +571,8 @@ describe("HAS eval config", () => {
       metrics: { submittedProofPassed: 1 },
     });
 
-    expect(result.scores["has_activation"]).toBe(100);
-    expect(result.findings).not.toContain("HAS profile did not read any HAS skill files; plugin activation is not proven.");
+    expect(result.scores["consult_activation"]).toBe(100);
+    expect(result.findings).not.toContain("Consult profile did not read any Consult skill files; plugin activation is not proven.");
   });
 
   it("does not count skill loads as a deterministic score dimension", () => {
@@ -596,7 +596,7 @@ describe("HAS eval config", () => {
     });
 
     expect(result.scores).not.toHaveProperty("skill_focus");
-    expect(result.findings.some((finding) => finding.startsWith("Loaded too many HAS skills"))).toBe(false);
+    expect(result.findings.some((finding) => finding.startsWith("Loaded too many Consult skills"))).toBe(false);
   });
 
   it("does not cap change_quality on file count; rewards source+tests together", () => {

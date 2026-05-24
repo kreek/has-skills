@@ -1,11 +1,11 @@
 {
-  "name": "has",
+  "name": "consult",
   "interface": {
-    "displayName": "Highline Agent Skills"
+    "displayName": "Consult"
   },
   "plugins": [
     {
-      "name": "has",
+      "name": "consult",
       "source": {
         "source": "local",
         "path": "./plugin"

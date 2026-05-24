@@ -24,7 +24,7 @@ metadata:
     - url: https://opentelemetry.io/docs/languages/rust/
       title: OpenTelemetry Rust
 spec:
-  owner: has
+  owner: consult
   type: service
   parameters:
     - title: Stack Configuration

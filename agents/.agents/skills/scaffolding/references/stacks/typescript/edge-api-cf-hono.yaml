@@ -21,7 +21,7 @@ metadata:
     - url: https://vitest.dev/
       title: Vitest
 spec:
-  owner: has
+  owner: consult
   type: service
   parameters:
     - title: Stack Configuration
@@ -72,7 +72,7 @@ spec:
             - 'Cron Triggers — scheduled tasks'
             - 'Queues — async work'
             - 'Durable Objects — stateful coordination'
-  # HAS extensions (non-Backstage; agent-readable).
+  # Consult extensions (non-Backstage; agent-readable).
   tooling:
     package_manager: pnpm
     language_flavor: typescript-strict

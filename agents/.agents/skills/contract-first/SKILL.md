@@ -72,8 +72,8 @@ description: Use when caller-facing interfaces or shared structure need approval
 
 ## Optional Runtime Backstop
 
-Some HAS installations include the manual Interface Design Gate runtime. Use
-`/has:contract [intent]` to start it when available.
+Some Consult installations include the manual Interface Design Gate runtime. Use
+`/consult:contract [intent]` to start it when available.
 
 ## Handoffs
 

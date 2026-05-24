@@ -1,15 +1,18 @@
-# Highline Agent Skills
+# Consult
 
 Drawn from 25 years of software engineering across startups and large
-organizations, Highline Agent Skills (HAS) is a portable skill library for
+organizations, Consult is a portable skill library for
 raising the engineering maturity of coding agents.
 
 Humans are good at mapping real-world issues to technical solutions, and Anthropic
-and OpenAI have poured billions into models and agents. HAS's goal is to augment
-your work with agents to produce simpler, trustworthy, and maintainable
-production-grade software.
+and OpenAI have poured billions into models and agents. Consult does not try to
+change either side of that equation: it does not automate humans away, and it
+does not change how coding agents or their harnesses work internally. It
+augments the collaboration between them so agent-assisted work produces simpler,
+trustworthy, and maintainable production-grade software while humans still own
+intent, design, and acceptance.
 
-## What HAS guides agents to do
+## What Consult guides agents to do
 
 - Keep humans in the loop for significant and hard-to-change work: public
   interfaces, project structure, dependency picks, data boundaries, long-lived
@@ -36,34 +39,34 @@ when your tool does not support plugins.
 Inside Claude Code:
 
 ```text
-/plugin marketplace add kreek/has-skills
-/plugin install has@has
+/plugin marketplace add kreek/consult
+/plugin install consult@consult
 ```
 
 ### Codex
 
 ```sh
-codex plugin marketplace add kreek/has-skills
+codex plugin marketplace add kreek/consult
 ```
 
-Then open `/plugins` in Codex, find **Highline Agent Skills** in the list,
+Then open `/plugins` in Codex, find **Consult** in the list,
 press Enter to open its details, and select `Install plugin`.
 
 To update:
 
 ```sh
-codex plugin marketplace upgrade has
+codex plugin marketplace upgrade consult
 ```
 
-Then open `/plugins`, find **Highline Agent Skills** in the list, press Enter
+Then open `/plugins`, find **Consult** in the list, press Enter
 to open its details, and select `Install plugin` again.
 
 ### Cursor
 
 Install from the [Cursor Marketplace](https://cursor.com/marketplace) (search for
-**Highline Agent Skills** or submit this repo at
+**Consult** or submit this repo at
 [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) if it is
-not listed yet). Open the marketplace panel in Cursor, install **has**, then
+not listed yet). Open the marketplace panel in Cursor, install **consult**, then
 confirm skills under **Settings → Rules → Agent Decides**. Invoke a skill with
 `/skill-name` in Agent chat (for example `/workflow`, `/proof`).
 
@@ -71,7 +74,7 @@ To test from a local checkout before marketplace listing:
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
-cp -R /path/to/has-skills/plugin ~/.cursor/plugins/local/has
+cp -R /path/to/consult/plugin ~/.cursor/plugins/local/consult
 ```
 
 Reload the window (**Developer: Reload Window**). Prefer `cp -R` over symlinks;
@@ -88,23 +91,23 @@ Developing inside this repository with a local plugin copy also duplicates skill
 ### Pi
 
 ```sh
-pi install github:kreek/has-skills
+pi install github:kreek/consult
 ```
 
-After installing, run `/reload` inside Pi. HAS includes bundled skills plus
-runtime extensions for `/proof` and `/has:self-review`.
+After installing, run `/reload` inside Pi. Consult includes bundled skills plus
+runtime extensions for `/proof` and `/consult:self-review`.
 
 ### Google Antigravity
 
-Antigravity's CLI (`agy`) manages plugins with `agy plugin install`. HAS ships a
+Antigravity's CLI (`agy`) manages plugins with `agy plugin install`. Consult ships a
 ready-to-install plugin at `plugin/` (a `plugin.json` marker plus a `skills/`
 directory). Install it from a local checkout:
 
 ```sh
-agy plugin install /path/to/has-skills/plugin
+agy plugin install /path/to/consult/plugin
 ```
 
-`agy` copies the plugin into `~/.gemini/antigravity-cli/plugins/has` and
+`agy` copies the plugin into `~/.gemini/antigravity-cli/plugins/consult` and
 registers its skills; verify with `agy plugin list`. Because it copies rather
 than links, re-run the command (or `./setup.sh`) after pulling new skills.
 `./setup.sh` runs this automatically when `agy` is on your PATH.
@@ -120,8 +123,8 @@ dnf install stow    # Fedora/RHEL
 ```
 
 ```sh
-git clone https://github.com/kreek/has-skills.git
-cd has-skills
+git clone https://github.com/kreek/consult.git
+cd consult
 ./setup.sh
 ```
 
@@ -132,11 +135,11 @@ are present. End-user installs do not need Python or uv.
 
 ## Skills
 
-HAS includes 24 skills. Open a skill for its triggers, workflow, and
+Consult includes 24 skills. Open a skill for its triggers, workflow, and
 verification.
 
 - Routing and proof:
-  - [`workflow`](agents/.agents/skills/workflow/SKILL.md): Route HAS work, choose skills, hand off, and define verification.
+  - [`workflow`](agents/.agents/skills/workflow/SKILL.md): Route Consult work, choose skills, hand off, and define verification.
   - [`proof`](agents/.agents/skills/proof/SKILL.md): Tests, claims, invariants, behavior specs, edge cases, and evidence.
   - [`contract-first`](agents/.agents/skills/contract-first/SKILL.md): Approve caller-facing interfaces or shared structure before implementation.
 - Design:
@@ -174,14 +177,14 @@ Shared language defaults are in
 
 ## How routing works
 
-HAS routing is **collaboration-aware, quality-driven, and risk-triggered**.
+Consult routing is **collaboration-aware, quality-driven, and risk-triggered**.
 Risk determines which skills load; working mode determines whether the agent
 should continue, ask for approval, or stay read-only.
 
 The working modes are **Direct**, **Guided**, **Design-partner**, and
 **Review-only**. Most implementation work stays in Direct or Guided mode.
 
-HAS is autonomous by default and consultative for significant or hard-to-change
+Consult is autonomous by default and consultative for significant or hard-to-change
 work. The agent should get a plan or shape/API sign-off before significant new
 code — a substantial new module or component, non-trivial logic, or a deliberate
 behavior change — and before it locks in a caller-facing interface, class or
@@ -200,7 +203,7 @@ for sign-off on interfaces and shared structure.
 
 ## Evaluation
 
-[`eval/README.md`](eval/README.md) benchmarks Codex with and without HAS
+[`eval/README.md`](eval/README.md) benchmarks Codex with and without Consult
 against shared engineering tasks. It combines deterministic hidden tests with
 LLM-judged engineering maturity, proof quality, simplicity, and risk handling.
 
@@ -229,11 +232,11 @@ Manual cleanup may still be needed for tool-specific symlinks.
 If you installed the Claude Code plugin, run these from inside Claude Code:
 
 ```text
-/plugin uninstall has@has
-/plugin marketplace remove has
+/plugin uninstall consult@consult
+/plugin marketplace remove consult
 ```
 
-For Codex, remove HAS from the plugin UI or marketplace commands. For Cursor,
-disable or uninstall **has** from the marketplace panel (or remove
-`~/.cursor/plugins/local/has` and any `~/.cursor/plugins/cache/has` copy). For
-Antigravity, run `agy plugin uninstall has`.
+For Codex, remove Consult from the plugin UI or marketplace commands. For Cursor,
+disable or uninstall **consult** from the marketplace panel (or remove
+`~/.cursor/plugins/local/consult` and any `~/.cursor/plugins/cache/consult` copy). For
+Antigravity, run `agy plugin uninstall consult`.

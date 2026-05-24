@@ -115,7 +115,7 @@ describe("setup.sh preflight", () => {
     const result = runSetup(tmp);
 
     expect(result.status).toBe(1);
-    expect(result.stdout).toContain("HAS setup will:");
+    expect(result.stdout).toContain("Consult setup will:");
     expect(result.stdout).toContain("run GNU Stow");
     expect(result.stdout).toContain("Google");
     expect(result.stdout).toContain("Antigravity");

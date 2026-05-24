@@ -1,16 +1,16 @@
 {
-  "name": "agent-booster-pack-github",
+  "name": "consult-github",
   "version": "0.0.0",
   "private": true,
-  "description": "GitHub-installable Highline Agent Skills package for Pi.",
+  "description": "GitHub-installable Consult package for Pi.",
   "packageManager": "pnpm@10.33.0",
   "type": "module",
   "pi": {
     "extensions": [
-      "./agent-booster-pack/src/index.ts"
+      "./consult/src/index.ts"
     ],
     "skills": [
-      "./agent-booster-pack/skills"
+      "./consult/skills"
     ]
   },
   "scripts": {
@@ -18,11 +18,11 @@
     "test": "vitest run tests"
   },
   "files": [
-    "agent-booster-pack/src",
-    "agent-booster-pack/extensions",
-    "agent-booster-pack/skills",
-    "agent-booster-pack/README.md",
-    "agent-booster-pack/LICENSE",
+    "consult/src",
+    "consult/extensions",
+    "consult/skills",
+    "consult/README.md",
+    "consult/LICENSE",
     "README.md",
     "LICENSE"
   ],

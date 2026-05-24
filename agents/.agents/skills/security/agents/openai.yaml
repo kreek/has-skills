@@ -1,4 +1,4 @@
 interface:
-  display_name: "HAS: Security"
+  display_name: "Consult: Security"
   short_description: "Review trust boundaries and risk"
   default_prompt: "Use $security to review this change for auth, input, secrets, and dependency risk."

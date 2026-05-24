@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Publish the HAS Pi npm package.
+# Publish the Consult Pi npm package.
 #
 # Usage:
 #   scripts/publish-pi-packages.sh [--dry-run]
 #
-# The package version comes from agent-booster-pack/package.json. Already-published
+# The package version comes from consult/package.json. Already-published
 # exact versions are skipped so the script can be re-run safely after a partial
 # publish. Actual publishing mutates npm registry state; run it only when the
 # release commit is clean and tagged. If your npm account requires 2FA, npm
@@ -34,7 +34,7 @@ done
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
-package_dir="agent-booster-pack"
+package_dir="consult"
 
 package_field() {
   local field="$1"

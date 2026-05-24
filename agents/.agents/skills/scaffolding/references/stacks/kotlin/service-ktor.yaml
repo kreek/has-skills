@@ -27,7 +27,7 @@ metadata:
     - url: https://docs.gradle.org/current/userguide/kotlin_dsl.html
       title: Gradle Kotlin DSL primer
 spec:
-  owner: has
+  owner: consult
   type: service
   parameters:
     - title: Stack Configuration

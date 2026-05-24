@@ -120,6 +120,8 @@ Use these when the shortcut thought appears:
 
 ## Handoffs
 
+- `contract-first`: durable event-schema or topic-contract approval before
+  consumers bind to it.
 - `domain-modeling`: remove shared mutable state from core design.
 - `api`: public subscription, webhook, SSE, or event-contract surface.
 - `error-handling`: retry budgets and dependency failure policy.

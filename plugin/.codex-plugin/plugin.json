@@ -1,13 +1,13 @@
 {
-  "name": "has",
-  "version": "10.5.1",
-  "description": "Highline Agent Skills (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
+  "name": "consult",
+  "version": "11.0.0",
+  "description": "Consult (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
   "author": {
     "name": "Alastair Dawson",
     "url": "https://github.com/kreek"
   },
-  "homepage": "https://github.com/kreek/has-skills",
-  "repository": "https://github.com/kreek/has-skills",
+  "homepage": "https://github.com/kreek/consult",
+  "repository": "https://github.com/kreek/consult",
   "license": "MIT",
   "keywords": [
     "agent-skills",
@@ -19,20 +19,20 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Highline Agent Skills",
+    "displayName": "Consult",
     "shortDescription": "Collaborative engineering-discipline skills for coding agents.",
-    "longDescription": "Highline Agent Skills helps coding agents produce simpler, safer, more correct, accessible, maintainable, and production-ready software while keeping humans involved in architecture, design, judgment, and acceptance.",
+    "longDescription": "Consult helps coding agents produce simpler, safer, more correct, accessible, maintainable, and production-ready software while keeping humans involved in architecture, design, judgment, and acceptance.",
     "developerName": "Alastair Dawson",
     "category": "Coding",
     "capabilities": [
       "Read",
       "Write"
     ],
-    "websiteURL": "https://github.com/kreek/has-skills",
+    "websiteURL": "https://github.com/kreek/consult",
     "defaultPrompt": [
-      "Use HAS workflow for this engineering task.",
-      "Review this change with HAS code-review.",
-      "Use HAS proof before claiming this is done."
+      "Use Consult workflow for this engineering task.",
+      "Review this change with Consult code-review.",
+      "Use Consult proof before claiming this is done."
     ],
     "brandColor": "#E8592F"
   }

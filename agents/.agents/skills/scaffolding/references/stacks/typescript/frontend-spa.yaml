@@ -22,7 +22,7 @@ metadata:
     - url: https://svelte.dev/
       title: Svelte
 spec:
-  owner: has
+  owner: consult
   type: website
   parameters:
     - title: Stack Configuration

@@ -1,4 +1,4 @@
 interface:
-  display_name: "HAS: Proof"
+  display_name: "Consult: Proof"
   short_description: "Prove claims with checks and tests"
-  default_prompt: "Use HAS proof to turn these claims into proof contracts and behavior-focused tests."
+  default_prompt: "Use Consult proof to turn these claims into proof contracts and behavior-focused tests."

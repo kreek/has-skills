@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Highline Agent Skills are recorded here. The format
+All notable changes to Consult are recorded here. The format
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -17,7 +17,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   observable behavior change as consultative; routine, local, and disposable
   work — including narrow bug fixes that restore already-intended behavior —
   stays autonomous.
-- Renamed the GitHub repository to `kreek/has-skills`. Updated install URLs,
+- Renamed the GitHub repository to `kreek/consult`. Updated install URLs,
   clone paths, and plugin/package metadata accordingly. Plugin IDs, slash
   commands, and npm package names are unchanged.
 
@@ -25,10 +25,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Renamed the pack to **Highline Agent Skills** (**HAS**) across README,
+- Renamed the pack to **Consult** (**Consult**) across README,
   AGENTS.md, skill prose, plugin display metadata, eval docs, and install
-  URLs (`kreek/highline-agent-skills`). Plugin IDs (`abp`), slash commands
-  (`/abp:*`), and npm package names are unchanged.
+  URLs (`kreek/highline-agent-skills`). Plugin IDs (`consult`), slash commands
+  (`/consult:*`), and npm package names are unchanged.
 
 
 ### Added
@@ -50,18 +50,18 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Removed Claude Code and Codex plugin Stop hooks so HAS plugin packages are
+- Removed Claude Code and Codex plugin Stop hooks so Consult plugin packages are
   skills-only. Self-review remains part of the `workflow` completion loop, and
-  the Pi package keeps its `/abp:self-review` runtime command.
+  the Pi package keeps its `/consult:self-review` runtime command.
 
 ## [9.12.0] (2026-05-16)
 
 ### Changed
 
-- Cap the HAS self-review Stop hook at 3 firings per `session_id` to
+- Cap the Consult self-review Stop hook at 3 firings per `session_id` to
   prevent doom loops when the model addresses the reminder by editing more
   files (changing the diff hash) without using an acknowledgement token.
-  Configurable via `ABP_SELF_REVIEW_MAX_RUNS` (default `3`). State file
+  Configurable via `Consult_SELF_REVIEW_MAX_RUNS` (default `3`). State file
   shape extended from `{ sessionId: "hash" }` to
   `{ sessionId: { hash, count } }`; legacy string entries are read
   transparently and migrate on the next write.
@@ -84,18 +84,18 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Stop hook reframed from a narrow proof reminder into a final-pass
   self-review. The injected message now routes the model into the
-  `abp:code-review` skill and asks for a findings-first severity pass
+  `consult:code-review` skill and asks for a findings-first severity pass
   across correctness, security, evidence, dead-surface / AI-risk, and
-  simplicity lenses (with handoff to `abp:proof` for missing coverage).
+  simplicity lenses (with handoff to `consult:proof` for missing coverage).
   Gating semantics (production-file-only, once-per-session-hash,
   git-aware, Stop-only) are unchanged.
 - Hook script renamed `plugin/scripts/proof-reminder.mjs` →
   `plugin/scripts/self-review.mjs`; test renamed in lockstep.
   Acknowledgement tokens broadened: `self-review:` and `findings:` join
   the existing `proof:`, `evidence:`, `unproven`. State file
-  `~/.abp-proof-gate-state.json` → `~/.abp-self-review-state.json`;
-  env override `ABP_PROOF_GATE_STATE_FILE` →
-  `ABP_SELF_REVIEW_STATE_FILE`.
+  `~/.consult-proof-gate-state.json` → `~/.consult-self-review-state.json`;
+  env override `Consult_PROOF_GATE_STATE_FILE` →
+  `Consult_SELF_REVIEW_STATE_FILE`.
 
 ## [9.10.3] (2026-05-15)
 
@@ -142,10 +142,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Light-touch end-of-turn proof reminder hook on the Claude Code and Codex
   plugin (`Stop` event). Interrupts once per task when production code
-  changed and the agent has not named proof, pointing at the `abp:proof`
+  changed and the agent has not named proof, pointing at the `consult:proof`
   skill. Honors `stop_hook_active` to avoid infinite loops; idempotent per
-  session via a state file at `~/.abp-proof-gate-state.json`
-  (override with `ABP_PROOF_GATE_STATE_FILE`). Skips silently on
+  session via a state file at `~/.consult-proof-gate-state.json`
+  (override with `Consult_PROOF_GATE_STATE_FILE`). Skips silently on
   docs/config-only diffs, clean trees, non-git directories, and when the
   agent has already named proof in its last message. Codex users must
   enable `[features] hooks = true` in `~/.codex/config.toml`.
@@ -158,10 +158,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - BREAKING: Renamed the `technical-design` skill, `/skill:technical-design`
-  invocation, Pi guard command `/abp:technical-design`, and
-  `agent-booster-pack-technical-design` runtime package to `specify`,
-  `/skill:specify`, `/abp:specify`, and
-  `agent-booster-pack-specify`. Specify keeps the design-before-code
+  invocation, Pi guard command `/consult:technical-design`, and
+  `consult-technical-design` runtime package to `specify`,
+  `/skill:specify`, `/consult:specify`, and
+  `consult-specify`. Specify keeps the design-before-code
   conversation guard, routes durable interfaces through `contract-first`, and
   captures the agreed result as an ADR, RFC, tech spec, or note.
 - Workflow guidance now separates work-location choices by branch state: on
@@ -210,35 +210,35 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   tightens locality. Cross-cited by `architecture` and `code-review`.
 - `workflow` now ships a `vocabulary-map.md` reference: a crosswalk from
   SOLID, Clean Architecture, Hexagonal / Ports & Adapters, and DDD
-  vocabulary into the HAS simplicity-shaped implementation, so the agent
+  vocabulary into the Consult simplicity-shaped implementation, so the agent
   meets the user's dialect at design time rather than asserting a
   competing one at PR review. Cross-cited by `architecture`, `data-first`,
   `refactoring`, and `code-review`.
 - `release` now includes a deprecation and migration reference covering
   advisory deprecation, compulsory migration, removal, and recovery proof.
-- New Pi runtime package `agent-booster-pack-contract-first@1.0.0` hosts
+- New Pi runtime package `consult-contract-first@1.0.0` hosts
   the Interface Design Gate as a soft runtime check that pauses
   mutating tool calls when interface/contract intent appears without
   an approved gate packet. Pairs with the `whiteboarding` and
   `workflow` skills.
-- New meta-package `agent-booster-pack` (Pi-installable) depends on
-  `agent-booster-pack-skills`, `agent-booster-pack-contract-first`, and
-  `agent-booster-pack-proof`. One-command install for the full HAS-on-Pi
+- New meta-package `consult` (Pi-installable) depends on
+  `consult-skills`, `consult-contract-first`, and
+  `consult-proof`. One-command install for the full Consult-on-Pi
   experience.
-- `agent-booster-pack-whiteboard` now includes a Pi final-response guard that
+- `consult-whiteboard` now includes a Pi final-response guard that
   asks agents to explain what changed, why it is better than what came before,
   and what it enables next after implementation work.
 
 ### Changed
 
-- BREAKING (Pi): `pi-agent-booster-pack` is renamed to
-  `agent-booster-pack-skills`@5.0.0 and is skills-only — Pi runtime
+- BREAKING (Pi): `pi-consult` is renamed to
+  `consult-skills`@5.0.0 and is skills-only — Pi runtime
   extensions live in sibling packages now. The old
-  `pi-agent-booster-pack` npm name is deprecated pointing at the new
+  `pi-consult` npm name is deprecated pointing at the new
   name; existing installs keep working until upgrade.
-- BREAKING (Pi): `pi-proof` is renamed to `agent-booster-pack-proof`@2.0.0
+- BREAKING (Pi): `pi-proof` is renamed to `consult-proof`@2.0.0
   and is now built/published from this monorepo at
-  `agent-booster-pack-proof/` instead of the standalone `kreek/pi-proof`
+  `consult-proof/` instead of the standalone `kreek/pi-proof`
   repo. The old `pi-proof` npm name is deprecated pointing at the new
   name; package contents are functionally unchanged.
 - BREAKING: Skills are consolidated to reduce Codex skill-list context
@@ -246,10 +246,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `versioning` -> `release`, `concurrency` + `realtime` +
   `background-jobs` -> `async-systems`, `caching` -> `performance`,
   and `testing` -> `proof`.
-- HAS routing doctrine is now described as quality-driven and risk-triggered:
+- Consult routing doctrine is now described as quality-driven and risk-triggered:
   `workflow` is the entry point, `proof` is both the completion gate and a
   proof-work skill, and other skills are peers selected by quality concern.
-- HAS now treats durable interfaces as contract/API sign-off gates: agents
+- Consult now treats durable interfaces as contract/API sign-off gates: agents
   must design the boundary, propose the contract, and get user approval
   before implementation continues. In practice this means more pause/approve
   loops than 4.12.0 — expect agents to stop on any new exported type, prop,
@@ -276,10 +276,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `workflow` now includes a documentation check in the completion loop, and
   `documentation` clarifies when explanatory comments should capture
   non-obvious why/how context without encouraging comment-count targets.
-- HAS doctrine now explicitly says skills ride on host harnesses rather than
+- Consult doctrine now explicitly says skills ride on host harnesses rather than
   replacing browser control, delegation, tool use, memory, planning, or
   system-prompt orchestration.
-- `workflow` now separates internal HAS skill routing from user-facing
+- `workflow` now separates internal Consult skill routing from user-facing
   readiness notes, so agents translate skills into domain lenses and exclude
   product scope instead of listing irrelevant tools.
 - `documentation` now supports refining vague product ideas into problem,
@@ -290,21 +290,21 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Eval commands now use the Pi Do Eval **Bench**, **Regression**, and
   **Trial** vocabulary; the duplicate experiment command/scripts and config
   surface were removed.
-- HAS eval suites now use Pi Do Eval's file-backed `eval/suites/*.yaml`
+- Consult eval suites now use Pi Do Eval's file-backed `eval/suites/*.yaml`
   workflow; `eval.config.ts` is limited to profile, Bench, judge, timeout,
   and budget policy.
-- HAS eval trial metadata now lives in `eval/trials/*/trial.yaml`; generic
+- Consult eval trial metadata now lives in `eval/trials/*/trial.yaml`; generic
   Trial, Regression, and Bench runner code is provided by Pi Do Eval instead
   of project-local TypeScript.
 
 ### Fixed
 
-- `agent-booster-pack` now exposes its dependency skills and runtime extensions
-  through its Pi manifest, so `pi install npm:agent-booster-pack` activates the
+- `consult` now exposes its dependency skills and runtime extensions
+  through its Pi manifest, so `pi install npm:consult` activates the
   skills, Interface Design Gate, proof-first runtime, and whiteboarding guard in
   one install.
-- `./setup.sh` now prunes legacy HAS-owned `~/.codex/skills/` links when the
-  HAS Codex plugin is installed and warns that Codex can still duplicate HAS
+- `./setup.sh` now prunes legacy Consult-owned `~/.codex/skills/` links when the
+  Consult Codex plugin is installed and warns that Codex can still duplicate Consult
   via direct `~/.agents/skills/` discovery if both install paths stay enabled.
 
 ## [2.2.0] (2026-04-26)
@@ -313,7 +313,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - `workflow` master entrypoint skill: load on every software
   engineering task, identify the risk profile, and select the narrower
-  HAS skills that apply.
+  Consult skills that apply.
 - Acceptance-clarity and branch-hygiene gates in the `workflow` skill
   flow, with matching tripwires.
 - Requirements and acceptance criteria coverage in the `documentation`
@@ -335,7 +335,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- README repositioned: HAS is presented as ambient; agents use
+- README repositioned: Consult is presented as ambient; agents use
   `workflow` automatically rather than via a `/`-style command.
 - Documentation skill description and triggers expanded to cover
   PRDs, specs, user stories, and acceptance criteria.

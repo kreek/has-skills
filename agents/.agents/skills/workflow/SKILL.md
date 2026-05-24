@@ -1,6 +1,6 @@
 ---
 name: workflow
-description: Use first to route HAS work, choose skills, hand off, and define verification.
+description: Use first to route Consult work, choose skills, hand off, and define verification.
 ---
 
 # Workflow
@@ -12,7 +12,7 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 ## When to Use
 
 - Software engineering work that is non-trivial enough to need design, skill
-  routing, proof, or user decisions before the agent can do it well. HAS is
+  routing, proof, or user decisions before the agent can do it well. Consult is
   especially tuned for APIs, services, web apps, integrations, and other
   web-connected software.
 - Work that changes or reviews behavior, domain/data models, interfaces,
@@ -31,7 +31,7 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 
 ## Core Ideas
 
-1. **Simple Made Easy is the HAS lens.** Complexity creates bugs,
+1. **Simple Made Easy is the Consult lens.** Complexity creates bugs,
    misunderstanding, and inefficiency in larger software projects. Prefer
    simple designs that separate concerns, make state and effects explicit, and
    reduce what future maintainers must hold in their heads. Do not confuse

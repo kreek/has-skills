@@ -1,5 +1,5 @@
 name: core
-description: HAS's always-on and core design/correctness skills.
+description: Consult's always-on and core design/correctness skills.
 trials:
   - proof-first-bugfix
   - security-boundary-fix

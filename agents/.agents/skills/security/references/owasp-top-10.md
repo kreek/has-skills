@@ -89,7 +89,7 @@ Check:
 - Password hashing: argon2id (preferred), scrypt, or bcrypt. Argon2id
   parameters per current OWASP guidance: `m = 19 MiB, t = 2, p = 1`
   minimum, or `m = 46 MiB, t = 1, p = 1`. OWASP's bcrypt minimum is
-  cost ≥ 10; HAS prefers ≥ 12 when the measured login latency budget
+  cost ≥ 10; Consult prefers ≥ 12 when the measured login latency budget
   allows it. Server should adjust to hit ~250–500 ms per hash on
   production hardware.
 - Symmetric: AEAD only (AES-GCM, ChaCha20-Poly1305); never CBC+HMAC

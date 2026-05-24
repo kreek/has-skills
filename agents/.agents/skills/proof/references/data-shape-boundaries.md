@@ -214,7 +214,7 @@ between functional core and imperative shell, ports and adapters, observable
 behavior versus implementation detail, invariants and property-based
 testing, sans-IO protocol design, data-oriented programming. The synthesis
 under one banner — *data-shape-change is the unifying boundary type, and
-test placement is a code-organization signal* — is HAS's framing.
+test placement is a code-organization signal* — is Consult's framing.
 
 - *Practical Test Pyramid* (Fowler):
   https://martinfowler.com/articles/practical-test-pyramid.html

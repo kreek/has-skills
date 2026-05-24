@@ -24,7 +24,7 @@ metadata:
     - url: https://github.com/lambdaisland/kaocha
       title: Kaocha
 spec:
-  owner: has
+  owner: consult
   type: service
   parameters:
     - title: Stack Configuration

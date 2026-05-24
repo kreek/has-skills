@@ -1,12 +1,12 @@
 {
-  "name": "has",
-  "version": "10.5.1",
-  "description": "Highline Agent Skills (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
+  "name": "consult",
+  "version": "11.0.0",
+  "description": "Consult (collaborative engineering-discipline skill pack): data, proof, security, design, and more.",
   "author": {
     "name": "Alastair Dawson"
   },
-  "homepage": "https://github.com/kreek/has-skills",
-  "repository": "https://github.com/kreek/has-skills",
+  "homepage": "https://github.com/kreek/consult",
+  "repository": "https://github.com/kreek/consult",
   "license": "MIT",
   "keywords": [
     "agent-skills",

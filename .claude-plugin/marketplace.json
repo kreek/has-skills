@@ -1,23 +1,23 @@
 {
-  "name": "has",
+  "name": "consult",
   "owner": {
     "name": "Alastair Dawson",
     "url": "https://github.com/kreek"
   },
   "metadata": {
-    "description": "Highline Agent Skills: collaborative engineering-discipline skills for Claude Code.",
-    "version": "10.5.1",
+    "description": "Consult: collaborative engineering-discipline skills for Claude Code.",
+    "version": "11.0.0",
     "license": "MIT"
   },
   "plugins": [
     {
-      "name": "has",
+      "name": "consult",
       "description": "Portable, collaborative engineering-discipline skill pack: data, proof, security, design, and more.",
-      "version": "10.5.1",
+      "version": "11.0.0",
       "author": {
         "name": "Alastair Dawson"
       },
-      "homepage": "https://github.com/kreek/has-skills",
+      "homepage": "https://github.com/kreek/consult",
       "license": "MIT",
       "source": "./plugin"
     }

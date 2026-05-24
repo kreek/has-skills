@@ -24,7 +24,7 @@ metadata:
     - url: https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management
       title: Central Package Management
 spec:
-  owner: has
+  owner: consult
   type: website
   parameters:
     - title: Stack Configuration

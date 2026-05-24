@@ -20,7 +20,7 @@ metadata:
     - url: https://doc.rust-lang.org/cargo/
       title: Cargo
 spec:
-  owner: has
+  owner: consult
   type: service
   parameters:
     - title: Stack Configuration

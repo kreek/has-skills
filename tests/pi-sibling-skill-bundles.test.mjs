@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { ROOT } from "./helpers.mjs";
 
 const CANONICAL_SKILLS = join(ROOT, "agents/.agents/skills");
-const PACKAGE_SKILLS = join(ROOT, "agent-booster-pack/skills");
+const PACKAGE_SKILLS = join(ROOT, "consult/skills");
 
 function walkRelativeFiles(root, prefix = "") {
   const files = [];

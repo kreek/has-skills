@@ -10,9 +10,9 @@ const VERSION = "5.1.0";
 let tmp;
 
 function writePackage(root) {
-  const path = join(root, "agent-booster-pack");
+  const path = join(root, "consult");
   mkdirSync(path, { recursive: true });
-  writeFileSync(join(path, "package.json"), JSON.stringify({ name: "agent-booster-pack", version: VERSION }), "utf8");
+  writeFileSync(join(path, "package.json"), JSON.stringify({ name: "consult", version: VERSION }), "utf8");
 }
 
 function makeRepo({ dirty = false } = {}) {
@@ -77,7 +77,7 @@ describe("Pi package npm publish script", () => {
     tmp = undefined;
   });
 
-  it("publishes only agent-booster-pack", () => {
+  it("publishes only consult", () => {
     tmp = makeTempDir();
     const root = makeRepo();
 
@@ -87,7 +87,7 @@ describe("Pi package npm publish script", () => {
     const publishLines = commandLog()
       .split(/\r?\n/)
       .filter((line) => line.startsWith("npm publish"));
-    expect(publishLines).toEqual(["npm publish ./agent-booster-pack --access public"]);
+    expect(publishLines).toEqual(["npm publish ./consult --access public"]);
   });
 
   it("dry-run reports the single package without publishing", () => {
@@ -97,7 +97,7 @@ describe("Pi package npm publish script", () => {
     const result = runScript(root, "--dry-run");
 
     expect(result.status).toBe(0);
-    expect(result.stdout).toContain("would publish agent-booster-pack@5.1.0");
+    expect(result.stdout).toContain("would publish consult@5.1.0");
     expect(commandLog()).not.toContain("npm publish");
   });
 
@@ -109,8 +109,8 @@ describe("Pi package npm publish script", () => {
 
     expect(result.status).toBe(0);
     const lines = commandLog().split(/\r?\n/);
-    const publish = lines.indexOf("npm publish ./agent-booster-pack --access public");
-    const confirm = lines.indexOf("npm view agent-booster-pack@5.1.0 version", publish + 1);
+    const publish = lines.indexOf("npm publish ./consult --access public");
+    const confirm = lines.indexOf("npm view consult@5.1.0 version", publish + 1);
     expect(publish).toBeLessThan(confirm);
   });
 

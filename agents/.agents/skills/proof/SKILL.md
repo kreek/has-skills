@@ -205,6 +205,6 @@ For every non-trivial engineering claim, record:
 - Proof recipes by claim type: `references/recipes.md`.
 - Removals and replacements: `references/removals.md`.
 - Test-theater traps: `references/test-theater.md`.
-- The `agent-booster-pack` Pi package includes the `/proof` runtime command. It
+- The `consult` Pi package includes the `/proof` runtime command. It
   runs a red-green-refactor cycle when behavior tests are the right proof
   vehicle; runtime output counts only toward the claims it covers.

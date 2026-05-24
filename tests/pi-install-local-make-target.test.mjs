@@ -31,12 +31,12 @@ if [ "$1" = "pack" ]; then
   done
   mkdir -p "$dest"
   case "$(pwd)" in
-    */agent-booster-pack/agent-booster-pack)
-      package_name="agent-booster-pack"
-      package_version="9.1.1"
+    */consult)
+      package_name="consult"
+      package_version="10.0.0"
       ;;
     *)
-      package_name="agent-booster-pack-repo"
+      package_name="consult-repo"
       package_version="0.0.0"
       ;;
   esac
@@ -87,7 +87,7 @@ describe("pi-install-local make target", () => {
     const npmLog = readFileSync(join(tmp, "npm.log"), "utf8");
     expect(npmLog).toContain("run prepack");
     expect(npmLog).toContain("pack --ignore-scripts --pack-destination ");
-    expect(readFileSync(join(tmp, "pi.log"), "utf8")).toMatch(/^install .*agent-booster-pack-9\.1\.1\.tgz/m);
+    expect(readFileSync(join(tmp, "pi.log"), "utf8")).toMatch(/^install .*consult-10\.0\.0\.tgz/m);
     expect(existsSync(join(skills, "code-review"))).toBe(false);
     expect(lstatSync(join(skills, "unrelated")).isSymbolicLink()).toBe(true);
   });

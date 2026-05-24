@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# One-click local installer for HAS's shared skills and agent compatibility links.
+# One-click local installer for Consult's shared skills and agent compatibility links.
 set -euo pipefail
 
 usage() {
 	cat <<EOF
 Usage: ./setup.sh
 
-Install HAS skills into ~/.agents and wire local agent compatibility links.
+Install Consult skills into ~/.agents and wire local agent compatibility links.
 
 Options:
   -h, --help Show this help.
@@ -60,7 +60,7 @@ require_stow() {
 	fi
 
 	cat >&2 <<EOF
-ERROR: GNU Stow is required for local HAS installs.
+ERROR: GNU Stow is required for local Consult installs.
 
 Install it, then rerun ./setup.sh:
 
@@ -176,16 +176,16 @@ replace_file_if_confirmed() {
 
 confirm_setup_start() {
 	cat <<EOF
-HAS setup will:
+Consult setup will:
   - run GNU Stow from this checkout to link shared skills into ~/.agents/skills
   - link ~/.claude/skills to ~/.agents/skills when safe
-  - install the HAS plugin with "agy plugin install" when the Google
+  - install the Consult plugin with "agy plugin install" when the Google
     Antigravity CLI (agy) is installed
-  - link individual HAS skills into ~/.codex/skills when Codex is installed
-    without the HAS Codex plugin, or prune those legacy links when the plugin
+  - link individual Consult skills into ~/.codex/skills when Codex is installed
+    without the Consult Codex plugin, or prune those legacy links when the plugin
     is present
-  - link individual HAS skills into ~/.codeium/windsurf/skills when Windsurf is installed
-  - prune stale HAS-owned skill links and legacy command links
+  - link individual Consult skills into ~/.codeium/windsurf/skills when Windsurf is installed
+  - prune stale Consult-owned skill links and legacy command links
   - ask before replacing conflicting symlinks or moving real directories
   - sync plugin/ skill links when node is available
 
@@ -271,16 +271,16 @@ configure_antigravity_plugin() {
 		return
 	fi
 
-	echo "Google Antigravity: installing HAS plugin via 'agy plugin install'"
+	echo "Google Antigravity: installing Consult plugin via 'agy plugin install'"
 	if agy plugin install "$REPO_ROOT/plugin" </dev/null; then
-		echo "Google Antigravity: HAS plugin installed (verify with 'agy plugin list')"
+		echo "Google Antigravity: Consult plugin installed (verify with 'agy plugin list')"
 	else
 		echo "Google Antigravity: 'agy plugin install' failed; install manually with:"
 		echo "  agy plugin install $REPO_ROOT/plugin"
 	fi
 }
 
-remove_has_skill_links() {
+remove_consult_skill_links() {
 	local label="$1"
 	local target_dir="$2"
 	if [ ! -d "$target_dir" ]; then
@@ -306,33 +306,33 @@ remove_has_skill_links() {
 	done
 }
 
-codex_has_plugin_installed() {
+codex_consult_plugin_installed() {
 	local manifest
-	for manifest in "$HOME"/.codex/plugins/cache/has/*/*/.codex-plugin/plugin.json \
-		"$HOME"/.codex/plugins/cache/has/*/.codex-plugin/plugin.json; do
+	for manifest in "$HOME"/.codex/plugins/cache/consult/*/*/.codex-plugin/plugin.json \
+		"$HOME"/.codex/plugins/cache/consult/*/.codex-plugin/plugin.json; do
 		[ -f "$manifest" ] && return 0
 	done
 	return 1
 }
 
-cursor_has_plugin_installed() {
+cursor_consult_plugin_installed() {
 	local manifest
-	for manifest in "$HOME"/.cursor/plugins/cache/has/*/*/.cursor-plugin/plugin.json \
-		"$HOME"/.cursor/plugins/cache/has/*/.cursor-plugin/plugin.json \
-		"$HOME"/.cursor/plugins/local/has/.cursor-plugin/plugin.json; do
+	for manifest in "$HOME"/.cursor/plugins/cache/consult/*/*/.cursor-plugin/plugin.json \
+		"$HOME"/.cursor/plugins/cache/consult/*/.cursor-plugin/plugin.json \
+		"$HOME"/.cursor/plugins/local/consult/.cursor-plugin/plugin.json; do
 		[ -f "$manifest" ] && return 0
 	done
 	return 1
 }
 
 # Codex CLI: ~/.codex/skills/
-if codex_has_plugin_installed; then
-	echo "Codex: HAS plugin installed; pruning manual HAS skill links"
-	remove_has_skill_links "Codex" "$HOME/.codex/skills"
+if codex_consult_plugin_installed; then
+	echo "Codex: Consult plugin installed; pruning manual Consult skill links"
+	remove_consult_skill_links "Codex" "$HOME/.codex/skills"
 	cat <<EOF
-Codex: HAS is also linked into ~/.agents/skills by this manual install.
+Codex: Consult is also linked into ~/.agents/skills by this manual install.
 Codex can discover ~/.agents/skills directly, so keep either the manual install
-or the Codex plugin enabled, not both, to avoid duplicate HAS skills.
+or the Codex plugin enabled, not both, to avoid duplicate Consult skills.
 EOF
 else
 	link_skills_per_agent "Codex" "$HOME/.codex/skills"
@@ -342,15 +342,15 @@ fi
 link_skills_per_agent "Windsurf" "$HOME/.codeium/windsurf/skills"
 
 # Google Antigravity's CLI (agy) installs plugins from a local path into
-# ~/.gemini/antigravity-cli/plugins/. HAS ships plugin/ with a plugin.json
+# ~/.gemini/antigravity-cli/plugins/. Consult ships plugin/ with a plugin.json
 # marker and a root-level skills/ directory, which agy imports as skills.
 configure_antigravity_plugin
 
-if cursor_has_plugin_installed; then
+if cursor_consult_plugin_installed; then
 	cat <<EOF
-Cursor: HAS plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/has.
+Cursor: Consult plugin installed via the Cursor marketplace or ~/.cursor/plugins/local/consult.
 Cursor also auto-discovers ~/.agents/skills/ from this manual install.
-Keep either the Cursor plugin or the manual install for Cursor, not both, to avoid duplicate HAS skills in Agent Decides.
+Keep either the Cursor plugin or the manual install for Cursor, not both, to avoid duplicate Consult skills in Agent Decides.
 EOF
 fi
 
@@ -386,7 +386,7 @@ echo ""
 # and `~/.codex/prompts/` produced duplicate `/<name>` entries in the slash
 # command list: the same skill registered twice (once via SKILL.md, once via
 # the standalone command file). Codex's per-skill `~/.codex/skills/<name>/`
-# fan-out already namespaces cleanly as `HAS:<name>`; Claude Code's flat
+# fan-out already namespaces cleanly as `Consult:<name>`; Claude Code's flat
 # `~/.claude/skills` symlink registers the skill directly. Both made the
 # extra commands link redundant.
 #

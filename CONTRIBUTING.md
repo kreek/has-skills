@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in Highline Agent Skills. This file covers what you
+Thanks for your interest in Consult. This file covers what you
 need to know before opening a PR.
 
 ## Project conventions
@@ -161,7 +161,7 @@ Then update, as relevant:
 - [`.cursor-plugin/marketplace.json`](.cursor-plugin/marketplace.json) and
   [`plugin/.cursor-plugin/plugin.json`](plugin/.cursor-plugin/plugin.json) —
   when Cursor plugin metadata or packaged skill content changes.
-- `agent-booster-pack*/package.json` — when Pi package metadata, composition,
+- `consult*/package.json` — when Pi package metadata, composition,
   or versions change.
 
 ## Local plugin development
@@ -172,26 +172,26 @@ marketplace install commands in the README.
 Claude Code:
 
 ```sh
-/plugin install /path/to/has-skills/plugin
+/plugin install /path/to/consult/plugin
 ```
 
 Codex:
 
 ```sh
-codex plugin marketplace add /path/to/has-skills
+codex plugin marketplace add /path/to/consult
 ```
 
 Google Antigravity (`agy`):
 
 ```sh
-agy plugin install /path/to/has-skills/plugin
+agy plugin install /path/to/consult/plugin
 ```
 
 Cursor (local plugin directory):
 
 ```sh
 mkdir -p ~/.cursor/plugins/local
-cp -R /path/to/has-skills/plugin ~/.cursor/plugins/local/has
+cp -R /path/to/consult/plugin ~/.cursor/plugins/local/consult
 ```
 
 Reload Cursor (**Developer: Reload Window**). Skills-only: do not add hooks or MCP
@@ -199,10 +199,10 @@ to the Cursor manifest until that is an explicit pack decision.
 
 **Duplicate skills in Settings when this repo is open:** Cursor discovers
 `agents/.agents/skills/` from the workspace and also loads
-`~/.cursor/plugins/local/has`. The same skill names then appear twice under
+`~/.cursor/plugins/local/consult`. The same skill names then appear twice under
 **Settings → Rules**. That is expected here; marketplace users on other
 projects do not see it. While editing canonical skills in this checkout, remove
-the local plugin copy (`rm -rf ~/.cursor/plugins/local/has`) and reload. To
+the local plugin copy (`rm -rf ~/.cursor/plugins/local/consult`) and reload. To
 smoke-test the plugin bundle only, keep the local copy and open a different
 folder, or stay here and accept the duplicate listing.
 

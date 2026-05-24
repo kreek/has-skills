@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Run deterministic HAS pre-commit checks for Markdown and Pi package changes.
+// Run deterministic Consult pre-commit checks for Markdown and Pi package changes.
 
 import { spawnSync } from "node:child_process";
 import { existsSync, statSync } from "node:fs";
@@ -60,12 +60,12 @@ export function selectChecks(paths) {
 
   if (
     hasAny(paths, (path) =>
-      pathMatches(path, ".pi", "agent-booster-pack") ||
+      pathMatches(path, ".pi", "consult") ||
       pathMatches(path, "tests/pi-install-local-make-target.test.mjs") ||
       pathMatches(path, "tests/pi-local-yeet-command.test.mjs") ||
       pathMatches(path, "tests/pi-meta-package-local-dependencies.test.mjs") ||
       pathMatches(path, "tests/pi-sibling-skill-bundles.test.mjs") ||
-      pathMatches(path, "tests/has-header.test.mjs") ||
+      pathMatches(path, "tests/consult-header.test.mjs") ||
       pathMatches(path, "tests/publish-pi-packages.test.mjs") ||
       pathMatches(path, "scripts/pi-install-local.sh") ||
       pathMatches(path, "scripts/publish-pi-packages.sh") ||
@@ -80,7 +80,7 @@ export function selectChecks(paths) {
           "exec",
           "vitest",
           "run",
-          "tests/has-header.test.mjs",
+          "tests/consult-header.test.mjs",
           "tests/pi-install-local-make-target.test.mjs",
           "tests/pi-local-yeet-command.test.mjs",
           "tests/pi-meta-package-local-dependencies.test.mjs",
@@ -90,7 +90,7 @@ export function selectChecks(paths) {
         ["pnpm"],
       ),
     );
-    checks.push(new Check("packaged Pi extension tests pass", ["pnpm", "--dir", "agent-booster-pack", "test"], ["pnpm"]));
+    checks.push(new Check("packaged Pi extension tests pass", ["pnpm", "--dir", "consult", "test"], ["pnpm"]));
   }
 
   return checks;
@@ -138,7 +138,7 @@ function parseArgs(argv) {
     if (arg === "-h" || arg === "--help") {
       console.log(`Usage: node scripts/pre-commit-acceptance.mjs [--repo-root PATH] [--dry-run]
 
-Run HAS pre-commit checks for staged files.`);
+Run Consult pre-commit checks for staged files.`);
       return { help: true };
     } else if (arg === "--dry-run") {
       dryRun = true;
@@ -179,7 +179,7 @@ export function main(argv = process.argv.slice(2)) {
     return 0;
   }
 
-  console.log("HAS pre-commit checks");
+  console.log("Consult pre-commit checks");
   console.log(`Branch: ${branch || "(detached HEAD)"}`);
   console.log("Staged files:");
   for (const path of paths) console.log(`  - ${path}`);

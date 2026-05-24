@@ -6,7 +6,7 @@ Please report security issues privately rather than in public issues
 or pull requests.
 
 **Preferred channel:** open a private vulnerability report on GitHub at
-<https://github.com/kreek/has-skills/security/advisories/new>.
+<https://github.com/kreek/consult/security/advisories/new>.
 
 Include:
 
@@ -20,7 +20,7 @@ timeline is shared once the report is triaged.
 
 ## Scope
 
-Highline Agent Skills ships skill content, install scripts, and plugin
+Consult ships skill content, install scripts, and plugin
 manifests. Security-relevant surfaces include:
 
 - `setup.sh` and any scripts under `scripts/`.
@@ -33,7 +33,7 @@ manifests. Security-relevant surfaces include:
 Out of scope: behavior of third-party agent runtimes (Claude Code,
 Codex, Cursor (marketplace plugin or `~/.agents/skills/` discovery), Gemini CLI,
 Google Antigravity, OpenCode, Copilot CLI), and
-downstream projects that consume HAS.
+downstream projects that consume Consult.
 
 ## Supported versions
 

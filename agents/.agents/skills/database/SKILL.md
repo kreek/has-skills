@@ -23,19 +23,23 @@ description: Use for databases, schemas, migrations, indexes, transactions, quer
 
 ## Core Ideas
 
-1. Use the project's existing database unless the task is choosing a store.
+1. Schema, migration, and destructive data changes are the user's call.
+   Route schema and migration changes through `contract-first`; data
+   deletion and non-reversible backfills need the same approval for data
+   safety.
+2. Use the project's existing database unless the task is choosing a store.
    For greenfield defaults and store-selection caveats, use `architecture`.
-2. Expand, migrate, verify, switch, then contract in separate
+3. Expand, migrate, verify, switch, then contract in separate
    deployable steps.
-3. Review SQL and lock behavior, not just ORM code.
-4. Backfills are batched, resumable, observable, and reversible.
-5. Constraints enforce invariants. Every uniqueness invariant needs a DB-level
+4. Review SQL and lock behavior, not just ORM code.
+5. Backfills are batched, resumable, observable, and reversible.
+6. Constraints enforce invariants. Every uniqueness invariant needs a DB-level
    `UNIQUE`, `EXCLUDE`, composite, or partial equivalent. Application-layer
    checks race under concurrency.
-6. Indexes support known access paths. New foreign keys and known `WHERE`,
-   `JOIN`, or `ORDER BY` predicates need supporting indexes in the same
-   migration, or a stated reason they do not.
-7. Query changes need plans on production-shaped data.
+7. Indexes and plans follow real access paths. New foreign keys and known
+   `WHERE`, `JOIN`, or `ORDER BY` predicates need supporting indexes in the
+   same migration, or a stated reason they do not; query changes need
+   EXPLAIN/ANALYZE plans on production-shaped data.
 8. Isolation level is a design decision; retries are part of
    serializable correctness.
 9. State changes and durable publication need atomicity through
@@ -79,6 +83,9 @@ description: Use for databases, schemas, migrations, indexes, transactions, quer
 - [ ] State changes and event/job publication cannot diverge silently
       when the workflow depends on both.
 - [ ] Rollback and backup/PITR coverage are documented.
+- [ ] Schema and migration changes were routed through `contract-first`,
+      and destructive data operations (deletion, non-reversible backfills)
+      had explicit user approval before landing.
 
 ## Tripwires
 
@@ -100,6 +107,8 @@ Use these when the shortcut thought appears:
 
 ## Handoffs
 
+- `contract-first`: schema, migration, or stored-shape approval before
+  implementation locks the change.
 - `release`: deploy ordering, rollback rehearsal, feature flags.
 - `performance`: measured query latency or throughput change.
 - `observability`: migration and query dashboards/alerts.

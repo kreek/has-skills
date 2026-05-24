@@ -22,12 +22,12 @@ schema and conventions:
 - `spec.type` uses Backstage's standard component types: `service`,
   `website`, `library`. APIs and backends → `service`; sites and
   fullstack apps → `website`.
-- `spec.owner: has`.
+- `spec.owner: consult`.
 - Parameters live in a single page (`spec.parameters[0]`) unless a
   template's required vs optional split is large enough to warrant
   separate pages.
 
-## HAS extensions (non-Backstage fields)
+## Consult extensions (non-Backstage fields)
 
 The agent reads three extra fields under `spec`. Backstage's engine
 ignores unknown keys, so this is safe.
@@ -38,7 +38,7 @@ ignores unknown keys, so this is safe.
 - `switch_when` — short note pointing at the next template to
   consider if this one stops fitting.
 
-The `index.yaml` Location entity also carries an HAS-specific
+The `index.yaml` Location entity also carries an Consult-specific
 `spec.default_for` map that routes common request shapes
 (`fresh-typescript-web`, `fresh-python-web`, `fresh-small-frontend`)
 to a starting template name.

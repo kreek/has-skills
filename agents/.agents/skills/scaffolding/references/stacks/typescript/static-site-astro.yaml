@@ -17,7 +17,7 @@ metadata:
     - url: https://pnpm.io/
       title: pnpm
 spec:
-  owner: has
+  owner: consult
   type: website
   parameters:
     - title: Stack Configuration
