@@ -6,8 +6,17 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [10.5.0] (2026-05-24)
+
 ### Changed
 
+- Broadened the human-in-the-loop gate so significant work, not only
+  hard-to-change boundaries, gets a plan or shape/API sign-off before
+  implementation. `workflow`, `specify`, and `contract-first` now treat a
+  substantial new module or component, non-trivial logic, or a deliberate
+  observable behavior change as consultative; routine, local, and disposable
+  work — including narrow bug fixes that restore already-intended behavior —
+  stays autonomous.
 - Renamed the GitHub repository to `kreek/has-skills`. Updated install URLs,
   clone paths, and plugin/package metadata accordingly. Plugin IDs, slash
   commands, and npm package names are unchanged.
