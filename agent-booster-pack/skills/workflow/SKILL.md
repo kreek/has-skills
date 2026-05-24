@@ -40,15 +40,14 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
    leave the user with a clearer model of the system, the change, and the
    evidence. An agent that cannot clearly explain its change should stop and
    clarify, not push further.
-3. **Autonomous by default, consultative for significant or hard-to-change
-   work.** Routine, local, and disposable implementation can proceed without
-   stopping for sign-off. Get a plan or shape/API sign-off before significant
-   work — a substantial new module or component, new or rewritten non-trivial
-   logic or an algorithm, or a deliberate change to observable behavior — and
-   before locking in a caller-facing contract, shared project/package/module
-   structure, structural runtime dependency, data model, or boundary future
-   work will depend on. A small local helper, a private file move, or a narrow
-   bug fix that restores already-intended behavior is not a gate.
+3. **Autonomous by default; consult before hard-to-change work.** Proceed on
+   routine, local, and disposable implementation. Get plan or shape/API
+   sign-off before significant work: substantial modules or components,
+   non-trivial logic or algorithms, deliberate behavior changes,
+   caller-facing contracts, shared structure, structural dependencies, data
+   models, or boundaries future work will rely on. Do not gate small local
+   helpers, private file moves, or narrow bug fixes that restore intended
+   behavior.
 4. **Default to the smallest honest solution.** Implement only what was asked,
    prefer established tools, start with the happy path unless safety or data
    loss demands edge cases now, and add abstractions only after real semantic
@@ -69,9 +68,11 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 
 ## Workflow
 
-1. **Route the request.** Use Direct for trivial mechanical work, Guided by
-   default, Design-partner for hard-to-change decisions, and Review-only for
-   critique without edits. Name the mode only when it sets useful expectations.
+1. **Route the request.** Use Direct for trivial mechanical work the agent can
+   finish safely, Guided for normal implementation with brief updates,
+   Design-partner for hard-to-change decisions that need options and approval,
+   and Review-only for critique without edits. Name the mode only when it sets
+   useful expectations.
 2. **Define the target.** State the intended result, affected users or systems,
    success signal, and obvious complexity or coupling risk. If done is unclear,
    propose acceptance criteria and resolve open points logically, asking one
@@ -100,8 +101,10 @@ description: Use first to route HAS work, choose skills, hand off, and define ve
 5. **Load the skills needed for correctness.** Load the fewest skills the risk
    requires, each only when its row condition is met, not preemptively or in
    bulk. Use the table to decide when a skill is applicable; it is ordered by
-   the normal development lifecycle, not by importance. Load safety skills as
-   soon as their risk appears.
+   the normal development lifecycle, not by importance. `specify`,
+   `contract-first`, `domain-modeling`, `database`, `release`, and destructive
+   or history-changing `git-workflow` work normally need explicit human
+   approval. Load safety skills as soon as their risk appears.
 
    | Skill | Load when |
    | --- | --- |
