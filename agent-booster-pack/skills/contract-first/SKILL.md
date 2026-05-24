@@ -14,7 +14,8 @@ description: Use when caller-facing interfaces or shared structure need approval
 - A task defines or materially changes a caller-facing interface or shared structure:
   exported function, public type, HTTP endpoint, CLI/env/config surface, event
   payload, file format, database schema, migration step, package/module
-  boundary, project layout, or cross-component contract.
+  boundary, the public surface of a significant new module or component, project
+  layout, or cross-component contract.
 - A manual or installed Interface Design Gate asks for current interface,
   proposed interface, boundary reason, and user decision.
 - Reviewing whether implementation started before contract approval.

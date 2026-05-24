@@ -11,8 +11,10 @@ production-grade software.
 
 ## What HAS guides agents to do
 
-- Keep humans in the loop for hard-to-change choices: public interfaces, project
-  structure, dependency picks, data boundaries, and long-lived behavior.
+- Keep humans in the loop for significant and hard-to-change work: public
+  interfaces, project structure, dependency picks, data boundaries, long-lived
+  behavior, substantial new modules, non-trivial logic, and deliberate behavior
+  changes.
 - Use AI to improve the developer's mental model, not to replace it.
 - Model data first: make values, states, and rules clear; limit side effects;
   keep state changes at the edges.
@@ -179,11 +181,14 @@ should continue, ask for approval, or stay read-only.
 The working modes are **Direct**, **Guided**, **Design-partner**, and
 **Review-only**. Most implementation work stays in Direct or Guided mode.
 
-HAS is autonomous by default and consultative for hard-to-change choices. The agent
-should ask before it locks in a caller-facing interface, class or library API,
-project/package/module structure, structural runtime dependency, data model, or
-boundary that future work will depend on. Local helpers, private file moves,
-and narrow bug fixes should not become consultation gates.
+HAS is autonomous by default and consultative for significant or hard-to-change
+work. The agent should get a plan or shape/API sign-off before significant new
+code — a substantial new module or component, non-trivial logic, or a deliberate
+behavior change — and before it locks in a caller-facing interface, class or
+library API, project/package/module structure, structural runtime dependency,
+data model, or boundary that future work will depend on. Local helpers, private
+file moves, and narrow bug fixes that restore intended behavior should not become
+consultation gates.
 
 Caller-facing interfaces and shared structure trigger `contract-first`: the
 agent stops at one recommended contract/API/structure and high-level plan, then

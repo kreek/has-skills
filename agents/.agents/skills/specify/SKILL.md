@@ -21,6 +21,10 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
   library, or job queue.
 - Ambiguous or risky implementation intent where the agent should turn fuzzy
   goals into an approved design direction before code lands.
+- Significant new code with no caller-facing boundary: a substantial new module
+  or component, new or rewritten non-trivial logic or an algorithm, or a
+  deliberate change to observable behavior — agree the plan or shape before
+  implementing.
 - The user asks to design, specify, draft an ADR/RFC/tech spec, or capture a
   design note.
 - `workflow` chooses the Design-partner mode because architecture, domain
@@ -53,9 +57,12 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
    public type, error vocabulary, CLI flag, environment variable, database
    schema or migration step, event payload, file format, or config key. "API"
    does not mean only HTTP.
-4. Consultation is not constant interruption. Ask only when a decision would
-   be expensive for the user to reverse later: caller-facing shape, shared
-   structure, data model, or structural dependency.
+4. Consultation is not constant interruption. Ask when a decision would be
+   expensive to reverse — caller-facing shape, shared structure, data model, or
+   structural dependency — or when the work is significant enough that the user
+   should shape it: a substantial new module or component, non-trivial logic, or
+   a deliberate observable behavior change. Routine, local, and disposable work
+   does not need a gate.
 
 ## Workflow
 
