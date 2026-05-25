@@ -56,9 +56,11 @@ description: Use first for every coding task to route risks, choose skills, and 
 5. **Compose over inherit.** Build behavior from small data transformations
    and explicit interfaces. Reach for inheritance only when a framework or
    interop boundary requires it.
-6. **Compose over repeat.** When the same code appears in multiple places
-   with the same meaning and rules, build one shared piece and use it
-   everywhere. Applies to any code, not only cross-cutting infra.
+6. **Don't repeat yourself.** Each rule or piece of behavior gets one
+   authoritative, well-named home, and the rest of the system reuses it
+   instead of restating it: one place to change a behavior, one place to
+   understand it. This is about duplicated *intent*, not code that merely
+   looks similar.
 7. **Adopt before build.** Before writing code for a solved problem, audit
    the ecosystem. For structural runtime choices, ground the options in
    project sources, applicable best practices, or research current sources
