@@ -26,7 +26,9 @@ description: Use for databases, schemas, migrations, indexes, transactions, quer
 1. Schema, migration, and destructive data changes are the user's call.
    Route schema and migration changes through `contract-first`; data
    deletion and non-reversible backfills need the same approval for data
-   safety.
+   safety. An approving design or RFC is not that approval; the concrete
+   schema, migration, or destructive change gets its own sign-off before
+   landing.
 2. Use the project's existing database unless the task is choosing a store.
    For greenfield defaults and store-selection caveats, use `architecture`.
 3. Expand, migrate, verify, switch, then contract in separate
@@ -86,6 +88,9 @@ description: Use for databases, schemas, migrations, indexes, transactions, quer
 - [ ] Schema and migration changes were routed through `contract-first`,
       and destructive data operations (deletion, non-reversible backfills)
       had explicit user approval before landing.
+- [ ] An approving design or RFC did not stand in for sign-off on the concrete
+      schema, migration, or destructive data change; each got explicit approval
+      before landing.
 
 ## Tripwires
 
