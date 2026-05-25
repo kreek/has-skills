@@ -41,7 +41,7 @@ description: Use first for every coding task to route risks, choose skills, and 
    leave the user with a clearer model of the system, the change, and the
    evidence. An agent that cannot clearly explain its change should stop and
    clarify, not push further.
-3. **Autonomous by default; consult before hard-to-change work.** Proceed on
+3. **Autonomous by default; consult before significant or durable decisions.** Proceed on
    routine, local, and disposable implementation. Get plan or shape/API
    sign-off before significant work: substantial modules or components,
    non-trivial logic or algorithms, deliberate behavior changes,
