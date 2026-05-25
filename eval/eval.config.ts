@@ -149,9 +149,6 @@ const config: ProjectEvalConfig = {
       reuseBaseline: true,
     },
   },
-  regressions: {
-    suites: ["regressionCheck"],
-  },
   defaultProfile: "codexWithConsultSkills",
   defaultPlugin: "engineering-maturity",
   runsDir: process.env["CONSULT_EVAL_RUNS_DIR"] ?? path.join(os.homedir(), ".cache", "consult", "eval", "runs"),
