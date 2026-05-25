@@ -6,16 +6,37 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.0.1] (2026-05-25)
+
 ### Fixed
 
-- Rescoped the `workflow` consultation guidance to gate the durable decisions
-  skills produce — a `specify` design direction, a `contract-first` interface,
-  a `database` migration or destructive data change, a `release` artifact, and
-  history-changing or destructive `git-workflow` — rather than the act of
-  loading a skill. Reasoning with `domain-modeling` no longer reads as needing
-  human approval.
+- Rescoped the `workflow` consultation guidance so it gates the durable
+  decisions skills produce (a `specify` design direction, a `contract-first`
+  interface, a `database` migration or destructive data change, a `release`
+  artifact, and history-changing or destructive `git-workflow`) rather than
+  the act of loading a skill. Reasoning with `domain-modeling` no longer reads
+  as needing human approval.
 - Harmonized the `specify` bug-fix carve-out with `workflow` and the README:
   narrow bug fixes that restore intended behavior, not "single-line" fixes.
+
+## [11.0.0] (2026-05-24)
+
+### Changed
+
+- Renamed the pack from Highline Agent Skills to **Consult** across the README,
+  AGENTS.md, CONTRIBUTING, SECURITY, skill prose, and plugin/marketplace
+  display metadata, and clarified the README intro framing and guidance. This
+  is a deliberate major-version milestone marking the rebrand. Plugin IDs
+  (`consult`), slash commands (`/consult:*`), and npm package names are
+  unchanged, so the bump is non-breaking for existing installs.
+
+## [10.5.1] (2026-05-24)
+
+### Changed
+
+- Clarified `workflow` request routing: spelled out the Direct, Guided,
+  Design-partner, and Review-only modes and which work normally needs explicit
+  human approval before implementation.
 
 ## [10.5.0] (2026-05-24)
 
