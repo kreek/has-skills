@@ -6,6 +6,26 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.2.0] (2026-05-25)
+
+### Changed
+
+- Bound the contract-first interface gate to implementation rather than design
+  sign-off: approving a `specify` design or RFC no longer counts as approval of
+  the concrete caller-facing surfaces invented during the build; each surface is
+  listed for its own approve/revise/reject before it is written.
+- Made `domain-modeling`'s durable core shape a real approval gate. It now
+  appears in `workflow`'s enumeration of decisions needing human sign-off and
+  carries its own sign-off step and verification, closing the gap where a
+  non-caller-facing domain model from an approved RFC had no gate.
+- Extended the "an approving design or RFC approves the direction, not the
+  concrete shape" rule to `architecture` (module boundaries, shared structure,
+  project layout) and `database` (schema, migration, destructive data changes)
+  so every durable-decision gate states it uniformly.
+- Reworded `workflow` Core Idea 3 to "consult before significant or durable
+  decisions" so the headline names both gate axes instead of the abstract
+  "hard-to-change work".
+
 ## [11.1.2] (2026-05-25)
 
 ### Changed
