@@ -5,3 +5,7 @@ packages:
 # Delay fresh registry publishes to reduce supply-chain blast radius.
 # 1440 minutes = 24 hours.
 minimumReleaseAge: 1440
+
+# Block transitive deps from resolving exotic sources (git+ssh:, https: tarballs);
+# only direct dependencies may use them. Matches the pnpm 11.0 default.
+blockExoticSubdeps: true
