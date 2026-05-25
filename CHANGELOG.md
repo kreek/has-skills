@@ -6,6 +6,21 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.1.1] (2026-05-25)
+
+### Changed
+
+- Tightened the `workflow` skill description from "almost every coding task" to
+  "every coding task" so the routing trigger reads unambiguously.
+
+### Added
+
+- Added `make update-installed-plugins` / `update-installed-plugins-dry-run`
+  targets and the `scripts/update-installed-plugins.sh` helper to refresh
+  installed plugins through each agent's official update path, with CONTRIBUTING
+  notes and tests. Dev tooling only — not part of the published plugin or npm
+  package.
+
 ## [11.1.0] (2026-05-25)
 
 ### Changed
