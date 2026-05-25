@@ -81,6 +81,15 @@ validator, and `check:links` are maintenance checks. Treat clean Vitest,
 `validate-skill-anatomy.mjs`, and `check:links` commands as the bar for script
 changes.
 
+## Maintainer skills
+
+- `$ship` is a project-local Codex skill for the guarded maintainer ship flow.
+  Its source lives at `.agents/skills/ship/SKILL.md`. It is not part of the
+  published Consult skill pack. Do not move it into `plugin/skills/` or bump
+  plugin package versions for changes to this skill alone. Current Codex CLI
+  builds do not support repo-local custom slash commands, so `/ship` is not the
+  supported invocation path.
+
 ## Validation scope and token discipline
 
 Run the narrowest check that proves the touched surface first. Broaden only
