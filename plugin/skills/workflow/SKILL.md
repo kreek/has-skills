@@ -1,6 +1,6 @@
 ---
 name: workflow
-description: Use first for almost every coding task to route risks, choose skills, and define proof.
+description: Use first for every coding task to route risks, choose skills, and define proof.
 ---
 
 # Workflow
