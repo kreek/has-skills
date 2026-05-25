@@ -54,8 +54,11 @@ description: Use when caller-facing interfaces or shared structure need approval
    and the key tradeoff in the recommended option.
 5. **Separate compatibility.** For public renames or removals, ask for a
    breaking change, alias/shim, deprecation path, or old surface retained.
-6. **Record the decision.** Ask the user to approve, revise, or rule it out.
-   Silence is not approval.
+6. **Record the decision.** List each proposed surface (signature, flags,
+   schema, event payload, file format, or output shape) with its evidence,
+   state the compatibility impact, and get one approve/revise/reject. An
+   approving design or RFC is not this approval; this list is. Silence is not
+   approval.
 7. **Implement only the approved shape.** If implementation discovers a
    materially different contract, reopen the gate.
 
@@ -66,8 +69,8 @@ description: Use when caller-facing interfaces or shared structure need approval
 - [ ] The proposed shape is concrete enough for callers or future modules to
       bind to.
 - [ ] Boundary ownership and compatibility decisions are explicit.
-- [ ] The user approved, revised, or rejected the interface before implementation
-      landed.
+- [ ] The proposed interfaces were listed for the user, who approved, revised,
+      or rejected them before implementation landed.
 - [ ] Implementation matches the approved shape, or the gate was reopened.
 
 ## Optional Runtime Backstop

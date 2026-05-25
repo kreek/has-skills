@@ -108,8 +108,11 @@ description: Use first for every coding task to route risks, choose skills, and 
    these skills produce need explicit human approval before implementation: a
    `specify` design direction, a `contract-first` interface, a `database`
    migration or destructive data change, a `release` artifact, and
-   history-changing or destructive `git-workflow`. Reasoning with a skill,
-   including `domain-modeling` for data shape, is not itself a gate; its
+   history-changing or destructive `git-workflow`. Approving a `specify`
+   design direction does not approve its interfaces; get `contract-first`
+   sign-off on each concrete caller-facing surface before writing it. Reasoning
+   with a skill, including `domain-modeling` for data shape, is not itself a
+   gate; its
    durable output is. Load safety skills as soon as their risk appears.
 
    | Skill | Load when |
@@ -162,6 +165,8 @@ description: Use first for every coding task to route risks, choose skills, and 
       system risk.
 - [ ] Significant work and user-owned choices got a plan or shape sign-off,
       were narrowed, or were explicitly deferred before implementation.
+- [ ] Approval of the design or RFC still required contract-first sign-off on
+      the interfaces before they were written.
 - [ ] The result still answers the user's latest request, including any
       correction or narrowing the user made after the work began.
 - [ ] Temporary work and maintained behavior did not blur together.

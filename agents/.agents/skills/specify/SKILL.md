@@ -100,6 +100,9 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
   obligations.
 - Note: lightweight memory that is useful but not yet a formal decision.
 
+When an artifact lists interfaces or domain shapes, mark each one approved or
+proposed, so the build inherits an explicit list of what still needs sign-off.
+
 ## Verification
 
 - [ ] Current surface is backed by `file:line` evidence or named greenfield
@@ -111,6 +114,10 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
       residue or deferrable details.
 - [ ] Caller-facing interfaces have `contract-first` approval before
       implementation, or implementation remains out of scope.
+- [ ] An approved design or RFC approves the direction, not the concrete
+      interfaces or domain structure; those still get `contract-first` and
+      `domain-modeling` applied during build, with sign-off on the concrete
+      shapes.
 - [ ] Any artifact records the agreed shape and has a purpose-fit destination.
 
 ## Tripwires
