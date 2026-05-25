@@ -144,7 +144,7 @@ Consult includes 24 skills. Open a skill for its triggers, workflow, and
 verification.
 
 - Routing and proof:
-  - [`workflow`](agents/.agents/skills/workflow/SKILL.md): Route Consult work, choose skills, hand off, and define verification.
+  - [`workflow`](agents/.agents/skills/workflow/SKILL.md): Use first for almost every software engineering task to route risks, choose skills, and define proof.
   - [`proof`](agents/.agents/skills/proof/SKILL.md): Tests, claims, invariants, behavior specs, edge cases, and evidence.
   - [`contract-first`](agents/.agents/skills/contract-first/SKILL.md): Approve caller-facing interfaces or shared structure before implementation.
 - Design:

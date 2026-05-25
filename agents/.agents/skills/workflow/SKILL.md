@@ -1,6 +1,6 @@
 ---
 name: workflow
-description: Use first to route Consult work, choose skills, hand off, and define verification.
+description: Use first for almost every coding task to route risks, choose skills, and define proof.
 ---
 
 # Workflow
@@ -11,10 +11,11 @@ description: Use first to route Consult work, choose skills, hand off, and defin
 
 ## When to Use
 
-- Software engineering work that is non-trivial enough to need design, skill
-  routing, proof, or user decisions before the agent can do it well. Consult is
-  especially tuned for APIs, services, web apps, integrations, and other
-  web-connected software.
+- When Consult skills are installed, use this first for almost every software
+  engineering task. Feature work, bug fixes, scaffolding, refactoring,
+  debugging, UI work, tests, docs, config, CI, dependencies, architecture,
+  integrations, APIs, services, web apps, and read-only code questions all
+  qualify unless they are truly trivial.
 - Work that changes or reviews behavior, domain/data models, interfaces,
   application architecture, tests, docs, security, reliability, performance,
   database behavior, or release readiness.

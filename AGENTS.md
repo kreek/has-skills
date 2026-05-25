@@ -219,8 +219,6 @@ the pack is past that and should not regress to it.
 
 ## Conventions specific to this repo
 
-- Feature work and bug fixes should use a branch, usually `feature/`, `fix/`,
-  `refactor/`, or `chore/`.
 - Markdown, JavaScript, and TypeScript are the repo-owned languages. Use
   Vitest for repo-owned JS/TS tests and `check:links` for local Markdown link
   validation. Keep Markdown prose manually formatted; do not add a docs

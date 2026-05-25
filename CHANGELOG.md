@@ -6,6 +6,15 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.1.0] (2026-05-25)
+
+### Changed
+
+- Strengthened the `workflow` skill trigger so Consult is used first for almost
+  every coding task, including scaffolding, feature work, debugging, UI, tests,
+  config, CI, dependencies, APIs, services, web apps, and read-only code
+  questions unless they are truly trivial.
+
 ## [11.0.1] (2026-05-25)
 
 ### Fixed
