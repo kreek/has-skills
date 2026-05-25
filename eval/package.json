@@ -33,7 +33,7 @@
     "tui": "pnpm run eval"
   },
   "dependencies": {
-    "do-eval": "file:../../pi-extensions/pi-do-eval"
+    "do-eval": "file:../../do-eval"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",

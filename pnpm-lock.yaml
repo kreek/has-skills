@@ -37,8 +37,8 @@ importers:
   eval:
     dependencies:
       do-eval:
-        specifier: file:../../pi-extensions/pi-do-eval
-        version: file:../pi-extensions/pi-do-eval
+        specifier: file:../../do-eval
+        version: file:../do-eval
     devDependencies:
       '@types/node':
         specifier: ^25.6.0
@@ -1125,8 +1125,8 @@ packages:
     resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
     engines: {node: '>=0.3.1'}
 
-  do-eval@file:../pi-extensions/pi-do-eval:
-    resolution: {directory: ../pi-extensions/pi-do-eval, type: directory}
+  do-eval@file:../do-eval:
+    resolution: {directory: ../do-eval, type: directory}
     hasBin: true
 
   eastasianwidth@0.2.0:
@@ -3229,7 +3229,7 @@ snapshots:
 
   diff@8.0.4: {}
 
-  do-eval@file:../pi-extensions/pi-do-eval:
+  do-eval@file:../do-eval:
     dependencies:
       '@mariozechner/pi-tui': 0.67.68
       tsx: 4.22.3
