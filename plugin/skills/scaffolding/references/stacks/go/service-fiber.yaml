@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: service-fiber
-  title: Go — Fiber + opinionated service stack
+  title: Go, Fiber + opinionated service stack
   description: |
     Express-style Go service built on Fiber: chained middleware,
     `c *fiber.Ctx` handlers, FastHTTP under the hood, and a broad
@@ -49,7 +49,7 @@ spec:
             - sqlite
             - mysql
           enumNames:
-            - 'Postgres — pgx driver'
+            - 'Postgres: pgx driver'
             - 'SQLite'
             - 'MySQL'
         persistence:
@@ -62,10 +62,10 @@ spec:
             - ent
             - sqlc
           enumNames:
-            - 'GORM — full ORM, common with Fiber'
-            - 'sqlx — extensions over database/sql'
-            - 'Ent — Facebook entity framework'
-            - 'sqlc — generated typed code from SQL'
+            - 'GORM: full ORM, common with Fiber'
+            - 'sqlx: extensions over database/sql'
+            - 'Ent: Facebook entity framework'
+            - 'sqlc: generated typed code from SQL'
         background_jobs:
           title: Background Jobs
           type: string
@@ -75,8 +75,8 @@ spec:
             - river
             - none
           enumNames:
-            - 'Asynq — Redis-backed, mature'
-            - 'River — Postgres-backed (matches DB choice)'
+            - 'Asynq: Redis-backed, mature'
+            - 'River: Postgres-backed (matches DB choice)'
             - 'None'
         auth:
           title: Authentication
@@ -88,9 +88,9 @@ spec:
             - oidc
             - none
           enumNames:
-            - 'gofiber/contrib/jwt — JWT middleware'
-            - 'gofiber/keyauth — API-key middleware'
-            - 'OIDC — go-oidc client + Fiber middleware'
+            - 'gofiber/contrib/jwt: JWT middleware'
+            - 'gofiber/keyauth: API-key middleware'
+            - 'OIDC: go-oidc client + Fiber middleware'
             - 'None'
         observability:
           title: Observability
@@ -101,8 +101,8 @@ spec:
             - slog
             - none
           enumNames:
-            - 'OpenTelemetry — fiberotel middleware + otel SDK'
-            - 'log/slog — structured logging via fiberzerolog/fiberzap'
+            - 'OpenTelemetry: fiberotel middleware + otel SDK'
+            - 'log/slog: structured logging via fiberzerolog/fiberzap'
             - 'None'
   tooling:
     package_manager: go-modules

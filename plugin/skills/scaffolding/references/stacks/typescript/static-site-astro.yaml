@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: static-site-astro
-  title: Static Site — Astro
+  title: Static Site (Astro)
   description: |
     Marketing pages, blogs, docs sites, content-heavy projects with
     light interactivity. Output is static HTML; islands hydrate only
@@ -40,7 +40,7 @@ spec:
             - headless-cms
           enumNames:
             - 'Markdown / MDX files in the repo'
-            - 'Headless CMS (Sanity, Contentful, etc.) — name the choice'
+            - 'Headless CMS (Sanity, Contentful, etc.): name the choice'
         islands_framework:
           title: Islands Framework
           type: string
@@ -51,8 +51,8 @@ spec:
             - svelte
             - react
           enumNames:
-            - 'None — plain HTML'
-            - 'Alpine — lightweight reactivity'
+            - 'None: plain HTML'
+            - 'Alpine: lightweight reactivity'
             - 'Svelte islands'
             - 'React islands'
         database:
@@ -63,8 +63,8 @@ spec:
             - none
             - external-forms-backend
           enumNames:
-            - 'None — default for static sites'
-            - 'External — serverless function or service for form submissions'
+            - 'None: default for static sites'
+            - 'External: serverless function or service for form submissions'
         hosting:
           title: Hosting
           type: string
@@ -75,7 +75,7 @@ spec:
             - netlify
             - static-host
           enumNames:
-            - 'Cloudflare Pages — default'
+            - 'Cloudflare Pages: default'
             - 'Vercel'
             - 'Netlify'
             - 'Any static host (S3+CloudFront, GitHub Pages, etc.)'

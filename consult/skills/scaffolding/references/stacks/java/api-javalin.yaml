@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-javalin
-  title: Java — Javalin (lightweight)
+  title: Java, Javalin (lightweight)
   description: |
     Compact JVM HTTP API with minimal framework surface (Java or
     Kotlin source). Pairs well with Gradle Kotlin DSL and JUnit 5.
@@ -45,8 +45,8 @@ spec:
             - kotlin
             - java
           enumNames:
-            - 'Kotlin — recommended for new code'
-            - 'Java — when the team is Java-only'
+            - 'Kotlin: recommended for new code'
+            - 'Java: when the team is Java-only'
         database:
           title: Database
           type: string
@@ -57,11 +57,11 @@ spec:
             - h2
             - none
           enumNames:
-            - 'Postgres — default for production'
+            - 'Postgres: default for production'
             - 'MySQL'
             - 'SQLite'
-            - 'H2 — embedded development DB'
-            - 'None — stateless service'
+            - 'H2: embedded development DB'
+            - 'None: stateless service'
         persistence:
           title: Persistence Library
           type: string
@@ -72,10 +72,10 @@ spec:
             - exposed
             - none
           enumNames:
-            - 'JDBI — SQL with object mapping (Kotlin/Java)'
-            - 'jOOQ — typesafe SQL DSL'
-            - 'Exposed — Kotlin SQL framework'
-            - 'None — raw JDBC'
+            - 'JDBI: SQL with object mapping (Kotlin/Java)'
+            - 'jOOQ: typesafe SQL DSL'
+            - 'Exposed: Kotlin SQL framework'
+            - 'None: raw JDBC'
         background_jobs:
           title: Background Jobs
           type: string
@@ -85,7 +85,7 @@ spec:
             - quartz
           enumNames:
             - 'None'
-            - 'Quartz — scheduled jobs'
+            - 'Quartz: scheduled jobs'
         auth:
           title: Authentication
           type: string
@@ -95,7 +95,7 @@ spec:
             - jwt-handler
           enumNames:
             - 'None'
-            - 'JWT — javalin-jwt-handler'
+            - 'JWT: javalin-jwt-handler'
         observability:
           title: Observability
           type: string
@@ -119,7 +119,7 @@ spec:
     the response status.
   switch_when: |
     Need auto-config / starters / actuator / data integrations /
-    enterprise conventions → service-spring-boot. Coroutine-native
-    async / multiplatform Kotlin → Ktor (future sibling). Cold-start
-    / native-image fit → service-quarkus. Compile-time DI without
-    Quarkus extension conventions → Micronaut (future sibling).
+    enterprise conventions: service-spring-boot. Coroutine-native
+    async / multiplatform Kotlin: Ktor (future sibling). Cold-start
+    / native-image fit: service-quarkus. Compile-time DI without
+    Quarkus extension conventions: Micronaut (future sibling).

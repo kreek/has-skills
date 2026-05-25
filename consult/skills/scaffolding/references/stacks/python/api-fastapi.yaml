@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-fastapi
-  title: Python — FastAPI
+  title: Python, FastAPI
   description: |
     Python services: ML-adjacent work, Python-first teams, API
     backends, or HTMX-style server-rendered apps where the team's
@@ -44,9 +44,9 @@ spec:
             - htmx-jinja
             - separate
           enumNames:
-            - 'None — API-only with OpenAPI'
-            - 'HTMX + Jinja — server-rendered with light interactivity'
-            - 'Separate frontend app — name the paired template'
+            - 'None: API-only with OpenAPI'
+            - 'HTMX + Jinja: server-rendered with light interactivity'
+            - 'Separate frontend app: name the paired template'
         database:
           title: Database
           type: string
@@ -54,8 +54,8 @@ spec:
             - postgres
             - sqlite
           enumNames:
-            - 'Postgres — default for production'
-            - 'SQLite — local-first / development'
+            - 'Postgres: default for production'
+            - 'SQLite: local-first / development'
         background_jobs:
           title: Background Jobs
           type: string
@@ -67,9 +67,9 @@ spec:
             - arq
           enumNames:
             - 'None'
-            - 'Celery — Redis or RabbitMQ broker'
-            - 'RQ — Redis-only, simpler'
-            - 'arq — asyncio-native'
+            - 'Celery: Redis or RabbitMQ broker'
+            - 'RQ: Redis-only, simpler'
+            - 'arq: asyncio-native'
   tooling:
     package_manager: uv
     language_flavor: python

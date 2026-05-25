@@ -149,19 +149,19 @@ package's `scripts/build-skills.mjs`; those bundles are gitignored.
 
 Then update, as relevant:
 
-- [`workflow`](agents/.agents/skills/workflow/SKILL.md) — when routing for broad
+- [`workflow`](agents/.agents/skills/workflow/SKILL.md): when routing for broad
   tasks changes.
-- [`README.md`](README.md) — the human-facing skill list.
-- Neighboring skills' `## Handoffs` sections — when the routing graph changes.
-- [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) — per
+- [`README.md`](README.md): the human-facing skill list.
+- Neighboring skills' `## Handoffs` sections: when the routing graph changes.
+- [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json): per
   the pack-versioning rules in [`AGENTS.md`](AGENTS.md#pack-versioning-marketplacejson--pluginjson).
 - [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) and
-  [`plugin/.codex-plugin/plugin.json`](plugin/.codex-plugin/plugin.json) —
+  [`plugin/.codex-plugin/plugin.json`](plugin/.codex-plugin/plugin.json):
   when Codex plugin metadata or packaged skill content changes.
 - [`.cursor-plugin/marketplace.json`](.cursor-plugin/marketplace.json) and
-  [`plugin/.cursor-plugin/plugin.json`](plugin/.cursor-plugin/plugin.json) —
+  [`plugin/.cursor-plugin/plugin.json`](plugin/.cursor-plugin/plugin.json):
   when Cursor plugin metadata or packaged skill content changes.
-- `consult*/package.json` — when Pi package metadata, composition,
+- `consult*/package.json`: when Pi package metadata, composition,
   or versions change.
 
 ## Local plugin development

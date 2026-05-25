@@ -20,11 +20,11 @@ spec:
     # Python
     - ./python/api-fastapi.yaml
     - ./python/web-django.yaml
-    # Java (JVM — Java-first frameworks; also support Kotlin source via language_flavor)
+    # Java (JVM: Java-first frameworks; also support Kotlin source via language_flavor)
     - ./java/api-javalin.yaml
     - ./java/service-quarkus.yaml
     - ./java/service-spring-boot.yaml
-    # Kotlin (Kotlin-first frameworks — coroutine-native, Kotlin DSL routing)
+    # Kotlin (Kotlin-first frameworks: coroutine-native, Kotlin DSL routing)
     - ./kotlin/api-ktor.yaml
     - ./kotlin/service-ktor.yaml
     # Ruby
@@ -48,7 +48,7 @@ spec:
     # Clojure
     - ./clojure/api-ring-reitit.yaml
     - ./clojure/service-clojure.yaml
-  # Consult extension — not part of the Backstage Location spec.
+  # Consult extension, not part of the Backstage Location spec.
   # Maps a fresh-project request shape to its starting (lightweight)
   # template. The agent looks up default_for[<trigger>] when the
   # user's request matches one of these archetypes.

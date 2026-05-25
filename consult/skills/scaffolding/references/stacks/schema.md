@@ -32,10 +32,10 @@ schema and conventions:
 The agent reads three extra fields under `spec`. Backstage's engine
 ignores unknown keys, so this is safe.
 
-- `tooling` — package manager, language flavor, lint/format, type
+- `tooling`: package manager, language flavor, lint/format, type
   checker, test runner, runtime/deploy CLI.
-- `smoke_test` — what the one starter test asserts.
-- `switch_when` — short note pointing at the next template to
+- `smoke_test`: what the one starter test asserts.
+- `switch_when`: short note pointing at the next template to
   consider if this one stops fitting.
 
 The `index.yaml` Location entity also carries an Consult-specific

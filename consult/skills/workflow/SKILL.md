@@ -93,8 +93,8 @@ description: Use first for every coding task to route risks, choose skills, and 
 4. **Set required consultation before implementation.** Use `specify` before
    unsettled architecture, domain, data, interface, project structure, module
    boundary, or structural dependency decisions, and to agree the plan or shape
-   for significant new code — a substantial new module or component, non-trivial
-   logic, or a deliberate observable behavior change — even when it crosses no
+   for significant new code (a substantial new module or component, non-trivial
+   logic, or a deliberate observable behavior change) even when it crosses no
    caller-facing boundary. Use `contract-first` before implementing
    caller-facing APIs, exported types, event schemas, CLI/env/config formats,
    database migrations, service adapters, shared package/module boundaries, the
@@ -108,8 +108,8 @@ description: Use first for every coding task to route risks, choose skills, and 
    these skills produce need explicit human approval before implementation: a
    `specify` design direction, a `contract-first` interface, a `database`
    migration or destructive data change, a `release` artifact, and
-   history-changing or destructive `git-workflow`. Reasoning with a skill —
-   including `domain-modeling` for data shape — is not itself a gate; its
+   history-changing or destructive `git-workflow`. Reasoning with a skill,
+   including `domain-modeling` for data shape, is not itself a gate; its
    durable output is. Load safety skills as soon as their risk appears.
 
    | Skill | Load when |
@@ -179,8 +179,8 @@ Use these when the shortcut thought appears:
   should name what it couples before it enters the system.
 - A caller-facing interface or shared structure needs one recommended option
   and user approval before code locks it in; `contract-first` owns that gate.
-- Significant new code — a substantial new module or component, non-trivial
-  logic, or a deliberate behavior change — gets a plan or shape sign-off before
+- Significant new code (a substantial new module or component, non-trivial
+  logic, or a deliberate behavior change) gets a plan or shape sign-off before
   implementation, even when it crosses no public boundary.
 - Speculative flexibility waits until the requirement exists.
 - Repeated code with the same meaning and rules should be composed, not

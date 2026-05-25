@@ -129,8 +129,8 @@ Use these when the shortcut thought appears:
 - `observability`: dashboards, alerts, traces, runbooks.
 - `release`: worker draining, deploy compatibility, migrations, rollout gates.
 - `debugging`: existing races, deadlocks, stuck jobs, or lag.
-- `proof`: assert at every async handoff — producer → queue → consumer,
-  pub/sub seams, worker-pool boundaries — for ownership, ordering,
+- `proof`: assert at every async handoff (producer → queue → consumer,
+  pub/sub seams, worker-pool boundaries) for ownership, ordering,
   backpressure, and failure semantics.
 
 ## References

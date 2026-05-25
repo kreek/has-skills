@@ -57,7 +57,7 @@ metrics, traces, and correlation IDs can explain it.
 Use one consistent error schema per API matching the chosen data
 model. JSON:API errors, RFC 9457 Problem Details, and FHIR
 `OperationOutcome` are *structurally distinct conventions* with
-different envelopes, field names, and types — they are not
+different envelopes, field names, and types; they are not
 interchangeable. Pick one per API; do not hybridize fields across
 shapes.
 

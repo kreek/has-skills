@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: web-saturn
-  title: F# — Saturn (Rails-inspired full-stack)
+  title: F#, Saturn (Rails-inspired full-stack)
   description: |
     F# web framework built on top of Giraffe with Rails-inspired
     conventions: pipelines, scopes/routers, controller actions, and
@@ -50,8 +50,8 @@ spec:
             - sqlserver
             - sqlite
           enumNames:
-            - 'Postgres — Npgsql provider'
-            - 'SQL Server — first-party provider'
+            - 'Postgres: Npgsql provider'
+            - 'SQL Server: first-party provider'
             - 'SQLite'
         persistence:
           title: Persistence
@@ -62,9 +62,9 @@ spec:
             - dapper
             - sqlhydra
           enumNames:
-            - 'Entity Framework Core — full ORM'
-            - 'Dapper — micro-ORM, hand-written SQL'
-            - 'SqlHydra — F#-native typed query DSL'
+            - 'Entity Framework Core: full ORM'
+            - 'Dapper: micro-ORM, hand-written SQL'
+            - 'SqlHydra: F#-native typed query DSL'
         background_jobs:
           title: Background Jobs
           type: string
@@ -74,8 +74,8 @@ spec:
             - hangfire
             - none
           enumNames:
-            - 'IHostedService — built-in'
-            - 'Hangfire — durable, dashboard, retries'
+            - 'IHostedService: built-in'
+            - 'Hangfire: durable, dashboard, retries'
             - 'None'
         auth:
           title: Authentication
@@ -86,8 +86,8 @@ spec:
             - jwt-bearer
             - none
           enumNames:
-            - 'ASP.NET Core Identity — built-in user store'
-            - 'JWT Bearer — token-based'
+            - 'ASP.NET Core Identity: built-in user store'
+            - 'JWT Bearer: token-based'
             - 'None'
         observability:
           title: Observability

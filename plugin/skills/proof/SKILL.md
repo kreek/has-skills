@@ -121,7 +121,7 @@ For every non-trivial engineering claim, record:
    an explicit rejection (404, 410, deprecation error), test the rejection.
    It is new behavior.
 6. Load only the narrow reference needed:
-   - `references/data-shape-boundaries.md` for worked handoff examples —
+   - `references/data-shape-boundaries.md` for worked handoff examples:
      pipeline seams, parser/validator edges, middleware chains, sans-IO
      protocols, and functional-core/imperative-shell crossings.
    - `references/recipes.md` when the proof shape is domain-specific.

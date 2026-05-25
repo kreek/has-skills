@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-aspnet-minimal
-  title: C# — ASP.NET Core Minimal APIs (lightweight)
+  title: C#, ASP.NET Core Minimal APIs (lightweight)
   description: |
     Compact C# HTTP API using ASP.NET Core Minimal APIs on the
     current LTS .NET runtime. Native AOT is available; opt in when
@@ -46,10 +46,10 @@ spec:
             - sqlite
             - none
           enumNames:
-            - 'Postgres — Npgsql provider'
-            - 'SQL Server — first-party provider'
+            - 'Postgres: Npgsql provider'
+            - 'SQL Server: first-party provider'
             - 'SQLite'
-            - 'None — stateless service'
+            - 'None: stateless service'
         persistence:
           title: Persistence
           type: string
@@ -59,9 +59,9 @@ spec:
             - dapper
             - none
           enumNames:
-            - 'Entity Framework Core — full ORM'
-            - 'Dapper — micro-ORM, hand-written SQL'
-            - 'None — raw ADO.NET'
+            - 'Entity Framework Core: full ORM'
+            - 'Dapper: micro-ORM, hand-written SQL'
+            - 'None: raw ADO.NET'
         background_jobs:
           title: Background Jobs
           type: string
@@ -71,8 +71,8 @@ spec:
             - hangfire
             - none
           enumNames:
-            - 'IHostedService — built-in background tasks'
-            - 'Hangfire — durable, dashboard, retries'
+            - 'IHostedService: built-in background tasks'
+            - 'Hangfire: durable, dashboard, retries'
             - 'None'
         auth:
           title: Authentication
@@ -83,7 +83,7 @@ spec:
             - jwt-bearer
           enumNames:
             - 'None'
-            - 'JWT Bearer — Microsoft.AspNetCore.Authentication.JwtBearer'
+            - 'JWT Bearer: Microsoft.AspNetCore.Authentication.JwtBearer'
         observability:
           title: Observability
           type: string
@@ -102,8 +102,8 @@ spec:
             - disabled
             - enabled
           enumNames:
-            - 'Disabled — JIT runtime'
-            - 'Enabled — Native AOT publish'
+            - 'Disabled: JIT runtime'
+            - 'Enabled: Native AOT publish'
   tooling:
     package_manager: dotnet-nuget
     language_flavor: csharp

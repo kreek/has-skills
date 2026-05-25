@@ -130,7 +130,7 @@ risk.
 
 User-controlled JSON merged into an object via deep-clone, deep-merge,
 or recursive copy can mutate `Object.prototype` if the merger walks the
-prototype chain. Many hand-rolled guards are illusory — for example, a
+prototype chain. Many hand-rolled guards are illusory: for example, a
 `getPrototypeOf` check before `clone[key] = …` still walks the chain
 and lets `__proto__` keys land on the target. Once `Object.prototype`
 gains an attacker-controlled property (`isAdmin`, `polluted`, etc.),
@@ -145,7 +145,7 @@ the test can't be written, the guard is illusory.
 
 Prefer the structural fix over a guard:
 
-- `Object.create(null)` maps for untrusted key/value containers — no
+- `Object.create(null)` maps for untrusted key/value containers: no
   prototype to pollute.
 - `Map` or `Set` instead of plain objects when keys are arbitrary.
 - Maintained merge libraries with current advisories checked rather

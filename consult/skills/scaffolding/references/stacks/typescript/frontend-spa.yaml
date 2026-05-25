@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: frontend-spa
-  title: Standalone Frontend — Alpine + HTMX or Vite + Svelte SPA
+  title: Standalone Frontend (Alpine + HTMX or Vite + Svelte SPA)
   description: |
     Interactive UI that pairs with a separate backend template.
     Server-rendered HTML with progressive interactivity (Alpine +
@@ -37,8 +37,8 @@ spec:
             - alpine-htmx
             - vite-svelte-spa
           enumNames:
-            - 'Alpine + HTMX — server-rendered HTML; backend renders'
-            - 'Vite + Svelte SPA — standalone client-side app'
+            - 'Alpine + HTMX: server-rendered HTML; backend renders'
+            - 'Vite + Svelte SPA: standalone client-side app'
         backend:
           title: Paired Backend
           description: |
@@ -71,29 +71,29 @@ spec:
             - service-clojure
             - external
           enumNames:
-            - 'edge-api-cf-hono — Hono on Cloudflare Workers'
-            - 'api-fastapi — FastAPI'
-            - 'web-django — Django (templates available natively)'
-            - 'api-sinatra — Ruby Sinatra'
-            - 'web-rails — Ruby on Rails (Hotwire available natively)'
-            - 'api-javalin — Java/Kotlin Javalin'
-            - 'service-quarkus — Java/Kotlin Quarkus'
-            - 'service-spring-boot — Java/Kotlin Spring Boot'
-            - 'api-ktor — Kotlin Ktor (coroutine-first)'
-            - 'service-ktor — Kotlin Ktor + Koin/Exposed/OTel stack'
-            - 'api-go-stdlib — Go net/http'
-            - 'service-fiber — Go Fiber (Express-style middleware, FastHTTP)'
-            - 'api-axum — Rust Axum'
-            - 'service-axum — Rust Axum service stack'
-            - 'api-aspnet-minimal — C# ASP.NET Minimal APIs'
-            - 'web-aspnet-mvc — C# ASP.NET MVC / Razor / Blazor'
-            - 'api-giraffe — F# Giraffe'
-            - 'web-saturn — F# Saturn'
-            - 'api-plug-bandit — Elixir Plug + Bandit'
-            - 'web-phoenix — Elixir Phoenix (LiveView available natively)'
-            - 'api-ring-reitit — Clojure Ring + Reitit'
-            - 'service-clojure — Clojure Ring + Reitit + Integrant stack'
-            - 'External — name it (other Ruby/Python/JVM/etc. framework)'
+            - 'edge-api-cf-hono: Hono on Cloudflare Workers'
+            - 'api-fastapi: FastAPI'
+            - 'web-django: Django (templates available natively)'
+            - 'api-sinatra: Ruby Sinatra'
+            - 'web-rails: Ruby on Rails (Hotwire available natively)'
+            - 'api-javalin: Java/Kotlin Javalin'
+            - 'service-quarkus: Java/Kotlin Quarkus'
+            - 'service-spring-boot: Java/Kotlin Spring Boot'
+            - 'api-ktor: Kotlin Ktor (coroutine-first)'
+            - 'service-ktor: Kotlin Ktor + Koin/Exposed/OTel stack'
+            - 'api-go-stdlib: Go net/http'
+            - 'service-fiber: Go Fiber (Express-style middleware, FastHTTP)'
+            - 'api-axum: Rust Axum'
+            - 'service-axum: Rust Axum service stack'
+            - 'api-aspnet-minimal: C# ASP.NET Minimal APIs'
+            - 'web-aspnet-mvc: C# ASP.NET MVC / Razor / Blazor'
+            - 'api-giraffe: F# Giraffe'
+            - 'web-saturn: F# Saturn'
+            - 'api-plug-bandit: Elixir Plug + Bandit'
+            - 'web-phoenix: Elixir Phoenix (LiveView available natively)'
+            - 'api-ring-reitit: Clojure Ring + Reitit'
+            - 'service-clojure: Clojure Ring + Reitit + Integrant stack'
+            - 'External: name it (other Ruby/Python/JVM/etc. framework)'
         hosting_target:
           title: Hosting Target
           description: |
@@ -119,7 +119,7 @@ spec:
           enum:
             - none
           enumNames:
-            - 'None — default'
+            - 'None: default'
   tooling:
     package_manager: pnpm-or-backend-native
     language_flavor: typescript-or-html

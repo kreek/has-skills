@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: web-aspnet-mvc
-  title: C# — ASP.NET Core MVC / Razor / Blazor (full-stack)
+  title: C#, ASP.NET Core MVC / Razor / Blazor (full-stack)
   description: |
     Server-rendered C# web app with MVC controllers + Razor views,
     Razor Pages, or Blazor (Server / WASM / Static SSR). Pick this
@@ -52,11 +52,11 @@ spec:
             - blazor-wasm
             - blazor-static-ssr
           enumNames:
-            - 'MVC + Razor views — controllers + views'
-            - 'Razor Pages — page-based, lighter than MVC'
-            - 'Blazor Server — stateful SignalR-backed'
-            - 'Blazor WASM — client-owned runtime'
-            - 'Blazor Static SSR — content + targeted interactivity'
+            - 'MVC + Razor views: controllers + views'
+            - 'Razor Pages: page-based, lighter than MVC'
+            - 'Blazor Server: stateful SignalR-backed'
+            - 'Blazor WASM: client-owned runtime'
+            - 'Blazor Static SSR: content + targeted interactivity'
         database:
           title: Database
           type: string
@@ -65,8 +65,8 @@ spec:
             - sqlserver
             - sqlite
           enumNames:
-            - 'Postgres — Npgsql provider'
-            - 'SQL Server — first-party provider'
+            - 'Postgres: Npgsql provider'
+            - 'SQL Server: first-party provider'
             - 'SQLite'
         persistence:
           title: Persistence
@@ -76,8 +76,8 @@ spec:
             - ef-core
             - dapper
           enumNames:
-            - 'Entity Framework Core — full ORM'
-            - 'Dapper — micro-ORM, hand-written SQL'
+            - 'Entity Framework Core: full ORM'
+            - 'Dapper: micro-ORM, hand-written SQL'
         background_jobs:
           title: Background Jobs
           type: string
@@ -87,8 +87,8 @@ spec:
             - hangfire
             - none
           enumNames:
-            - 'IHostedService — built-in'
-            - 'Hangfire — durable, dashboard, retries'
+            - 'IHostedService: built-in'
+            - 'Hangfire: durable, dashboard, retries'
             - 'None'
         auth:
           title: Authentication
@@ -99,8 +99,8 @@ spec:
             - jwt-bearer
             - none
           enumNames:
-            - 'ASP.NET Core Identity — built-in user store'
-            - 'JWT Bearer — token-based'
+            - 'ASP.NET Core Identity: built-in user store'
+            - 'JWT Bearer: token-based'
             - 'None'
         observability:
           title: Observability

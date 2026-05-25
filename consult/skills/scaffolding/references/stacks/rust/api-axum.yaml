@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-axum
-  title: Rust — Axum (lightweight)
+  title: Rust, Axum (lightweight)
   description: |
     Minimal Rust HTTP API built on Axum (Tokio team, Hyper + Tower
     stack, typed extractors). Pick this for compact services and
@@ -44,10 +44,10 @@ spec:
             - mysql
             - none
           enumNames:
-            - 'Postgres — default'
+            - 'Postgres: default'
             - 'SQLite'
             - 'MySQL'
-            - 'None — stateless service'
+            - 'None: stateless service'
         persistence:
           title: Persistence Library
           type: string
@@ -57,9 +57,9 @@ spec:
             - sea-orm
             - none
           enumNames:
-            - 'sqlx — query-first, compile-time-checked SQL'
-            - 'SeaORM — async-first ORM with relations'
-            - 'None — direct driver'
+            - 'sqlx: query-first, compile-time-checked SQL'
+            - 'SeaORM: async-first ORM with relations'
+            - 'None: direct driver'
         background_jobs:
           title: Background Jobs
           type: string
@@ -69,7 +69,7 @@ spec:
             - apalis
           enumNames:
             - 'None'
-            - 'apalis — pluggable backends (Redis, Postgres, SQS)'
+            - 'apalis: pluggable backends (Redis, Postgres, SQS)'
         auth:
           title: Authentication
           type: string
@@ -79,7 +79,7 @@ spec:
             - jsonwebtoken
           enumNames:
             - 'None'
-            - 'jsonwebtoken — JWT middleware'
+            - 'jsonwebtoken: JWT middleware'
         observability:
           title: Observability
           type: string
@@ -89,8 +89,8 @@ spec:
             - opentelemetry
             - none
           enumNames:
-            - 'tracing — structured logs/spans'
-            - 'OpenTelemetry — tracing + otel SDK'
+            - 'tracing: structured logs/spans'
+            - 'OpenTelemetry: tracing + otel SDK'
             - 'None'
   tooling:
     package_manager: cargo

@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: service-clojure
-  title: Clojure — Ring + Reitit + opinionated service stack
+  title: Clojure, Ring + Reitit + opinionated service stack
   description: |
     Clojure service with the lightweight base (Ring + Reitit) plus
     Integrant for component lifecycle, malli for request/response
@@ -50,9 +50,9 @@ spec:
             - http-kit
             - aleph
           enumNames:
-            - 'Jetty — simplest'
-            - 'HTTP Kit — async, low-memory'
-            - 'Aleph — Netty-backed, async + websockets'
+            - 'Jetty: simplest'
+            - 'HTTP Kit: async, low-memory'
+            - 'Aleph: Netty-backed, async + websockets'
         database:
           title: Database
           type: string
@@ -61,7 +61,7 @@ spec:
             - sqlite
             - mysql
           enumNames:
-            - 'Postgres — default'
+            - 'Postgres: default'
             - 'SQLite'
             - 'MySQL'
         persistence:
@@ -72,8 +72,8 @@ spec:
             - next-jdbc-honeysql
             - next-jdbc
           enumNames:
-            - 'next.jdbc + HoneySQL — query DSL'
-            - 'next.jdbc — JDBC wrapper only'
+            - 'next.jdbc + HoneySQL: query DSL'
+            - 'next.jdbc: JDBC wrapper only'
         lifecycle:
           title: Component Lifecycle
           type: string
@@ -83,9 +83,9 @@ spec:
             - mount
             - component
           enumNames:
-            - 'Integrant — data-driven system map'
-            - 'mount — global state with start/stop'
-            - 'Component — protocol-based (Stuart Sierra)'
+            - 'Integrant: data-driven system map'
+            - 'mount: global state with start/stop'
+            - 'Component: protocol-based (Stuart Sierra)'
         validation:
           title: Schema / Validation
           type: string
@@ -95,8 +95,8 @@ spec:
             - spec
             - none
           enumNames:
-            - 'malli — modern, domain-modeling schemas'
-            - 'clojure.spec — built-in spec library'
+            - 'malli: modern, domain-modeling schemas'
+            - 'clojure.spec: built-in spec library'
             - 'None'
         background_jobs:
           title: Background Jobs
@@ -108,8 +108,8 @@ spec:
             - external
           enumNames:
             - 'None'
-            - 'core.async — in-process channels'
-            - 'External — Sidekiq/SQS/etc. via JVM client'
+            - 'core.async: in-process channels'
+            - 'External: Sidekiq/SQS/etc. via JVM client'
         auth:
           title: Authentication
           type: string
@@ -118,7 +118,7 @@ spec:
             - buddy-auth
             - none
           enumNames:
-            - 'buddy-auth — JWT / session middleware'
+            - 'buddy-auth: JWT / session middleware'
             - 'None'
         observability:
           title: Observability
@@ -128,8 +128,8 @@ spec:
             - opentelemetry
             - tools-logging
           enumNames:
-            - 'OpenTelemetry — clj-otel SDK + traces/metrics'
-            - 'clojure.tools.logging — structured via logback'
+            - 'OpenTelemetry: clj-otel SDK + traces/metrics'
+            - 'clojure.tools.logging: structured via logback'
   tooling:
     package_manager: deps-edn
     language_flavor: clojure

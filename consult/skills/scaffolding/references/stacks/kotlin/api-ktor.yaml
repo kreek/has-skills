@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-ktor
-  title: Kotlin — Ktor (lightweight)
+  title: Kotlin, Ktor (lightweight)
   description: |
     Coroutine-native Kotlin HTTP service built on Ktor + Netty.
     Pick this for Kotlin-first APIs where coroutine ergonomics,
@@ -46,9 +46,9 @@ spec:
             - cio
             - jetty
           enumNames:
-            - 'Netty — default; production-grade async I/O'
-            - 'CIO — pure-Kotlin coroutine I/O, smaller dependency'
-            - 'Jetty — when an existing JEE-shape deployment is required'
+            - 'Netty: default; production-grade async I/O'
+            - 'CIO: pure-Kotlin coroutine I/O, smaller dependency'
+            - 'Jetty: when an existing JEE-shape deployment is required'
         database:
           title: Database
           type: string
@@ -59,11 +59,11 @@ spec:
             - h2
             - none
           enumNames:
-            - 'Postgres — default for production'
+            - 'Postgres: default for production'
             - 'MySQL'
             - 'SQLite'
-            - 'H2 — embedded development DB'
-            - 'None — stateless service'
+            - 'H2: embedded development DB'
+            - 'None: stateless service'
         persistence:
           title: Persistence Library
           type: string
@@ -74,10 +74,10 @@ spec:
             - jdbi
             - none
           enumNames:
-            - 'Exposed — JetBrains Kotlin SQL framework (DAO + DSL)'
-            - 'jOOQ — typesafe SQL DSL'
-            - 'JDBI — SQL with object mapping'
-            - 'None — raw JDBC'
+            - 'Exposed: JetBrains Kotlin SQL framework (DAO + DSL)'
+            - 'jOOQ: typesafe SQL DSL'
+            - 'JDBI: SQL with object mapping'
+            - 'None: raw JDBC'
         background_jobs:
           title: Background Jobs
           type: string
@@ -87,7 +87,7 @@ spec:
             - quartz
           enumNames:
             - 'None'
-            - 'Quartz — scheduled jobs'
+            - 'Quartz: scheduled jobs'
         auth:
           title: Authentication
           type: string
@@ -98,8 +98,8 @@ spec:
             - ktor-sessions
           enumNames:
             - 'None'
-            - 'JWT — ktor-server-auth-jwt'
-            - 'Sessions — ktor-server-sessions'
+            - 'JWT: ktor-server-auth-jwt'
+            - 'Sessions: ktor-server-sessions'
         observability:
           title: Observability
           type: string
@@ -109,8 +109,8 @@ spec:
             - opentelemetry
             - none
           enumNames:
-            - 'ktor-server-call-logging — request/response logging'
-            - 'OpenTelemetry — call-logging + otel SDK'
+            - 'ktor-server-call-logging: request/response logging'
+            - 'OpenTelemetry: call-logging + otel SDK'
             - 'None'
   tooling:
     package_manager: gradle
@@ -125,7 +125,7 @@ spec:
     the route in-process and asserts the response.
   switch_when: |
     Need richer service stack (DI via Koin, Exposed by default,
-    OpenTelemetry baseline, structured auth) → service-ktor.
+    OpenTelemetry baseline, structured auth): service-ktor.
     Want Java-first conventions (auto-config, starters, actuator,
-    Spring Data) with Kotlin source → java/service-spring-boot
+    Spring Data) with Kotlin source: java/service-spring-boot
     (set language_flavor: kotlin).

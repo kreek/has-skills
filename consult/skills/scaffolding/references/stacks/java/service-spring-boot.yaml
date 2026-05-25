@@ -2,12 +2,12 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: service-spring-boot
-  title: Java — Spring Boot (production-grade)
+  title: Java, Spring Boot (production-grade)
   description: |
     Production-grade JVM service with starters, auto-configuration,
     Actuator (metrics/health), Spring Data integrations, and broad
     enterprise conventions (Java or Kotlin source). GraalVM native
-    image is GA — opt in when cold-start and memory budgets justify
+    image is GA; opt in when cold-start and memory budgets justify
     the build-time cost.
   tags:
     - java
@@ -62,10 +62,10 @@ spec:
             - sqlite
             - h2
           enumNames:
-            - 'Postgres — default for production'
+            - 'Postgres: default for production'
             - 'MySQL'
             - 'SQLite'
-            - 'H2 — embedded development DB'
+            - 'H2: embedded development DB'
         persistence:
           title: Persistence
           type: string
@@ -76,10 +76,10 @@ spec:
             - jooq
             - none
           enumNames:
-            - 'Spring Data JPA — Hibernate-backed ORM'
-            - 'Spring Data JDBC — simpler, no lazy loading'
-            - 'jOOQ — typesafe SQL DSL'
-            - 'None — raw JDBC'
+            - 'Spring Data JPA: Hibernate-backed ORM'
+            - 'Spring Data JDBC: simpler, no lazy loading'
+            - 'jOOQ: typesafe SQL DSL'
+            - 'None: raw JDBC'
         background_jobs:
           title: Background Jobs
           type: string
@@ -89,8 +89,8 @@ spec:
             - quartz
             - none
           enumNames:
-            - 'Spring @Scheduled — built-in cron/fixed-rate'
-            - 'Quartz — durable, clustered job scheduling'
+            - 'Spring @Scheduled: built-in cron/fixed-rate'
+            - 'Quartz: durable, clustered job scheduling'
             - 'None'
         auth:
           title: Authentication
@@ -101,8 +101,8 @@ spec:
             - spring-security-form
             - none
           enumNames:
-            - 'Spring Security — OAuth2 resource server'
-            - 'Spring Security — form login + sessions'
+            - 'Spring Security: OAuth2 resource server'
+            - 'Spring Security: form login + sessions'
             - 'None'
         observability:
           title: Observability
@@ -113,7 +113,7 @@ spec:
             - opentelemetry
             - none
           enumNames:
-            - 'Spring Boot Actuator + Micrometer — default'
+            - 'Spring Boot Actuator + Micrometer: default'
             - 'OpenTelemetry'
             - 'None'
         native_image:
@@ -124,8 +124,8 @@ spec:
             - disabled
             - enabled
           enumNames:
-            - 'Disabled — JVM runtime'
-            - 'Enabled — GraalVM native image build'
+            - 'Disabled: JVM runtime'
+            - 'Enabled: GraalVM native image build'
   tooling:
     package_manager: gradle
     build_dsl: kotlin
@@ -137,7 +137,7 @@ spec:
     GET /actuator/health returns {"status":"UP"}. One @SpringBootTest
     integration test boots the context and asserts the response.
   switch_when: |
-    Compact API with minimal concepts → api-javalin. Cold-start
-    optimization / native image as primary goal → service-quarkus.
-    Compile-time DI without Quarkus extension conventions →
+    Compact API with minimal concepts: api-javalin. Cold-start
+    optimization / native image as primary goal: service-quarkus.
+    Compile-time DI without Quarkus extension conventions:
     Micronaut (future sibling).

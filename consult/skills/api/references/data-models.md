@@ -44,7 +44,7 @@ without the relationship and error conventions.
   like `Patient`, `Observation`, `Condition`; strict schema, value
   sets, and jurisdictional profiles. Required for clinical-data
   interop. Use FHIR's native error shape (`OperationOutcome`).
-- **HAL** when hypermedia navigation is a first-class concern — APIs
+- **HAL** when hypermedia navigation is a first-class concern: APIs
   where state transitions and discoverability via `_links` matter
   more than relationship modeling.
 - **JSON-LD** when semantic-web or linked-data interop matters

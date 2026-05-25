@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: service-axum
-  title: Rust — Axum + opinionated service stack
+  title: Rust, Axum + opinionated service stack
   description: |
     Rust service built on Axum with an opinionated stack: tower-http
     middleware (compression, CORS, request-id, timeouts), sqlx or
@@ -47,7 +47,7 @@ spec:
             - sqlite
             - mysql
           enumNames:
-            - 'Postgres — default'
+            - 'Postgres: default'
             - 'SQLite'
             - 'MySQL'
         persistence:
@@ -58,8 +58,8 @@ spec:
             - sea-orm
             - sqlx
           enumNames:
-            - 'SeaORM — async-first ORM with relations + migrations + CLI'
-            - 'sqlx — query-first, compile-time-checked SQL'
+            - 'SeaORM: async-first ORM with relations + migrations + CLI'
+            - 'sqlx: query-first, compile-time-checked SQL'
         background_jobs:
           title: Background Jobs
           type: string
@@ -68,7 +68,7 @@ spec:
             - apalis
             - none
           enumNames:
-            - 'apalis — pluggable backends (Redis, Postgres, SQS)'
+            - 'apalis: pluggable backends (Redis, Postgres, SQS)'
             - 'None'
         auth:
           title: Authentication
@@ -79,8 +79,8 @@ spec:
             - oidc
             - none
           enumNames:
-            - 'jsonwebtoken — JWT middleware'
-            - 'OpenID Connect — openidconnect crate'
+            - 'jsonwebtoken: JWT middleware'
+            - 'OpenID Connect: openidconnect crate'
             - 'None'
         observability:
           title: Observability
@@ -90,8 +90,8 @@ spec:
             - opentelemetry
             - tracing
           enumNames:
-            - 'OpenTelemetry — tracing + otel SDK + metrics/traces'
-            - 'tracing — structured logs/spans only'
+            - 'OpenTelemetry: tracing + otel SDK + metrics/traces'
+            - 'tracing: structured logs/spans only'
   tooling:
     package_manager: cargo
     language_flavor: rust

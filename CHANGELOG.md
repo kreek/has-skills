@@ -18,7 +18,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `make update-installed-plugins` / `update-installed-plugins-dry-run`
   targets and the `scripts/update-installed-plugins.sh` helper to refresh
   installed plugins through each agent's official update path, with CONTRIBUTING
-  notes and tests. Dev tooling only — not part of the published plugin or npm
+  notes and tests. Dev tooling only: not part of the published plugin or npm
   package.
 
 ## [11.1.0] (2026-05-25)
@@ -71,7 +71,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   implementation. `workflow`, `specify`, and `contract-first` now treat a
   substantial new module or component, non-trivial logic, or a deliberate
   observable behavior change as consultative; routine, local, and disposable
-  work — including narrow bug fixes that restore already-intended behavior —
+  work (including narrow bug fixes that restore already-intended behavior)
   stays autonomous.
 - Renamed the GitHub repository to `kreek/consult`. Updated install URLs,
   clone paths, and plugin/package metadata accordingly. Plugin IDs, slash
@@ -128,7 +128,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   concentrate. The outermost caller boundary is reframed as the outermost
   handoff. A new Core Idea makes the TDD departure explicit: when data,
   logic, and I/O are separated and units stay pure, unit tests stay slim
-  by design — internal helpers are exercised by handoff tests above them.
+  by design; internal helpers are exercised by handoff tests above them.
   `references/data-shape-boundaries.md` is now named as the canonical
   handoff reference. `contract-first`, `architecture`, `async-systems`,
   `domain-modeling`, and `api` Handoffs sections now route handoff-proof
@@ -288,7 +288,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - BREAKING (Pi): `pi-consult` is renamed to
-  `consult-skills`@5.0.0 and is skills-only — Pi runtime
+  `consult-skills`@5.0.0 and is skills-only; Pi runtime
   extensions live in sibling packages now. The old
   `pi-consult` npm name is deprecated pointing at the new
   name; existing installs keep working until upgrade.
@@ -308,7 +308,7 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Consult now treats durable interfaces as contract/API sign-off gates: agents
   must design the boundary, propose the contract, and get user approval
   before implementation continues. In practice this means more pause/approve
-  loops than 4.12.0 — expect agents to stop on any new exported type, prop,
+  loops than 4.12.0; expect agents to stop on any new exported type, prop,
   schema, endpoint, or migration that crosses a module boundary. Internal-only
   exports and one-module refactors do not trip the gate.
 - Adds `whiteboarding` skill: a mandatory pre-code artifact that maps current

@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-giraffe
-  title: F# — Giraffe (lightweight)
+  title: F#, Giraffe (lightweight)
   description: |
     Functional F# HTTP API on top of ASP.NET Core. Giraffe gives you
     composable handler functions (Express/Suave-style) over the
@@ -46,10 +46,10 @@ spec:
             - sqlite
             - none
           enumNames:
-            - 'Postgres — Npgsql provider'
-            - 'SQL Server — first-party provider'
+            - 'Postgres: Npgsql provider'
+            - 'SQL Server: first-party provider'
             - 'SQLite'
-            - 'None — stateless service'
+            - 'None: stateless service'
         persistence:
           title: Persistence
           type: string
@@ -60,10 +60,10 @@ spec:
             - ef-core
             - none
           enumNames:
-            - 'Dapper — micro-ORM, hand-written SQL'
-            - 'SqlHydra — F#-native typed query DSL'
-            - 'Entity Framework Core — full ORM'
-            - 'None — raw ADO.NET'
+            - 'Dapper: micro-ORM, hand-written SQL'
+            - 'SqlHydra: F#-native typed query DSL'
+            - 'Entity Framework Core: full ORM'
+            - 'None: raw ADO.NET'
         background_jobs:
           title: Background Jobs
           type: string
@@ -73,8 +73,8 @@ spec:
             - hangfire
             - none
           enumNames:
-            - 'IHostedService — built-in background tasks'
-            - 'Hangfire — durable, dashboard, retries'
+            - 'IHostedService: built-in background tasks'
+            - 'Hangfire: durable, dashboard, retries'
             - 'None'
         auth:
           title: Authentication
@@ -85,7 +85,7 @@ spec:
             - jwt-bearer
           enumNames:
             - 'None'
-            - 'JWT Bearer — Microsoft.AspNetCore.Authentication.JwtBearer'
+            - 'JWT Bearer: Microsoft.AspNetCore.Authentication.JwtBearer'
         observability:
           title: Observability
           type: string
@@ -104,8 +104,8 @@ spec:
             - disabled
             - enabled
           enumNames:
-            - 'Disabled — JIT runtime'
-            - 'Enabled — Native AOT publish (limits some F# features)'
+            - 'Disabled: JIT runtime'
+            - 'Enabled: Native AOT publish (limits some F# features)'
   tooling:
     package_manager: dotnet-nuget
     language_flavor: fsharp

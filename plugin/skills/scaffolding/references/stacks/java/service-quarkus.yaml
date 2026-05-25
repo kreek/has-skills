@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: service-quarkus
-  title: Java — Quarkus (native-ready service)
+  title: Java, Quarkus (native-ready service)
   description: |
     Production-grade JVM service optimized for fast startup, low
     memory, container deployments, and GraalVM native image builds
@@ -50,8 +50,8 @@ spec:
             - java
             - kotlin
           enumNames:
-            - 'Java — default for Quarkus services'
-            - 'Kotlin — supported when the team is Kotlin-oriented'
+            - 'Java: default for Quarkus services'
+            - 'Kotlin: supported when the team is Kotlin-oriented'
         database:
           title: Database
           type: string
@@ -61,10 +61,10 @@ spec:
             - h2
             - none
           enumNames:
-            - 'Postgres — default for production'
+            - 'Postgres: default for production'
             - 'MySQL'
-            - 'H2 — embedded development/test DB'
-            - 'None — stateless service'
+            - 'H2: embedded development/test DB'
+            - 'None: stateless service'
         persistence:
           title: Persistence
           type: string
@@ -76,10 +76,10 @@ spec:
             - jdbc-client
             - none
           enumNames:
-            - 'Hibernate ORM with Panache — compact active-record/repository style'
-            - 'Hibernate ORM — standard Jakarta Persistence'
-            - 'Hibernate Reactive with Panache — reactive database access'
-            - 'JDBC client — direct SQL'
+            - 'Hibernate ORM with Panache: compact active-record/repository style'
+            - 'Hibernate ORM: standard Jakarta Persistence'
+            - 'Hibernate Reactive with Panache: reactive database access'
+            - 'JDBC client: direct SQL'
             - 'None'
         background_jobs:
           title: Background Jobs
@@ -90,8 +90,8 @@ spec:
             - quartz
             - none
           enumNames:
-            - 'Quarkus Scheduler — built-in cron/fixed-rate jobs'
-            - 'Quartz — durable, clustered job scheduling'
+            - 'Quarkus Scheduler: built-in cron/fixed-rate jobs'
+            - 'Quartz: durable, clustered job scheduling'
             - 'None'
         auth:
           title: Authentication
@@ -102,8 +102,8 @@ spec:
             - smallrye-jwt
             - none
           enumNames:
-            - 'Quarkus OIDC — OAuth2/OIDC resource server'
-            - 'SmallRye JWT — signed JWT verification'
+            - 'Quarkus OIDC: OAuth2/OIDC resource server'
+            - 'SmallRye JWT: signed JWT verification'
             - 'None'
         observability:
           title: Observability
@@ -114,7 +114,7 @@ spec:
             - opentelemetry
             - none
           enumNames:
-            - 'SmallRye Health + Micrometer — default'
+            - 'SmallRye Health + Micrometer: default'
             - 'OpenTelemetry'
             - 'None'
         native_image:
@@ -126,9 +126,9 @@ spec:
             - local
             - container
           enumNames:
-            - 'Disabled — JVM runtime'
-            - 'Enabled — local Mandrel/GraalVM build'
-            - 'Enabled — container build'
+            - 'Disabled: JVM runtime'
+            - 'Enabled: local Mandrel/GraalVM build'
+            - 'Enabled: container build'
   tooling:
     package_manager: gradle
     build_dsl: kotlin
@@ -141,7 +141,7 @@ spec:
     asserts the endpoint response. If native_image is enabled, add a
     @QuarkusIntegrationTest smoke test for the packaged artifact.
   switch_when: |
-    Need Spring ecosystem/starters/Spring Security/Spring Data →
-    service-spring-boot. Compact API with minimal concepts →
+    Need Spring ecosystem/starters/Spring Security/Spring Data:
+    service-spring-boot. Compact API with minimal concepts:
     api-javalin. Compile-time DI / native-image fit without Quarkus
-    extension conventions → Micronaut (future sibling).
+    extension conventions: Micronaut (future sibling).

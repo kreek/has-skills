@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: web-django
-  title: Python — Django (batteries-included)
+  title: Python, Django (batteries-included)
   description: |
     Full-stack Python web app with admin, ORM, auth, forms, templates,
     and migrations. Pick this when batteries-included conventions
@@ -47,8 +47,8 @@ spec:
             - postgres
             - sqlite
           enumNames:
-            - 'Postgres — default for production'
-            - 'SQLite — development / single-process'
+            - 'Postgres: default for production'
+            - 'SQLite: development / single-process'
         background_jobs:
           title: Background Jobs
           type: string
@@ -60,9 +60,9 @@ spec:
             - arq
           enumNames:
             - 'None'
-            - 'Celery — Redis or RabbitMQ broker'
-            - 'RQ — Redis-only, simpler'
-            - 'arq — asyncio-native'
+            - 'Celery: Redis or RabbitMQ broker'
+            - 'RQ: Redis-only, simpler'
+            - 'arq: asyncio-native'
         auth:
           title: Authentication
           type: string
@@ -72,9 +72,9 @@ spec:
             - allauth
             - none
           enumNames:
-            - 'Django auth — built-in user model + sessions'
-            - 'django-allauth — social + email/password'
-            - 'None — public site'
+            - 'Django auth: built-in user model + sessions'
+            - 'django-allauth: social + email/password'
+            - 'None: public site'
         observability:
           title: Observability
           type: string

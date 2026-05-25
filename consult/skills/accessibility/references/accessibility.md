@@ -236,7 +236,7 @@ Honour these; do not override:
 - **Politeness levels:** `aria-live="polite"` for status, success messages,
   search-result counts. `aria-live="assertive"` only for errors that block the
   user's task. `role="status"` is implicit polite; `role="alert"` is implicit
-  assertive plus announce-on-insertion (interrupting — use sparingly).
+  assertive plus announce-on-insertion (interrupting; use sparingly).
 - **High-frequency updates** (typing in a search box) need a manually-triggered
   "X results found" status, not a per-keystroke live region.
 - **Do not** wrap auto-advancing carousels, marketing banners, or page-title

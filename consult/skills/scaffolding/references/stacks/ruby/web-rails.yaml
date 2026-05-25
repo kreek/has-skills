@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: web-rails
-  title: Ruby — Rails (batteries-included)
+  title: Ruby, Rails (batteries-included)
   description: |
     Modern Rails web app with Hotwire/Turbo, Active Record + migrations,
     Solid Queue (jobs), Solid Cache (cache), Solid Cable (websockets),
@@ -48,8 +48,8 @@ spec:
             - sqlite
             - mysql
           enumNames:
-            - 'Postgres — default for production'
-            - 'SQLite — development / single-tenant (now production-viable with Solid Trifecta)'
+            - 'Postgres: default for production'
+            - 'SQLite: development / single-tenant (now production-viable with Solid Trifecta)'
             - 'MySQL'
         background_jobs:
           title: Background Jobs
@@ -60,8 +60,8 @@ spec:
             - sidekiq
             - none
           enumNames:
-            - 'Solid Queue — Rails default, database-backed'
-            - 'Sidekiq — Redis-backed, mature ecosystem'
+            - 'Solid Queue: Rails default, database-backed'
+            - 'Sidekiq: Redis-backed, mature ecosystem'
             - 'None'
         auth:
           title: Authentication
@@ -72,8 +72,8 @@ spec:
             - devise
             - none
           enumNames:
-            - 'Rails native — built-in session-based generator'
-            - 'Devise — full-featured authentication gem'
+            - 'Rails native: built-in session-based generator'
+            - 'Devise: full-featured authentication gem'
             - 'None'
         cache:
           title: Cache
@@ -84,7 +84,7 @@ spec:
             - redis
             - memory
           enumNames:
-            - 'Solid Cache — Rails default, database-backed'
+            - 'Solid Cache: Rails default, database-backed'
             - 'Redis'
             - 'In-memory (development only)'
         deploy:
@@ -98,7 +98,7 @@ spec:
             - fly
             - container
           enumNames:
-            - 'Kamal — Rails default'
+            - 'Kamal: Rails default'
             - 'Heroku'
             - 'Render'
             - 'Fly.io'

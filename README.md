@@ -191,8 +191,8 @@ The working modes are **Direct**, **Guided**, **Design-partner**, and
 
 Consult is autonomous by default and consultative for significant or hard-to-change
 work. The agent should get a plan or shape/API sign-off before significant new
-code — a substantial new module or component, non-trivial logic, or a deliberate
-behavior change — and before it locks in a caller-facing interface, class or
+code (a substantial new module or component, non-trivial logic, or a deliberate
+behavior change) and before it locks in a caller-facing interface, class or
 library API, project/package/module structure, structural runtime dependency,
 data model, or boundary that future work will depend on. Local helpers, private
 file moves, and narrow bug fixes that restore intended behavior should not become
@@ -221,7 +221,7 @@ authoring rules and pack-versioning policy live in
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE). Third-party/adapted extension notices are listed
+MIT: see [`LICENSE`](LICENSE). Third-party/adapted extension notices are listed
 in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 ## Uninstall

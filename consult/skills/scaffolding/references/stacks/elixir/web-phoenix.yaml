@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: web-phoenix
-  title: Elixir — Phoenix (full-stack with LiveView)
+  title: Elixir, Phoenix (full-stack with LiveView)
   description: |
     Full-stack Elixir web app on Bandit (default web server) with
     Phoenix conventions, Ecto persistence, and LiveView as the
@@ -50,8 +50,8 @@ spec:
             - enabled
             - disabled
           enumNames:
-            - 'Enabled — interactive UI by default'
-            - 'Disabled — API + plain templates only'
+            - 'Enabled: interactive UI by default'
+            - 'Disabled: API + plain templates only'
         database:
           title: Database
           type: string
@@ -60,7 +60,7 @@ spec:
             - sqlite
             - mysql
           enumNames:
-            - 'Postgres — Phoenix default'
+            - 'Postgres: Phoenix default'
             - 'SQLite'
             - 'MySQL'
         background_jobs:
@@ -71,7 +71,7 @@ spec:
             - oban
             - none
           enumNames:
-            - 'Oban — Postgres-backed jobs'
+            - 'Oban: Postgres-backed jobs'
             - 'None'
         auth:
           title: Authentication
@@ -82,8 +82,8 @@ spec:
             - guardian
             - none
           enumNames:
-            - 'phx.gen.auth — Phoenix native session-based generator'
-            - 'Guardian — JWT-based'
+            - 'phx.gen.auth: Phoenix native session-based generator'
+            - 'Guardian: JWT-based'
             - 'None'
         observability:
           title: Observability
@@ -94,7 +94,7 @@ spec:
             - opentelemetry
             - none
           enumNames:
-            - 'Telemetry — Phoenix-native event metrics'
+            - 'Telemetry: Phoenix-native event metrics'
             - 'OpenTelemetry'
             - 'None'
   tooling:

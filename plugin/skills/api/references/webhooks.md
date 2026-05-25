@@ -7,7 +7,7 @@ your service to a consumer.
 
 Webhooks are APIs too. Sign payloads, version events, and make
 receivers idempotent. Treat the consumer endpoint as untrusted code
-running outside your blast radius — assume retries, replays, and
+running outside your blast radius; assume retries, replays, and
 out-of-order delivery.
 
 ## Signing

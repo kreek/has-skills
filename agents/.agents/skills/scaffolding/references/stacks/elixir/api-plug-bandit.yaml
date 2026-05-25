@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: api-plug-bandit
-  title: Elixir — Plug + Bandit (lightweight)
+  title: Elixir, Plug + Bandit (lightweight)
   description: |
     Minimal Elixir HTTP service: Plug routing on Bandit (pure-Elixir,
     async-friendly, WebSocket-native web server). Pick this for
@@ -47,10 +47,10 @@ spec:
             - mysql
             - none
           enumNames:
-            - 'Postgres — default'
+            - 'Postgres: default'
             - 'SQLite'
             - 'MySQL'
-            - 'None — stateless service'
+            - 'None: stateless service'
         persistence:
           title: Persistence Library
           type: string
@@ -59,8 +59,8 @@ spec:
             - ecto
             - none
           enumNames:
-            - 'Ecto — database wrapper + query DSL'
-            - 'None — raw DB driver'
+            - 'Ecto: database wrapper + query DSL'
+            - 'None: raw DB driver'
         background_jobs:
           title: Background Jobs
           type: string
@@ -70,7 +70,7 @@ spec:
             - oban
           enumNames:
             - 'None'
-            - 'Oban — Postgres-backed jobs'
+            - 'Oban: Postgres-backed jobs'
         auth:
           title: Authentication
           type: string
@@ -80,7 +80,7 @@ spec:
             - guardian
           enumNames:
             - 'None'
-            - 'Guardian — JWT-based'
+            - 'Guardian: JWT-based'
         observability:
           title: Observability
           type: string

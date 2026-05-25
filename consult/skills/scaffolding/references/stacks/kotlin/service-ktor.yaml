@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: service-ktor
-  title: Kotlin — Ktor + opinionated service stack
+  title: Kotlin, Ktor + opinionated service stack
   description: |
     Kotlin service built on Ktor + Netty with an opinionated stack:
     Koin for DI, Exposed for persistence (with HikariCP pool),
@@ -50,8 +50,8 @@ spec:
             - netty
             - cio
           enumNames:
-            - 'Netty — default'
-            - 'CIO — pure-Kotlin coroutine I/O'
+            - 'Netty: default'
+            - 'CIO: pure-Kotlin coroutine I/O'
         database:
           title: Database
           type: string
@@ -60,7 +60,7 @@ spec:
             - mysql
             - sqlite
           enumNames:
-            - 'Postgres — default for production'
+            - 'Postgres: default for production'
             - 'MySQL'
             - 'SQLite'
         persistence:
@@ -71,8 +71,8 @@ spec:
             - exposed
             - jooq
           enumNames:
-            - 'Exposed — JetBrains Kotlin SQL framework + HikariCP pool'
-            - 'jOOQ — typesafe SQL DSL'
+            - 'Exposed: JetBrains Kotlin SQL framework + HikariCP pool'
+            - 'jOOQ: typesafe SQL DSL'
         di:
           title: Dependency Injection
           type: string
@@ -82,9 +82,9 @@ spec:
             - kodein
             - none
           enumNames:
-            - 'Koin — pragmatic Kotlin DI, default'
-            - 'Kodein — alternative Kotlin DI container'
-            - 'None — manual wiring'
+            - 'Koin: pragmatic Kotlin DI, default'
+            - 'Kodein: alternative Kotlin DI container'
+            - 'None: manual wiring'
         background_jobs:
           title: Background Jobs
           type: string
@@ -93,7 +93,7 @@ spec:
             - quartz
             - none
           enumNames:
-            - 'Quartz — durable scheduled jobs'
+            - 'Quartz: durable scheduled jobs'
             - 'None'
         auth:
           title: Authentication
@@ -105,9 +105,9 @@ spec:
             - oauth
             - none
           enumNames:
-            - 'JWT — ktor-server-auth-jwt'
-            - 'Sessions — ktor-server-sessions'
-            - 'OAuth — ktor-server-auth-oauth'
+            - 'JWT: ktor-server-auth-jwt'
+            - 'Sessions: ktor-server-sessions'
+            - 'OAuth: ktor-server-auth-oauth'
             - 'None'
         observability:
           title: Observability
@@ -117,8 +117,8 @@ spec:
             - opentelemetry
             - call-logging
           enumNames:
-            - 'OpenTelemetry — JVM SDK + ktor instrumentation'
-            - 'ktor-server-call-logging — structured logging only'
+            - 'OpenTelemetry: JVM SDK + ktor instrumentation'
+            - 'ktor-server-call-logging: structured logging only'
   tooling:
     package_manager: gradle
     build_dsl: kotlin
@@ -131,7 +131,7 @@ spec:
     Koin container via Ktor's testApplication, invokes the route,
     and asserts the response.
   switch_when: |
-    Truly minimal Kotlin API with no DI / observability stack →
+    Truly minimal Kotlin API with no DI / observability stack:
     api-ktor. Need Spring Boot conventions (auto-config, Spring
-    Data, Actuator, broad starters) → java/service-spring-boot
+    Data, Actuator, broad starters): java/service-spring-boot
     (set language_flavor: kotlin).

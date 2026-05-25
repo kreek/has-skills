@@ -59,9 +59,9 @@ and run the baseline without local knowledge.
    Include: project intent, project kind, language/runtime, deployment
    assumption, framework/template, quality baseline, files and commands, and
    this user decision menu:
-   1. Approve — create files / install packages / run generators
-   2. Refine — change the scaffold plan
-   3. Cancel — stop scaffolding
+   1. Approve: create files / install packages / run generators
+   2. Refine: change the scaffold plan
+   3. Cancel: stop scaffolding
 4. Offer choices in order of importance: language/runtime, deployment
    assumption, framework/template, then framework-local choices. Recommend one
    option and name the tradeoff. Use `references/stacks/index.yaml` when a stack

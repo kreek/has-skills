@@ -14,7 +14,7 @@ live in `AGENTS.md`.
 ## TypeScript / Node
 
 - Modern Node strips TypeScript natively for single-file scripts
-  and simple CLIs — no flag, no loader. Reach for a bundler or
+  and simple CLIs, no flag, no loader. Reach for a bundler or
   `tsc` only when types, emit, declaration files, or non-`.ts`
   compile steps are genuinely required.
 - When a TypeScript runner is needed (decorators, legacy TS
@@ -34,7 +34,7 @@ live in `AGENTS.md`.
 
 The `java/` catalog covers Java-first frameworks (Javalin, Quarkus,
 Spring Boot). Both Java and Kotlin source are supported via the
-`language_flavor` parameter — pick `java/` when the framework
+`language_flavor` parameter; pick `java/` when the framework
 itself is Java-shaped. For Kotlin-first frameworks (coroutine-
 native Ktor, Kotlin DSL routing) see the `kotlin/` catalog and
 the section below.

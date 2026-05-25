@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: fullstack-sveltekit
-  title: Fullstack — TypeScript + SvelteKit
+  title: Fullstack (TypeScript + SvelteKit)
   description: |
     Web app with both UI and server endpoints in one repo. SSR +
     progressive enhancement. One framework end-to-end.
@@ -44,8 +44,8 @@ spec:
             - adapter-node
             - adapter-vercel
           enumNames:
-            - 'Cloudflare — CF Pages + Workers'
-            - 'Node — any Node host (Fly, Render, container, VPS)'
+            - 'Cloudflare: CF Pages + Workers'
+            - 'Node: any Node host (Fly, Render, container, VPS)'
             - 'Vercel'
         database:
           title: Database
@@ -55,9 +55,9 @@ spec:
             - sqlite
             - turso
           enumNames:
-            - 'Postgres — default for production'
-            - 'SQLite — local-first / single-tenant'
-            - 'Turso — libSQL, edge-replicated'
+            - 'Postgres: default for production'
+            - 'SQLite: local-first / single-tenant'
+            - 'Turso: libSQL, edge-replicated'
         background_jobs:
           title: Background Jobs
           type: string
@@ -80,7 +80,7 @@ spec:
             - none
             - better-auth
           enumNames:
-            - 'None — hand-rolled with sessions if needed'
+            - 'None: hand-rolled with sessions if needed'
             - 'Better Auth'
   tooling:
     package_manager: pnpm

@@ -1,11 +1,11 @@
-# Data-shape boundaries — worked examples
+# Data-shape boundaries: worked examples
 
 This reference expands `proof`'s boundary-testing Core Ideas. The shared rule across all
 examples: **a boundary worth testing is a point where data shape or values
-change observably**. These shape-change points are component handoffs — the
+change observably**. These shape-change points are component handoffs: the
 seams where production defects concentrate, and the primary proof target.
 "Boundary" and "handoff" are used interchangeably here. HTTP, CLI, UI, and
-module facades are special cases of this — the shape change is "internal
+module facades are special cases of this: the shape change is "internal
 value -> external representation". Pipeline seams, parser edges, validator
 outputs, middleware boundaries, and sans-IO byte surfaces are the same kind
 of thing.
@@ -18,7 +18,7 @@ envelope, what to assert at the error envelope, where the user-facing error
 *content* lives, when an internal-stage test is genuinely warranted, and the
 anti-pattern that signals over-testing or tangle.
 
-## Pattern 1 — ETL pipeline (extract, transform, load)
+## Pattern 1: ETL pipeline (extract, transform, load)
 
 **Seams:** extract output -> transform input; transform output -> load
 input; load output -> destination state.
@@ -37,7 +37,7 @@ constraint violations, partial writes, and rollback semantics.
 
 **User-facing error content:** if the pipeline is exposed via a runner that
 reports to a human or upstream system, assert the failure summary that
-runner produces — exit code, structured error log, dead-letter destination —
+runner produces (exit code, structured error log, dead-letter destination),
 not just that an exception was raised somewhere internal.
 
 **Internal-stage test warranted when:** a transform stage has non-trivial
@@ -48,7 +48,7 @@ contract, separately from the seam tests.
 **Anti-pattern:** one unit test per pure mapping function. The seam tests
 above and below already exercise these.
 
-## Pattern 2 — Parser (raw -> AST)
+## Pattern 2: Parser (raw -> AST)
 
 **Seams:** input bytes/string -> parse result (AST or `ParseError`).
 
@@ -57,7 +57,7 @@ for representative valid inputs (one per grammar production worth caring
 about). One test per shape, not one per internal rule function.
 
 **Error-shape assertions:** at the same boundary, assert the `ParseError`
-shape — error kind, position, message — for representative invalid inputs.
+shape (error kind, position, message) for representative invalid inputs.
 Cover at least: unexpected token, unterminated construct, ambiguous input
 (if rejected), and EOF in the middle of a production.
 
@@ -75,7 +75,7 @@ top-level tests cannot drive deterministically.
 the seam coverage and break on internal refactors that preserve the public
 grammar.
 
-## Pattern 3 — Validator (raw input -> typed structure)
+## Pattern 3: Validator (raw input -> typed structure)
 
 **Seams:** raw input (request body, form data, untyped object) -> validated
 typed structure or `ValidationError`.
@@ -86,7 +86,7 @@ system the validator promises to enforce (trimmed strings, normalized
 emails, parsed dates, coerced enums).
 
 **Error-shape assertions:** at the same seam, assert the `ValidationError`
-envelope — typically per-field messages keyed by path. Cover: missing
+envelope, typically per-field messages keyed by path. Cover: missing
 required, type mismatch, format violation, cross-field invariants.
 
 **User-facing error content:** for each user-correctable failure, assert
@@ -103,7 +103,7 @@ hand-rolled per-rule tests in this case.
 **Anti-pattern:** one unit test per field validator predicate. The validator
 output already proves them.
 
-## Pattern 4 — Middleware chain (request -> handler)
+## Pattern 4: Middleware chain (request -> handler)
 
 **Seams:** request -> middleware-1 output -> middleware-2 output -> ... ->
 handler input -> handler output -> response.
@@ -111,7 +111,7 @@ handler input -> handler output -> response.
 **Success-shape assertions:** at each shape change. If middleware enriches
 the request (auth context, parsed body, correlation ID), assert the enriched
 shape at the boundary it emerges from. The handler's input is itself a
-seam — assert what the handler sees, not what was sent over the wire.
+seam: assert what the handler sees, not what was sent over the wire.
 
 **Error-shape assertions:** at each seam where the chain can short-circuit
 (auth failure, rate limit, body too large, validation failure). Assert the
@@ -129,14 +129,14 @@ tests cannot drive its edge cases compactly.
 **Anti-pattern:** one assertion per middleware execution, in order, on every
 chain test. Test once per shape change, not once per call.
 
-## Pattern 5 — Sans-IO protocol (bytes-in / bytes-out)
+## Pattern 5: Sans-IO protocol (bytes-in / bytes-out)
 
 **Seams:** bytes received -> protocol state transition -> bytes to send,
 all behind a synchronous public surface that performs no I/O.
 
 **Success-shape assertions:** push canonical byte sequences in, assert the
 state transitions and outbound byte sequences. The test does not mock
-sockets, time, or the network — the protocol library is a pure transform
+sockets, time, or the network; the protocol library is a pure transform
 and is tested as one.
 
 **Error-shape assertions:** push malformed or out-of-order byte sequences
@@ -150,14 +150,14 @@ the closing frame and reason code.
 
 **Internal-stage test warranted when:** sub-state machines compose (e.g. a
 TLS handshake state machine inside a higher protocol). Test the inner state
-machine at its own public surface — bytes-in / bytes-out — not at the call
+machine at its own public surface (bytes-in / bytes-out), not at the call
 graph level.
 
 **Anti-pattern:** mocking sockets and asserting `socket.send()` was called
 with specific bytes. The mock is the test; the test proves nothing about
 the protocol's actual behavior.
 
-## Pattern 6 — Functional core, imperative shell
+## Pattern 6: Functional core, imperative shell
 
 **Seams:** shell input (HTTP request, CLI args, file read) -> core input
 (values); core output (values, including `Result.Err`) -> shell action
@@ -170,7 +170,7 @@ returns expected response; CLI command writes expected file).
 
 **Error-shape assertions:** in the core, push values that should produce
 `Result.Err`, assert the error variant and its content. At the shell, assert
-that a core `Result.Err` becomes the right user-facing error — HTTP status,
+that a core `Result.Err` becomes the right user-facing error: HTTP status,
 CLI exit code, error message.
 
 **User-facing error content:** the shell is where the message reaches the
@@ -178,7 +178,7 @@ user. Assert the translated form there. The core's job is to name the error
 case; the shell's job is to render it; both seams need their own assertions.
 
 **Internal-stage test warranted when:** a core function has algorithmic
-complexity worth testing as a unit (sorting, pathfinding, dedup) — even
+complexity worth testing as a unit (sorting, pathfinding, dedup); even
 then, prefer testing it through the public function that uses it, unless
 that function obscures the cases.
 
@@ -189,8 +189,8 @@ slowing CI.
 ## Cross-reference: error contracts
 
 The above examples assume the *shape and content* of the error envelope is
-already decided. That contract — what fields the error has, how messages
-are written for the consumer, what recovery the consumer can take — is owned
+already decided. That contract (what fields the error has, how messages
+are written for the consumer, what recovery the consumer can take) is owned
 by `error-handling`. This skill's job is to ensure the contract is provable
 at the seam where the consumer observes it. If the contract is unclear or
 inconsistent across seams, hand off to `error-handling` to settle it before
@@ -209,12 +209,12 @@ test placement reveals organization debt that other lenses miss.
 ## References
 
 The principle that tests belong at points where data shape or values change
-is well-supported under several vocabularies in prior writing — boundaries
+is well-supported under several vocabularies in prior writing: boundaries
 between functional core and imperative shell, ports and adapters, observable
 behavior versus implementation detail, invariants and property-based
 testing, sans-IO protocol design, data-oriented programming. The synthesis
-under one banner — *data-shape-change is the unifying boundary type, and
-test placement is a code-organization signal* — is Consult's framing.
+under one banner (*data-shape-change is the unifying boundary type, and
+test placement is a code-organization signal*) is Consult's framing.
 
 - *Practical Test Pyramid* (Fowler):
   https://martinfowler.com/articles/practical-test-pyramid.html
@@ -236,6 +236,6 @@ test placement is a code-organization signal* — is Consult's framing.
   https://www.hillelwayne.com/talks/beyond-unit-tests/
 - *Data-Oriented Programming* (Sharvit, Manning, 2022):
   https://www.manning.com/books/data-oriented-programming
-- *Working Effectively with Legacy Code* (Feathers, 2004) — note: Feathers'
+- *Working Effectively with Legacy Code* (Feathers, 2004); note: Feathers'
   "seam" is a substitution point for testability, related to but distinct
   from "data shape change"; both apply.
