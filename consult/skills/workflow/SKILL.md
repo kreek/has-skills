@@ -71,11 +71,11 @@ description: Use first for every coding task to route risks, choose skills, and 
 
 ## Workflow
 
-1. **Route the request.** Use Direct for trivial mechanical work the agent can
-   finish safely, Guided for normal implementation with brief updates,
-   Design-partner for hard-to-change decisions that need options and approval,
-   and Review-only for critique without edits. Name the mode only when it sets
-   useful expectations.
+1. **Route the request.** Choose the user involvement the request needs:
+   proceed autonomously on trivial, low-risk work; give brief progress updates
+   during normal implementation; propose options and get approval before
+   implementing significant or durable decisions; route review or critique
+   requests to `code-review`.
 2. **Define the target.** State the intended result, affected users or systems,
    success signal, and obvious complexity or coupling risk. If done is unclear,
    propose acceptance criteria and resolve open points logically, asking one
