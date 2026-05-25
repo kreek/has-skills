@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -euo pipefail -c
 
-.PHONY: test pi-install-local pi-uninstall-local publish-pi publish-pi-dry-run
+.PHONY: test update-installed-plugins update-installed-plugins-dry-run pi-install-local pi-uninstall-local publish-pi publish-pi-dry-run
 
 CONSULT_PI_LOCAL_PACKAGE := $(abspath consult)
 
@@ -12,6 +12,12 @@ test:
 	pnpm --dir consult test
 	pnpm --dir eval test
 	pnpm --dir eval typecheck
+
+update-installed-plugins:
+	scripts/update-installed-plugins.sh
+
+update-installed-plugins-dry-run:
+	scripts/update-installed-plugins.sh --dry-run
 
 pi-install-local:
 	scripts/pi-install-local.sh

@@ -220,3 +220,14 @@ as the plugin marker and `agy plugin install` copies the plugin into
 `~/.gemini/antigravity-cli/plugins/` (re-run to pick up edits). All load the
 generated skill mirror under `plugin/skills/`. Edit canonical skills under
 `agents/.agents/skills/`, then run `./setup.sh` to refresh the mirror.
+
+To refresh installed plugins through each agent's own update path after a local
+change or release, run:
+
+```sh
+make update-installed-plugins-dry-run
+make update-installed-plugins
+```
+
+The script invokes agent plugin commands or headless harness prompts. It does
+not copy skills into plugin cache directories.
