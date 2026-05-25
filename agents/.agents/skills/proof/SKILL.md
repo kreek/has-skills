@@ -170,6 +170,9 @@ For every non-trivial engineering claim, record:
   test, line filter, or test file first.
 - If a broad suite fails for unrelated drift, switch to the targeted proof and
   report the broad failure separately.
+- If unit tests would mostly restate helper internals already covered through a
+  handoff, skip them; test the contract so refactors can preserve behavior
+  without rewriting proof.
 - Name the invariant or boundary behavior when static types seem to cover the
   claim.
 - Capture the command, observed output, and proven claim when manual proof is
