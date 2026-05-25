@@ -1,21 +1,21 @@
 # Consult
 
 Drawn from 25 years of software engineering across startups and large
-organizations, Consult is a portable skill library for
+organizations, Consult is a human in the loop focused portable skill library for
 raising the engineering maturity of coding agents.
 
 Humans are good at mapping real-world issues to technical solutions, and, given enough context,
 coding agents are good at generating a correct implementation. Consult does not try to
 change either side of that equation: it does not automate humans away, and it
-does not change how coding agents or their harnesses work internally. It
+does not change how coding agents, or their harnesses, work internally. Instead, it
 augments the collaboration between them so agent-assisted work produces simpler,
 trustworthy, and maintainable production-grade software while humans still own
 intent, design, and acceptance.
 
 Consult is not a vibe-coding safety net. It works best when you have
 enough software fundamentals to judge plans, tradeoffs, risk, and proof. Consult can
-still suggest a best practice, but it is still better if you can make the hard
-engineering decisions yourself.
+still suggest a solution, but it's more effective if you can make the hard
+engineering decisions yourself (plus you'll actually know how the code works).
 
 ## What Consult guides agents to do
 
