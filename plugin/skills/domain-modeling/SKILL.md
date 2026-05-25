@@ -66,6 +66,11 @@ against it.
    mutation to the shell.
 6. For each non-trivial invariant or transition, record a Proof Contract:
    claim, data invariant, boundary, check, evidence.
+7. Get sign-off on the durable domain shape. When the core model, shared
+   invariants, or a state machine future work will bind to is concrete, list it
+   for the user to approve, revise, or reject before implementation. An
+   approving design or RFC is not this approval. Do not gate disposable or
+   purely local shapes. Silence is not approval.
 
 ## Crosscutting Hazards
 
@@ -93,6 +98,9 @@ Load the matching reference whenever time or money appears in the diff.
       stay at the shell.
 - [ ] Every non-trivial invariant or transition has proof evidence, or the
       claim is reported as unproven.
+- [ ] A durable domain shape that future work binds to was listed for the user,
+      who approved, revised, or rejected it before implementation; an approving
+      design or RFC was not treated as that approval.
 - [ ] When dates or money appear in the change, the matching `references/`
       file was loaded and its boundary discipline was applied.
 
