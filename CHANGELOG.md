@@ -6,6 +6,27 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.1.2] (2026-05-25)
+
+### Changed
+
+- Reframed `workflow` Core Idea 6 from "Compose over repeat" to "Don't repeat
+  yourself" so it names the DRY principle directly instead of sharing the
+  "Compose over" lead with idea 5.
+- Removed em dashes across all skills and the README, CONTRIBUTING, and
+  CHANGELOG, replacing each with a colon, comma, semicolon, or parentheses, and
+  normalized the scaffolding stack YAML titles to a consistent comma form.
+- Clarified `proof` contract-first testing: skip unit tests that would mostly
+  restate helper internals already covered through a handoff, and test the
+  contract so refactors can preserve behavior without rewriting proof.
+
+### Added
+
+- Added a project-local Codex `$ship` maintainer skill at
+  `.agents/skills/ship/SKILL.md` for this repository's guarded release flow,
+  documented in AGENTS.md. Repo-local tooling only: not part of the published
+  Consult skill pack.
+
 ## [11.1.1] (2026-05-25)
 
 ### Changed
