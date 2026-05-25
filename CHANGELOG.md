@@ -6,6 +6,17 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.2.1] (2026-05-25)
+
+### Changed
+
+- Rewrote `workflow` step 1 as a pure request router. It now names the level of
+  user involvement the request needs (autonomous, brief updates, or
+  options-and-approval before significant or durable decisions) and routes
+  review or critique requests to `code-review`, replacing four capitalized mode
+  labels (Direct, Guided, Design-partner, Review-only) that were defined and
+  referenced nowhere.
+
 ## [11.2.0] (2026-05-25)
 
 ### Changed
