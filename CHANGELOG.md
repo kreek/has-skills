@@ -57,10 +57,10 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Renamed the pack to **Consult** (**Consult**) across README,
+- Renamed the pack to **Highline Agent Skills** (**HAS**) across README,
   AGENTS.md, skill prose, plugin display metadata, eval docs, and install
-  URLs (`kreek/highline-agent-skills`). Plugin IDs (`consult`), slash commands
-  (`/consult:*`), and npm package names are unchanged.
+  URLs (`kreek/highline-agent-skills`). Plugin IDs (`abp`), slash commands
+  (`/abp:*`), and npm package names are unchanged.
 
 
 ### Added
