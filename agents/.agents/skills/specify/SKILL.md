@@ -36,7 +36,8 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
 - Typos, formatting, comment-only edits, or docs-only changes with no
   executable or contract effect.
 - Internal helper extraction with no caller-visible boundary.
-- Single-line bug fixes where no contract, state, data, or boundary changes.
+- Narrow bug fixes that restore intended behavior with no contract, state,
+  data, or boundary change.
 - Pure dependency bumps with no public surface change.
 - Small local file moves or private implementation organization that does not
   establish a package/module boundary future work will depend on.

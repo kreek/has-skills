@@ -6,6 +6,17 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Rescoped the `workflow` consultation guidance to gate the durable decisions
+  skills produce — a `specify` design direction, a `contract-first` interface,
+  a `database` migration or destructive data change, a `release` artifact, and
+  history-changing or destructive `git-workflow` — rather than the act of
+  loading a skill. Reasoning with `domain-modeling` no longer reads as needing
+  human approval.
+- Harmonized the `specify` bug-fix carve-out with `workflow` and the README:
+  narrow bug fixes that restore intended behavior, not "single-line" fixes.
+
 ## [10.5.0] (2026-05-24)
 
 ### Changed

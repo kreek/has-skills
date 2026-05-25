@@ -101,10 +101,13 @@ description: Use first to route Consult work, choose skills, hand off, and defin
 5. **Load the skills needed for correctness.** Load the fewest skills the risk
    requires, each only when its row condition is met, not preemptively or in
    bulk. Use the table to decide when a skill is applicable; it is ordered by
-   the normal development lifecycle, not by importance. `specify`,
-   `contract-first`, `domain-modeling`, `database`, `release`, and destructive
-   or history-changing `git-workflow` work normally need explicit human
-   approval. Load safety skills as soon as their risk appears.
+   the normal development lifecycle, not by importance. The durable decisions
+   these skills produce need explicit human approval before implementation: a
+   `specify` design direction, a `contract-first` interface, a `database`
+   migration or destructive data change, a `release` artifact, and
+   history-changing or destructive `git-workflow`. Reasoning with a skill —
+   including `domain-modeling` for data shape — is not itself a gate; its
+   durable output is. Load safety skills as soon as their risk appears.
 
    | Skill | Load when |
    | --- | --- |
