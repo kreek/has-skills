@@ -42,11 +42,12 @@ describe("update-installed-plugins.sh", () => {
     expect(result.status).toBe(0);
     expect(result.stdout).toContain("claude plugin marketplace add kreek/consult");
     expect(result.stdout).toContain("claude plugin install consult@consult");
-    expect(result.stdout).toContain("claude plugin update consult");
+    expect(result.stdout).toContain("claude plugin update consult@consult");
     expect(result.stdout).toContain("codex plugin marketplace add kreek/consult");
     expect(result.stdout).toContain("codex plugin marketplace upgrade consult");
     expect(result.stdout).toContain("codex plugin add consult@consult");
-    expect(result.stdout).toContain("pi install github:kreek/consult");
+    expect(result.stdout).toContain("make pi-install-local");
+    expect(result.stdout).not.toContain("pi install");
     expect(result.stdout).toContain("agy plugin install");
     expect(result.stdout).toContain("cursor agent --print");
     expect(result.stdout).not.toContain("cp -R");
@@ -67,11 +68,11 @@ describe("update-installed-plugins.sh", () => {
     expect(log).toContain("claude plugin marketplace add kreek/consult");
     expect(log).toContain("claude plugin marketplace update consult");
     expect(log).toContain("claude plugin install consult@consult");
-    expect(log).toContain("claude plugin update consult");
+    expect(log).toContain("claude plugin update consult@consult");
     expect(log).toContain("codex plugin marketplace add kreek/consult");
     expect(log).toContain("codex plugin marketplace upgrade consult");
     expect(log).toContain("codex plugin add consult@consult");
-    expect(log).toContain("pi install github:kreek/consult");
+    expect(log).not.toContain("pi install");
     expect(log).toContain(`agy plugin install ${join(ROOT, "plugin")}`);
     expect(log).toContain("cursor agent --print Update the Consult plugin");
   });
