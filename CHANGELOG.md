@@ -6,6 +6,23 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.4.0] (2026-05-25)
+
+### Changed
+
+- Made `contract-first` own designing the concrete contract instead of deferring
+  it to `specify`. The skill had framed itself as an approval gate, "not a design
+  conversation," and ejected to `specify` whenever the shape was still being
+  explored, but `specify` defers concrete interfaces back to `contract-first`, so
+  agents bounced contract design away too easily. Working out the actual
+  signatures, types, and shapes is now stated as `contract-first`'s own job;
+  ejecting to `specify` is reserved for when the broader approach is unsettled.
+- Reshaped `contract-first` Core Ideas to follow the order an engineer reasons
+  about a contract: recognize what makes a shape a contract, then design and gate
+  it, then bound what approval covers. The recognition rule was a dangling
+  fragment and is now a definitional judgment rule; the routing-to-`specify`
+  content moved to When NOT to Use and Handoffs.
+
 ## [11.3.0] (2026-05-25)
 
 ### Changed
