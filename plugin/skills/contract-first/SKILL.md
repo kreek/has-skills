@@ -29,15 +29,16 @@ description: Use when caller-facing interfaces or shared structure need approval
 - Typos, formatting, comment-only edits, or docs-only changes with no contract
   effect.
 - Broad routing and skill selection; use `workflow`.
-- Collaborative design exploration before a concrete interface proposal; use
-  `specify`.
+- The broader approach or solution direction is still unsettled; settle it in
+  `specify` first.
 
 ## Core Ideas
 
-1. Contract-first is an approval gate, not a design conversation. If the shape
-   is still being explored, use `specify` first.
-2. The shape is concrete enough for another caller, process, service,
-   user, migration step, package, or future module to depend on it.
+1. A contract is any shape concrete enough that another caller, process,
+   service, user, migration step, package, or future module will depend on it.
+2. Contract-first designs that concrete contract and gets it approved before
+   implementation. Working out the actual signatures, types, and shapes is this
+   skill's job.
 3. Approval covers the named shape only. Compatibility, rollout, renames,
    removals, and shims need their own explicit decision.
 
@@ -81,7 +82,7 @@ Some Consult installations include the manual Interface Design Gate runtime. Use
 ## Handoffs
 
 - `workflow`: broad routing.
-- `specify`: unsettled contract shape.
+- `specify`: unsettled approach or solution direction.
 - `api`, `database`, `async-systems`, `security`: domain boundary risks.
 - `architecture`: shared package/module/project structure.
 - `proof`: prove the approved interface at the handoff where callers cross
