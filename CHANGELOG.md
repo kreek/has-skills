@@ -6,6 +6,29 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.5.0] (2026-05-25)
+
+### Changed
+
+- Made `proof` and `ui-design` default-on in the `workflow` router. The previous
+  rows asked the model to judge whether the topic "mattered," which gave
+  permission to skip both for "simple" work (a sandbox single-page calculator
+  shipped without either, leaving a real linear-mode inconsistency bug in the
+  results contract). `proof` is now framed as the completion gate and
+  `ui-design` as the default for any user-facing UI surface, with the rare
+  exclusions named instead of asking the model to decide. Concrete examples
+  stay in each destination skill rather than crowding the high-level router.
+- Widened `ui-design`'s "When to Use" so simple forms, single-page apps, and
+  "just basic styling" qualify. The previous "materially changing" hedge was
+  the same loophole at the skill level.
+
+### Added
+
+- `git-workflow` now requires the user to approve PR and issue title and body
+  text before any `gh pr create`, `gh pr edit`, `gh issue create`, or
+  `gh issue edit` runs. Permission for the `gh` command is no longer treated as
+  approval for the author-facing text the command publishes.
+
 ## [11.4.0] (2026-05-25)
 
 ### Changed
