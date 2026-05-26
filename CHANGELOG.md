@@ -6,6 +6,26 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.3.0] (2026-05-25)
+
+### Changed
+
+- Restructured `workflow`'s steps into a clean engineering progression: frame
+  the request, classify the work by stakes, set the involvement level, load
+  skills, gate durable decisions, slice the work, run the completion loop, and
+  close. The previous order forced the agent to set involvement and name gates
+  before classifying the work, choices the later steps then reversed.
+- Gave the gate doctrine one home. The rule that an approving design or RFC does
+  not approve the concrete interfaces and domain shapes under it now lives in
+  the step-5 gate table and is referenced from Verification and Tripwires
+  instead of being restated in roughly six places.
+- Strengthened the completion loop: it now proves every behavior with specs via
+  `proof` before running at least one `code-review` self-review pass, repeating
+  until the specs pass and the review is clean. Added a matching Verification
+  checkbox and flipped the `code-review` self-review note to the same
+  proof-before-review order.
+- Reworded the `workflow` tripwires in plain language.
+
 ## [11.2.1] (2026-05-25)
 
 ### Changed
