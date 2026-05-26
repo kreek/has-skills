@@ -11,9 +11,10 @@ description: Use for frontend UI, layouts, components, responsive behavior, visu
 
 ## When to Use
 
-- Building or materially changing UI layout, components, design systems,
-  typography, color, motion, responsive behavior, or frontend structure that
-  affects user interaction.
+- Building or changing any user-facing UI surface: layout, components, design
+  systems, typography, color, motion, responsive behavior, or frontend
+  structure. Simple forms, single-page apps, and "just basic styling" all
+  qualify; the polished-product threshold is too high a bar.
 
 ## When NOT to Use
 

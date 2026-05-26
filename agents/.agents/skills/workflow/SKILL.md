@@ -101,14 +101,14 @@ description: Use first for every coding task to route risks, choose skills, and 
    | `security` | Auth, secrets, trust boundaries, or user-controlled input matter. |
    | `error-handling` | Error types, propagation, recovery, retries, or user-facing failures matter. |
    | `async-systems` | Queues, workers, retries, streams, ordering, or concurrency matter. |
-   | `ui-design` | UI structure, interaction flow, responsive layout, or visual states matter. |
+   | `ui-design` | Any user-facing UI surface is touched. Skip only for changes invisible to the user. |
    | `accessibility` | Keyboard, focus, semantics, ARIA, contrast, or inclusive UI matter. |
    | `observability` | Logs, metrics, traces, health, SLOs, or alerts matter. |
    | `performance` | Latency, throughput, memory, CPU, caching, or resource use matter. |
    | `documentation` | Docs are the requested deliverable, or a completed diff has a concrete docs obligation that the user approved or a validator requires. |
    | `scaffolding` | New project setup or baseline tooling is part of the task. |
    | `official-source-check` | External framework, library, runtime, or platform behavior must be checked against official sources. |
-   | `proof` | Claims need tests, checks, contracts, root-cause evidence, or completion evidence. |
+   | `proof` | Default for any non-trivial work; it is the completion gate. Skip only for changes with no behavior surface. |
    | `code-review` | A review or critique is requested, or a diff, branch, PR, or non-trivial implementation needs review before the final claim. |
    | `commit` | Staging reviewed files, splitting commit groups, writing a commit message, or committing approved work. |
    | `git-workflow` | Branches, conflicts, rebases, bisects, recovery, force-push, or GitHub CLI matter. |
