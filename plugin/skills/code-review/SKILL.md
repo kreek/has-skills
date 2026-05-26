@@ -12,8 +12,8 @@ description: Use to review diffs and PRs for bugs, regressions, edge cases, proo
 ## When to Use
 
 - Self-review of your own implementation diff in the `workflow`
-  completion loop before invoking `proof` or claiming done. Default for
-  any non-trivial agent-generated change; a second pass by the same
+  completion loop after proving behavior with `proof`, before claiming done.
+  Default for any non-trivial agent-generated change; a second pass by the same
   agent reliably surfaces bugs, dead code, and missed edge cases the
   implementation pass overlooks.
 - Diff review (local, branch, or GitHub PR via `gh`).
