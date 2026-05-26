@@ -46,6 +46,12 @@ recoverable, scoped, and honest.
    use the user's authenticated account. Get explicit permission before
    running any `gh` command, including read-only commands such as
    `gh pr view`, `gh pr diff`, or `gh run view`.
+8. **Humans approve PR and issue text before it is published.** Titles and
+   descriptions for `gh pr create`, `gh pr edit`, `gh issue create`, and
+   `gh issue edit` are author-facing content the user owns. Draft the title
+   and body locally, show them, and get explicit approval of that exact text
+   before any `gh` command creates or updates the PR or issue. Do not let
+   `gh` open an editor or send unreviewed body text.
 
 ## Workflow
 
@@ -60,7 +66,11 @@ recoverable, scoped, and honest.
    is local/solo/shared before rewriting, deleting, or force-pushing.
 5. Before GitHub CLI use, ask for permission for the exact `gh` command or
    command class needed. Do not treat read-only intent as permission.
-6. Execute the smallest safe operation. Verify log/range-diff, status, file
+6. When a `gh` command would create or update a PR or issue, draft the title
+   and description locally, get the user's approval of that text, then run the
+   command with the approved title and body. Do not rely on `gh` opening an
+   editor or sending unreviewed text.
+7. Execute the smallest safe operation. Verify log/range-diff, status, file
    membership, and relevant tests or repro commands.
 
 ## Verification
@@ -80,6 +90,8 @@ recoverable, scoped, and honest.
       branch work.
 - [ ] No `gh` command was run without explicit user permission for that
       command or command class.
+- [ ] PR and issue titles and descriptions were drafted and approved by the
+      user before any `gh` command created or updated them.
 
 ## Tripwires
 
@@ -89,6 +101,7 @@ recoverable, scoped, and honest.
 | "Rewrite this shared branch" | Stop and ask for explicit approval plus a recovery point. | The branch is confirmed local and unpublished. |
 | "Resolve conflict by taking ours/theirs" | Preserve intent from both sides, then run relevant checks. | Generated file regenerated after source conflict is resolved. |
 | "Read-only `gh` is harmless" | Ask before any `gh` command because it uses network and auth. | The user already approved that exact command class. |
+| "Just open the PR with a quick title" | Draft the title and body, get the user's approval, then run `gh pr create`/`gh issue create`. | The user already approved that exact title and body. |
 
 ## Handoffs
 
