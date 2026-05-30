@@ -72,7 +72,7 @@ description: Use for architecture decisions, module boundaries, coupling, layeri
 3. If the surface is caller-facing or the structure is shared, recommend one
    option and route to `contract-first` before implementation. An approving
    `specify` design or RFC approves the direction, not the concrete module
-   boundaries, shared structure, or project layout; get sign-off on those
+   boundaries, shared structure, or project layout. Get sign-off on those
    before code locks them in.
 4. Sketch the internal data path: where external data enters, where it is
    parsed into a trusted shape, where domain work happens, where output data
@@ -102,7 +102,7 @@ description: Use for architecture decisions, module boundaries, coupling, layeri
 - [ ] Caller-facing interfaces and shared structure were routed through user-approved
       contract/API/architecture design before implementation.
 - [ ] An approving design or RFC approved the architectural direction, not the
-      concrete module boundaries, shared structure, or project layout; those
+      concrete module boundaries, shared structure, or project layout. Those
       got sign-off before implementation.
 - [ ] Boundaries separate concerns that change independently; they are
       not merely steps in a flowchart.

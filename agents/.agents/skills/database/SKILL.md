@@ -89,7 +89,7 @@ description: Use for databases, schemas, migrations, indexes, transactions, quer
       and destructive data operations (deletion, non-reversible backfills)
       had explicit user approval before landing.
 - [ ] An approving design or RFC did not stand in for sign-off on the concrete
-      schema, migration, or destructive data change; each got explicit approval
+      schema, migration, or destructive data change. Each got explicit approval
       before landing.
 
 ## Tripwires

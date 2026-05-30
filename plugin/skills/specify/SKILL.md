@@ -1,6 +1,6 @@
 ---
 name: specify
-description: Design-partner mode for discovery, tradeoffs, decisions, and agreed design artifacts.
+description: "Use for design-partner mode: discovery, tradeoffs, decisions, and agreed design artifacts."
 ---
 
 # Specify
@@ -23,7 +23,7 @@ description: Design-partner mode for discovery, tradeoffs, decisions, and agreed
   goals into an approved design direction before code lands.
 - Significant new code with no caller-facing boundary: a substantial new module
   or component, new or rewritten non-trivial logic or an algorithm, or a
-  deliberate change to observable behavior: agree the plan or shape before
+  deliberate change to observable behavior. Agree the plan or shape before
   implementing.
 - The user asks to design, specify, draft an ADR/RFC/tech spec, or capture a
   design note.
@@ -115,7 +115,7 @@ proposed, so the build inherits an explicit list of what still needs sign-off.
 - [ ] Caller-facing interfaces have `contract-first` approval before
       implementation, or implementation remains out of scope.
 - [ ] An approved design or RFC approves the direction, not the concrete
-      interfaces or domain structure; those still get `contract-first` and
+      interfaces or domain structure. Those still get `contract-first` and
       `domain-modeling` applied during build, with sign-off on the concrete
       shapes.
 - [ ] Any artifact records the agreed shape and has a purpose-fit destination.

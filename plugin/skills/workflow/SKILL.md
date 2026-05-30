@@ -46,7 +46,7 @@ description: Use first for every coding task to route risks, choose skills, and 
    significant or durable when it commits to substantial modules or components,
    non-trivial logic or algorithms, deliberate behavior changes, caller-facing
    contracts, shared structure, structural dependencies, data models, or
-   boundaries future work will rely on; those get plan or shape sign-off before
+   boundaries future work will rely on. Those get plan or shape sign-off before
    implementation.
 4. **Default to the smallest honest solution.** Implement only what was asked,
    prefer established tools, start with the happy path unless safety or data
