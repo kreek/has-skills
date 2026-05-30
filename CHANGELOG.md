@@ -6,6 +6,16 @@ the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [11.5.1] (2026-05-29)
+
+### Changed
+
+- Clarified skill prose for directness without changing doctrine. The `specify`
+  description now leads with the imperative `Use for design-partner mode: ...`
+  to match the other skills, and four dense sentences in `specify`, `workflow`,
+  `database`, and `architecture` were split at semicolons/colons so each rule
+  reads in one pass. No routing, gate, or proof rule changed.
+
 ## [11.5.0] (2026-05-25)
 
 ### Changed
